@@ -233,5 +233,6 @@ Students will be evaluated based on the following components:
 ---
 
 **Acknowledgement**
+
 In preparing these course materials, the instructor **leveraged AI agents** as a support tool for drafting lecture notes, generating examples, and organizing contents.  
 All outputs were **reviewed, edited, and contextualized** before inclusion in this repository.
