@@ -49,10 +49,11 @@ Upon successful completion of this course, students will be able to:
   * Types of Experimental Research in Information Technology
 * Reproducibility, Replicability, and Transparency in Scientific Research
 
-**Case Study**
-* Setting up the development environment for case studies
+**Case Studies**
+* Setting up the development environment for Case Study 1
 * REST architectural principles
 * Implementation of a simple RESTful API
+* Hands on exercises
 
 ---
 
@@ -75,7 +76,7 @@ Upon successful completion of this course, students will be able to:
 
 ---
 
-### Module 3: Structure of an Information Technology Research Manuscript Experimental Implementation
+### Module 3: Structure of an Information Technology Research Manuscript, Experimental Implementation
 
 - Standard structure of an IT research manuscript
     - Title
