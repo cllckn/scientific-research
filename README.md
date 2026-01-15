@@ -36,7 +36,7 @@ Upon successful completion of this course, students will be able to:
 
 ## Course Content
 
-### Module 1: Foundations of Scientific Research in Information Technology and Experimental Research Design
+### Module 1: Foundations of Scientific Research in Information Technology
 
 * Introduction to Scientific Research in Information Technology
 * Research Areas and Domains in Information Technology
@@ -44,9 +44,6 @@ Upon successful completion of this course, students will be able to:
 * Scientific Research Lifecycle in Information Technology
 * Research Problems, Research Questions, and Hypotheses
 * Research Types in Information Technology
-* Experimental Research in Information Technology
-  * Key Components of Experimental Research
-  * Types of Experimental Research in Information Technology
 * Reproducibility, Replicability, and Transparency in Scientific Research
 
 **Case Studies**
@@ -57,17 +54,16 @@ Upon successful completion of this course, students will be able to:
 
 ---
 
-### Module 2: Experimental Research Design and Scientific Publications
+### Module 2: Experimental Research in Information Technology, Scientific Publications
 
-- Foundations of Experimental Research Design
-- Scientific publications in IT
-    - Role and purpose of scientific publications
-    - Types of scientific articles in IT
-        - Research articles
-        - Survey and review papers
-        - Case studies and system papers
-        - Short papers and technical reports
-    - Terminology: manuscript, article, journal, conference proceedings
+* Experimental Research in Information Technology
+  * Key Components of Experimental Research
+  * Types of Experimental Research in Information Technology
+- Scientific publications in IT 
+  - Terminology: manuscript, article, journal, conference proceedings
+  - Role and purpose of scientific publications
+  - Types of scientific publications in IT
+    
 
 **Case Study 1 (Part A): Research Design**
   - Overview of RESTful API architecture and data-layer design
@@ -98,7 +94,7 @@ Upon successful completion of this course, students will be able to:
   * 
 ---
 
-### Module 4: Research Tools, Manuscript Preparation, and Performance Evaluation
+### Module 4: Scientific Research Tools, Scientific Writing, Performance Evaluation
 
 - Scientific research tools and resources
     - Digital libraries:
@@ -131,7 +127,7 @@ Upon successful completion of this course, students will be able to:
 
 ---
 
-### Module 5: Academic Publication Process and Data-Driven Research in IT
+### Module 5: Academic Publication Process, Data-Driven Research in IT
 
 - Academic publication workflow
     - Paper submission systems
@@ -150,7 +146,7 @@ Upon successful completion of this course, students will be able to:
 
 ---
 
-### Module 6: Research Impact, Evaluation Metrics, and Responsible Research in IT
+### Module 6: Research Impact and Evaluation Metrics, Responsible Research in IT
 
 - Research impact and evaluation metrics
     - Citation counts
