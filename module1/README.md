@@ -7,28 +7,11 @@
   * [Research Areas and Domains in Information Technology](#research-areas-and-domains-in-information-technology)
   * [Scientific Research vs. Software Development and Engineering](#scientific-research-vs-software-development-and-engineering)
   * [Scientific Research Lifecycle in Information Technology](#scientific-research-lifecycle-in-information-technology)
-    * [Example Research Topic: Investigation of the Impact of Industrial Air Pollution on Plant Growth](#example-research-topic-investigation-of-the-impact-of-industrial-air-pollution-on-plant-growth)
   * [Research Problems, Research Questions, and Hypotheses](#research-problems-research-questions-and-hypotheses)
     * [Research Problem (Problem Identification & Motivation)](#research-problem-problem-identification--motivation)
     * [Research Questions (RQs)](#research-questions-rqs)
     * [Hypotheses](#hypotheses)
-      * [How Hypotheses Are Used](#how-hypotheses-are-used)
-      * [Example (RESTful Service Case Study)](#example-restful-service-case-study)
-      * [Important Notes on Multiple Hypotheses](#important-notes-on-multiple-hypotheses)
-      * [Interpreting Unexpected Results](#interpreting-unexpected-results)
-    * [Relationship Between the Three (Research Problems, Research Questions, and Hypotheses)](#relationship-between-the-three-research-problems-research-questions-and-hypotheses)
-    * [Additional Examples of Research Problems, Research Questions, and Hypotheses](#additional-examples-of-research-problems-research-questions-and-hypotheses)
-      * [Example 1: Plant Growth Case Study](#example-1-plant-growth-case-study)
-      * [Example 2: Machine Learning–Based Case Study](#example-2-machine-learningbased-case-study)
-      * [Example 3: Internet of Things (IoT) Case Study](#example-3-internet-of-things-iot-case-study)
   * [Research Types in Information Technology](#research-types-in-information-technology)
-    * [Research Types Based on Purpose](#research-types-based-on-purpose)
-    * [Research Types Based on Methodology](#research-types-based-on-methodology)
-    * [Research Types Based on Data Characteristics](#research-types-based-on-data-characteristics)
-    * [Research Types Based on Research Strategy](#research-types-based-on-research-strategy)
-  * [Experimental Research in Information Technology](#experimental-research-in-information-technology)
-    * [Key Components of Experimental Research](#key-components-of-experimental-research)
-    * [Types of Experimental Research in Information Technology](#types-of-experimental-research-in-information-technology)
   * [Reproducibility, Replicability, and Transparency in Scientific Research](#reproducibility-replicability-and-transparency-in-scientific-research)
 * [Case Study](#case-study)
   * [Setting up the development environment for Case Study 1](#setting-up-the-development-environment-for-case-study-1)
@@ -36,11 +19,7 @@
   * [REST architectural principles](#rest-architectural-principles)
     * [What is a RESTful API?](#what-is-a-restful-api)
     * [Route definition in Express.js](#route-definition-in-expressjs)
-    * [HTTP Status Codes](#http-status-codes)
     * [Implementation of a simple RESTful API](#implementation-of-a-simple-restful-api)
-    * [REST Clients - Testing REST api using cURL and HTTP Client](#rest-clients---testing-rest-api-using-curl-and-http-client)
-      * [curl](#curl)
-      * [HTTP Client](#http-client)
 <!-- TOC -->
 
 ---
@@ -129,7 +108,7 @@ In scientific research, software systems are typically **research tools or exper
 The scientific research lifecycle is a structured process used to produce reliable and valid scientific knowledge in a systematic way.
 It breaks scientific research into distinct stages, each with specific objectives, methods, and deliverables.
 
-![Scientific Research Lifecycle](../resources/images/scientific-research-lifecycle.png)
+![Scientific Research Lifecycle](../resources/images/st-scientific-research-lifecycle.png)
 
 
 **1. Problem Identification & Motivation**
@@ -184,7 +163,7 @@ It breaks scientific research into distinct stages, each with specific objective
 - Initiating next research cycle
 
 
-### Example Research Topic: Investigation of the Impact of Industrial Air Pollution on Plant Growth
+**Example Research Topic: Investigation of the Impact of Industrial Air Pollution on Plant Growth**
 
 **1. Problem Identification & Motivation(Research Problem)**
 - Observation: Plants near factories appear to grow poorly. Local farmers report decreasing crop productivity over the past 5 years.
@@ -283,7 +262,7 @@ In most research studies, there can be **multiple hypotheses**, each correspondi
 
 ---
 
-#### How Hypotheses Are Used
+**How Hypotheses Are Used**
 
 - Statistical tests evaluate **H₀** using collected experimental data.
 - If the evidence is strong enough (e.g., p-value < 0.05), **H₀ is rejected**, providing support for **H₁**.
@@ -295,7 +274,7 @@ In most research studies, there can be **multiple hypotheses**, each correspondi
 
 ---
 
-#### Example (RESTful Service Case Study)
+**Example (RESTful Service Case Study)**
 
 - **H₀₁ / H₁₁ (Latency):**
   - H₀₁: Database type has no effect on average response time.
@@ -311,7 +290,7 @@ In most research studies, there can be **multiple hypotheses**, each correspondi
 
 ---
 
-#### Important Notes on Multiple Hypotheses
+**Important Notes on Multiple Hypotheses**
 
 - A study may include **multiple null hypotheses (H₀₁, H₀₂, …)** if a single H₀ is insufficient for all alternative expectations.
 - Each H₀ is tested independently against its corresponding Hᵢ (H₁, H₂, …).
@@ -323,7 +302,7 @@ In most research studies, there can be **multiple hypotheses**, each correspondi
 
 ---
 
-#### Interpreting Unexpected Results
+**Interpreting Unexpected Results**
 
 If experimental results **do not support the expected alternative hypothesis**:
 
@@ -361,7 +340,7 @@ If experimental results **do not support the expected alternative hypothesis**:
 
 ---
 
-### Relationship Between the Three (Research Problems, Research Questions, and Hypotheses)
+**Relationship Between Research Problems, Research Questions, and Hypotheses**
 
 - **Observation** triggers inquiry
 - **Research problem** defines *what and why*
@@ -376,11 +355,11 @@ If experimental results **do not support the expected alternative hypothesis**:
 
 
 
-### Additional Examples of Research Problems, Research Questions, and Hypotheses
+**Additional Examples of Research Problems, Research Questions, and Hypotheses**
 
 ---
 
-#### Example 1: Plant Growth Case Study
+1) Example 1: Plant Growth Case Study
 
 **Research Problem:**  
 The effect of air pollution on plant growth is not clearly quantified.
@@ -395,7 +374,7 @@ The effect of air pollution on plant growth is not clearly quantified.
 
 ---
 
-#### Example 2: Machine Learning–Based Case Study
+2) Example 2: Machine Learning–Based Case Study
 
 **Research Problem:**  
 The comparative performance of different classification algorithms on structured datasets is not fully understood.
@@ -410,7 +389,7 @@ The comparative performance of different classification algorithms on structured
 
 ---
 
-#### Example 3: Internet of Things (IoT) Case Study
+3) Example 3: Internet of Things (IoT) Case Study
 
 **Research Problem:**  
 Energy consumption behavior of IoT devices under different communication protocols is not well characterized.
@@ -429,7 +408,7 @@ Energy consumption behavior of IoT devices under different communication protoco
 
 Scientific research in IT can be classified along several dimensions:
 
-### Research Types Based on Purpose
+1) Research Types Based on Purpose
 - **Basic (Fundamental) Research:** 
   - Generates new theoretical knowledge without immediate application.
   - Less common in IT compared to applied research.
@@ -443,7 +422,7 @@ Scientific research in IT can be classified along several dimensions:
   - Often overlaps with applied research.
   - Example: Developing a new monitoring framework for distributed systems.
 
-### Research Types Based on Methodology
+2) Research Types Based on Methodology
 - **Experimental Research:** 
   - Involves controlled experiments to test hypotheses.
   - Manipulates independent variables and measures dependent variables.
@@ -459,7 +438,7 @@ Scientific research in IT can be classified along several dimensions:
   - Observes systems without controlled manipulation.
   - Example: Analyzing real-world server logs to identify usage patterns.
 
-### Research Types Based on Data Characteristics
+3) Research Types Based on Data Characteristics
 - **Quantitative Research:** 
   - Uses numerical data and statistical analysis.
   - Dominant in IT research.
@@ -472,7 +451,7 @@ Scientific research in IT can be classified along several dimensions:
   - Combines quantitative and qualitative approaches.
   - Measuring system performance and collecting user feedback.
 
-### Research Types Based on Research Strategy
+4) Research Types Based on Research Strategy
 - **Case Study Research:** 
   - In-depth analysis of a specific system or scenario.
   - Widely used in IT.
@@ -490,81 +469,6 @@ Scientific research in IT can be classified along several dimensions:
 
 ---
 
-## Experimental Research in Information Technology
-
-Experimental research in Information Technology involves conducting controlled experiments on systems, algorithms, or 
-configurations to observe and measure their behavior. These experiments are designed to test hypotheses by 
-manipulating independent variables and measuring the resulting effects on dependent variables.
-
-![Experimental Research in Information Technology](../resources/images/experimental-research.png)
-### Key Components of Experimental Research
-
-- **Hypothesis / Research Question (RQ)**  
-  A clear, testable statement or question that guides the experiment.  
-  *Example:* 
-  - "The Quicksort algorithm performs better than Bubble Sort as the number of elements increases."
-  - "Algorithm A will exhibit lower latency than Algorithm B under workload X."
-  - "A RESTful API using an in-memory database will have lower response latency than one using PostgreSQL under high load."
-  - "Support Vector Machines may achieve higher classification accuracy than logistic regression on the Iris dataset 
-  because SVMs can model more complex decision boundaries."
-
-- **Variables**
-  - **Independent variables:** Factors deliberately manipulated by the researcher.  
-    *Example:* Algorithm type, workload size, UI layout.
-  - **Dependent variables:** Outcomes that are measured.  
-    *Example:* Latency, accuracy, throughput, user task completion time.
-  - **Controlled variables:** Factors kept constant to ensure fairness and validity.  
-    *Example:* Hardware, software version, dataset, network conditions.
-
-- **Experimental Design**  
-  The structured plan for conducting the experiment, including:
-  - **Subjects:** Datasets, system configurations, network traces, or human participants.
-  - **Treatments:** Different algorithms, architectures, interface designs, or protocols.
-  - **Control groups or baselines:** Reference configurations used for comparison.  
-    *Example:* Evaluating two security protocols using the same dataset and network setup.
-
-- **Measurement and Instruments**  
-  Tools, frameworks, and metrics used to collect data.  
-  *Examples:*
-  - Runtime, memory usage, throughput
-  - Accuracy, precision, recall, F1-score
-  - User error rate, task completion time
-  - Number of detected security vulnerabilities
-
-- **Data Analysis & Conclusion**  
-  Interpretation of collected data to identify patterns, differences, and significance, leading to acceptance or 
-rejection of hypotheses and validated insights.  
-  *Examples:*
-  - Descriptive statistics and visualizations (Mean, Median, Min/Max, Standard deviation, Percentiles) to summarize performance metrics and trends.
-  - Statistical tests (e.g., t-test) to determine whether observed differences are significant.
-  - Qualitative analysis for user feedback (Interviews, Open-ended survey responses, Observation notes) to interpret usability or behavior.
-  - Drawing conclusions and validating results by confirming whether hypotheses are supported and findings are reproducible.
-    - If the hypothesis is **supported**, the result becomes a **validated insight** — reliable knowledge confirmed by data.
-    - If the hypothesis is **not supported**, the finding still provides evidence, helping refine future research.
-
----
-
-### Types of Experimental Research in Information Technology
-
-- **Controlled Experiments (Benchmarks)**  
-  Experiments conducted in a controlled laboratory environment to compare systems or algorithms.  
-  *Example:* Benchmarking database performance under identical workloads.
-
-- **Simulation and Modeling**  
-  Using computational models to study complex or large-scale systems.  
-  *Example:* Simulating network traffic using a network simulator to evaluate routing protocols.
-
-- **Case Study–Based Experiments**  
-  In-depth experimental investigation of a system or method in a real-world context.  
-  *Example:* Evaluating the performance and scalability of a RESTful API by deploying it in a real organizational environment and measuring response time and throughput under real workloads.
-
-- **Human-Centered Experiments (Common in HCI)**  
-  Experiments involving human participants to evaluate usability, interaction, or user experience.  
-  *Example:* A/B testing two user interface designs to measure task completion time and error rates.
-  Two versions of a web form are shown to different user groups. Version A uses a single-page form, while Version B uses a multi-step form. Completion time and error rates are compared to determine which design performs better.
-
----
-
 ## Reproducibility, Replicability, and Transparency in Scientific Research
 
 - **Reproducibility (same data, same code):**  
@@ -574,7 +478,7 @@ rejection of hypotheses and validated insights.
 
 - **Replicability (new data, same method):**  
   The ability of independent researchers to achieve consistent results by applying the same methodology to new data or 
-- in different contexts, strengthening the validity of findings.
+in different contexts, strengthening the validity of findings.
 
 - **Transparency Practices in Scientific Research:**
   - **Open Data:** Sharing de-identified datasets used in experiments.
@@ -681,7 +585,7 @@ app.get("/api/customers", (req, res) => {
 
 
 
-### HTTP Status Codes
+**HTTP Status Codes**
 HTTP Status Codes are 3-digit numbers returned by web servers to indicate the status of a requested HTTP operation
 (successful, failed, not found, etc.).
 
@@ -854,71 +758,18 @@ app.listen(PORT, () => {
         "name": "SSD",
         "price": 550.00
         }
+
+        PATCH http://localhost:3000/api/products/2
+        Content-Type: application/json
+        {
+        "price": 550.00
+        }
     
         DELETE http://localhost:3000/api/products/1
 
 
-### REST Clients - Testing REST api using cURL and HTTP Client
+**Testing REST api using HTTP Client**
 
-
-#### curl
-    curl --version
-    if not installed -> Download cURL from: https://curl.se/windows/
-
-
-```sh
-# Retrieves a list of all products from the database.
-
-curl -X GET http://localhost:3000/api/products
-
-# -i - Include response headers
-# -X - Specify HTTP method
-# -H - Add headers
-# -d - Send data (POST/PUT)
-# -u - Basic authentication
-# -v - Verbose(detailed) output
-
----
-
-# Fetches details of a specific product using its ID.
-
-curl -iX GET http://localhost:3000/api/products/1
-
----
-
-# Adds a new product to the database. The request body must contain name and price in JSON format.
-
-curl -iX POST http://localhost:3000/api/products \
-     -H "Content-Type: application/json" \
-     -d '{"name": "HDMI Cable", "price": 50.05}'
-
-
----
-
-# Updates the details of an existing product using its ID.
-
-curl -X PUT http://localhost:3000/api/products/1 \
-     -H "Content-Type: application/json" \
-     -d '{"name": "Updated Product", "price": 1099.99}'
-
-
----
-
-# Updates the details of an existing product using its ID. Any missing fields will retain their previous values.
-
-curl -X PATCH http://localhost:3000/api/products/1 \
-     -H "Content-Type: application/json" \
-     -d '{"price": 1099.99}'
----
-
-# Deletes a product from the database by specifying its ID.
-
-curl -X DELETE http://localhost:3000/api/products/1
-
-
-```
-
-#### HTTP Client
 
 **Code Example: /part1/restful-api-test.http**
 
@@ -930,11 +781,6 @@ GET http://localhost:3000/api/products
 ### Find product by id
 # curl -X GET http://localhost:3000/api/products
 GET http://localhost:3000/api/products/2
-
-
-### Find products by name
-GET http://localhost:3000/api/products?name=SSD
-
 
 ###
 POST http://localhost:3000/api/products
@@ -955,19 +801,8 @@ Content-Type: application/json
 
 {"price": 200}
 
+
 ###
-
-
 # curl -X DELETE http://localhost:3000/api/products/1
 DELETE http://localhost:3000/api/products/1
-
-
-### Retrieve all products
-GET http://localhost:4000/api/products
-
-
-### Retrieve all products
-#GET http://191.101.2.182:3005/api/products
-GET http://localhost:3000/api/products
-
 ```
