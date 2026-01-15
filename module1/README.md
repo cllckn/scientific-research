@@ -30,17 +30,37 @@
     * [Key Components of Experimental Research](#key-components-of-experimental-research)
     * [Types of Experimental Research in Information Technology](#types-of-experimental-research-in-information-technology)
   * [Reproducibility, Replicability, and Transparency in Scientific Research](#reproducibility-replicability-and-transparency-in-scientific-research)
+* [Case Study](#case-study)
+  * [Setting up the development environment for Case Study 1](#setting-up-the-development-environment-for-case-study-1)
+    * [Node.js & npm Installation](#nodejs--npm-installation)
+  * [REST architectural principles](#rest-architectural-principles)
+    * [What is a RESTful API?](#what-is-a-restful-api)
+    * [Route definition in Express.js](#route-definition-in-expressjs)
+    * [HTTP Status Codes](#http-status-codes)
+    * [Implementation of a simple RESTful API](#implementation-of-a-simple-restful-api)
+    * [REST Clients - Testing REST api using cURL and HTTP Client](#rest-clients---testing-rest-api-using-curl-and-http-client)
+      * [curl](#curl)
+      * [HTTP Client](#http-client)
 <!-- TOC -->
 
 ---
 
 ## Introduction to Scientific Research in Information Technology
 
-Scientific research is a systematic and structured process of investigating phenomena in order to generate new 
-knowledge, validate existing theories, or explain observed behavior through empirical evidence, logical reasoning, 
-and reproducible methods.
+Scientific research is a systematic and structured process of investigating phenomena in order to advance understanding 
+through empirical evidence, logical reasoning, and reproducible methods.
 
-Scientific research in IT specifically focuses on the empirical evaluation, comparison, 
+![](../resources/images/st-what-is-scientific-research.png)
+
+Advancing understanding is achieved by generating new knowledge or by validating&refining existing knowledge.
+
+**Research Samples and Examples of Advancing IT Knowledge**
+
+![](../resources/images/advancing-understanding-examples.png)
+
+
+
+Scientific research in IT specifically focuses on the evaluation, comparison, 
 and improvement of software systems, architectures, algorithms, data-driven models, and IT services through controlled 
 experiments and performance analysis.
 
@@ -60,17 +80,6 @@ verifiable, and reproducible findings that contribute to the academic and profes
 > Generating new knowledge is the most direct form of innovation, but validating, refining, or explaining existing
 theories is also innovative when it advances understanding, applies knowledge in new contexts,
 or reveals previously unknown insights.
-
-The purpose of scientific research is to:
-1. **Generate New Knowledge** – Discover novel methods, systems, or insights, where **insights** refer to the 
-**extracted understanding or knowledge** gained from experiments, observations, or data analysis that explains 
-underlying mechanisms, patterns, or relationships.
-2. **Validate Existing Theories** – Test whether known principles or models hold true in practice.
-3. **Explain Observed Behavior** – Understand why systems, users, or technologies behave a certain way.
-4. **Improve Systems and Processes** – In IT, optimize software, networks, databases, and services.
-5. **Provide Evidence for Decision-Making** – Guides system design, tool selection, or implementation strategies 
-based on empirical data and analyzed results.
-
 
 ---
 
@@ -577,3 +586,388 @@ rejection of hypotheses and validated insights.
 Adhering to these principles increases the credibility, reliability, and scientific value of IT research.
 
 ---
+
+# Case Study
+
+## Setting up the development environment for Case Study 1
+
+### Node.js & npm Installation
+
+**Setting Up the Development Environment**
+
+
+* Download Node.js from here (https://nodejs.org/en/download) and install it properly.
+
+* Set up Intellij for Node.js based development (or install WebStorm)
+  - IntelliJ IDEA -> Preferences -> Plugins -> Node.js (OSX, Linux)
+  - IntelliJ IDEA -> File -> Settings -> Plugins -> Node.js (Windows)
+
+* Initialize a new Node.js project
+  - IntelliJ IDEA -> File -> New -> Project -> Empty Project (Give the project an appropriate name.)
+  - Open the terminal in IntelliJ
+  - npm init -y
+  - Make a /src folder for the source code of the project
+
+* Make a hello-world.js file and write the following code:
+  - console.log('Hello world.');
+
+* Run the app:
+  - node hello-world.js
+
+## REST architectural principles
+
+### What is a RESTful API?
+
+REST (Representational State Transfer) is an architectural style (or a set of principles) for designing networked applications.
+
+RESTful refers to web services that adhere to the principles of REST (Representational State Transfer).
+
+RESTful is an approach for building scalable, stateless web APIs that use standard HTTP methods and principles.
+
+
+**Key Characteristics**
+
+1. **HTTP Methods**: RESTful APIs use standard HTTP methods to perform operations on resources:
+
+   | **HTTP Method** | **Usage** |
+      |---------------|---------|
+   | `GET`        | Retrieve resource (Read) |
+   | `POST`       | Add new resource (Insert) |
+   | `PUT`        | Update existing resource (Replace) |
+   | `PATCH`      | Update a specific part of resource (Modify) |
+   | `DELETE`     | Remove resource |
+
+2. **Resource-Based**: RESTful APIs use resources, which are identified by URLs.
+   A resource could be a user, a product, or a function to control a heating system.
+
+3. **JSON or XML**: Data is typically exchanged in JSON or XML format, with JSON being more common due to its
+   simplicity and ease of use.
+
+4. **Stateless**: The server does not store any client context between requests.
+
+**Example Endpoints**
+
+- **GET /users**: Retrieve a list of users.
+- **POST /users**: Add a new user.
+- **GET /users/{id}**: Retrieve a specific user by ID.
+- **PUT /users/{id}**: Replaces (or fully updates) the user representation.
+- **DELETE /users/{id}**: Delete a specific user by ID.
+- **GET /heating-system/state**: Retrieve the current status of the heating system.
+- **PUT /heating-system/state {"power":"on", "temperature":"22"}** : Full state replacement
+- **PATCH /heating-system/state {"power":"off"}**: Partially update
+
+***In RESTful APIs, a URI (path) must identify a resource, while the HTTP method defines the action performed on that resource.***
+
+
+### Route definition in Express.js
+
+A **route** in Express.js defines an endpoint where clients send requests to interact with the service.
+
+Each route consists of:
+
+1. **An HTTP method** (GET, POST, etc.)
+2. **A URL pattern** (e.g., `/api/customers/:id`)
+3. **A callback function / route handler ** to handle the request
+
+Example of a simple route in Express.js:
+
+**Code Example**
+
+```javascript
+app.get("/api/customers", (req, res) => {
+    res.json({ message: "List of customers" });
+});
+```
+
+
+
+### HTTP Status Codes
+HTTP Status Codes are 3-digit numbers returned by web servers to indicate the status of a requested HTTP operation
+(successful, failed, not found, etc.).
+
+Here are some common status codes and their meanings:
+
+| **Status Code**       | **Meaning**                          |
+|------------------------|--------------------------------------|
+| **200 OK**             | The request was successful.          |
+| **201 Created**        | The resource was created successfully.|
+| **400 Bad Request**    | The client sent an invalid request.  |
+| **401 Unauthorized**   | Authentication is required.          |
+| **403 Forbidden**      | Access to the resource is denied.    |
+| **404 Not Found**      | The requested resource does not exist.|
+| **500 Internal Server Error** | A server-side error occurred.     |
+
+---
+
+### Implementation of a simple RESTful API
+
+**Code Example: /part1/server.js**
+
+```javascript
+// ───────────────────────────────────────────────────────────────
+// Import Required Modules
+// ───────────────────────────────────────────────────────────────
+const express = require("express"); // Import the Express.js framework
+
+// ───────────────────────────────────────────────────────────────
+// Configuration & Constants
+// ───────────────────────────────────────────────────────────────
+const app = express(); // Initialize an Express application
+const PORT = 3000; // Define the port number where the server will listen
+
+// ───────────────────────────────────────────────────────────────
+// Middleware: JSON Parser
+// ───────────────────────────────────────────────────────────────
+// Middleware to parse JSON request bodies
+app.use(express.json());
+
+
+// ───────────────────────────────────────────────────────────────
+// In-memory database: JSON array for products
+// ───────────────────────────────────────────────────────────────
+let products = [
+  { id: 1, name: "SSD", price: 999.99 },
+  { id: 2, name: "RAM", price: 499.99 },
+];
+
+// ───────────────────────────────────────────────────────────────
+// Define Routes
+// ───────────────────────────────────────────────────────────────
+// Routes are the connection points (end points - addresses) in a web service where clients send requests to interact with the service.
+// GET all products
+app.get("/api/products", (req, res) => {
+  res.json(products); // Respond with the list of all products
+});
+
+// GET a single product by ID
+app.get("/api/products/:id", (req, res) => {
+  const product = products.find((p) => p.id === parseInt(req.params.id)); // Find the product by ID
+  if (!product) return res.status(404).json({ error: "Product not found" }); // If not found, respond with 404
+  res.json(product); // Respond with the found product
+});
+
+// POST - Add a new product
+app.post("/api/products", (req, res) => {
+  const { name, price } = req.body; // Extract name and price from the request body
+  if (!name || !price) return res.status(400).json({ error: "Invalid input" }); // Validate input
+
+  const newProduct = { id: products.length + 1, name, price }; // Add a new product with a unique ID
+  products.push(newProduct); // Add the new product to the list
+  res.status(201).json(newProduct); // Respond with the added product
+});
+
+
+// PUT - Replace a Product Record (full replacement)
+app.put("/api/products/:id", (req, res) => {
+  // 1. Destructure and extract all fields from the request body.
+  // Assuming 'name', 'price' are the mutable fields.
+  const { name, price } = req.body;
+
+  // 2. Validate the Request Body (Required for PUT)
+  // Check if all required fields are present.
+  // Note: Unlike the original code, we do NOT use '|| product.name'
+  // because PUT must overwrite all fields, or fail.
+  if (!name || price == null ) {
+    return res.status(400).json({
+      error: "PUT /products requires ALL mutable fields (name, price) for full replacement."
+    });
+  }
+
+  // 3. Find the Product
+  const product = products.find((p) => p.id === parseInt(req.params.id));
+  if (!product) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+
+  // 4. Update/Replace: Directly assign ALL new values.
+  product.name = name;
+  product.price = price;
+
+  // 5. Respond with the fully updated product
+  res.json(product);
+});
+
+// PATCH - Modify a product (partial or full replacement)
+app.patch("/api/products/:id", (req, res) => {
+  const product = products.find((p) => p.id === parseInt(req.params.id)); // Find the product by ID
+  if (!product) return res.status(404).json({ error: "Product not found" }); // If not found, respond with 404
+
+  const { name, price } = req.body; // Extract name and price from the request body
+  product.name = name || product.name; // Update the product name if provided
+  product.price = price || product.price; // Update the product price if provided
+  res.json(product); // Respond with the updated product
+});
+
+// DELETE - Remove a product
+app.delete("/api/products/:id", (req, res) => {
+  const productIdToDelete = parseInt(req.params.id);
+
+  // 1. Store the initial count of products
+  const initialLength = products.length;
+
+  // 2. Filter the array, creating a new array without the specified product ID
+  products = products.filter((p) => p.id !== productIdToDelete);
+
+  // 3. Store the final count of products
+  const finalLength = products.length;
+
+  if (finalLength < initialLength) {
+    // The product was found and successfully deleted (the array length decreased).
+
+    // REST Best Practice: 204 No Content for a successful DELETE with no response body.
+    res.status(204).end();
+  } else {
+    // The product was NOT found (the array length remained the same).
+
+    // REST Best Practice: 404 Not Found indicates the resource doesn't exist.
+    res.status(404).json({
+      error: `Product with ID ${productIdToDelete} not found.`
+    });
+  }
+});
+
+// ───────────────────────────────────────────────────────────────
+// Start Express HTTP Server
+// ───────────────────────────────────────────────────────────────
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+
+```
+
+**Endpoints (Routes) of the developed API**
+
+        GET http://localhost:3000/api/products
+
+        GET http://localhost:3000/api/products/1
+
+        POST http://localhost:3000/api/products
+        Content-Type: application/json
+        {
+        "name": "HDD",
+        "price": 299.99
+        }
+
+        PUT http://localhost:3000/api/products/2
+        Content-Type: application/json
+        {
+        "name": "SSD",
+        "price": 550.00
+        }
+    
+        DELETE http://localhost:3000/api/products/1
+
+
+### REST Clients - Testing REST api using cURL and HTTP Client
+
+
+#### curl
+    curl --version
+    if not installed -> Download cURL from: https://curl.se/windows/
+
+
+```sh
+# Retrieves a list of all products from the database.
+
+curl -X GET http://localhost:3000/api/products
+
+# -i - Include response headers
+# -X - Specify HTTP method
+# -H - Add headers
+# -d - Send data (POST/PUT)
+# -u - Basic authentication
+# -v - Verbose(detailed) output
+
+---
+
+# Fetches details of a specific product using its ID.
+
+curl -iX GET http://localhost:3000/api/products/1
+
+---
+
+# Adds a new product to the database. The request body must contain name and price in JSON format.
+
+curl -iX POST http://localhost:3000/api/products \
+     -H "Content-Type: application/json" \
+     -d '{"name": "HDMI Cable", "price": 50.05}'
+
+
+---
+
+# Updates the details of an existing product using its ID.
+
+curl -X PUT http://localhost:3000/api/products/1 \
+     -H "Content-Type: application/json" \
+     -d '{"name": "Updated Product", "price": 1099.99}'
+
+
+---
+
+# Updates the details of an existing product using its ID. Any missing fields will retain their previous values.
+
+curl -X PATCH http://localhost:3000/api/products/1 \
+     -H "Content-Type: application/json" \
+     -d '{"price": 1099.99}'
+---
+
+# Deletes a product from the database by specifying its ID.
+
+curl -X DELETE http://localhost:3000/api/products/1
+
+
+```
+
+#### HTTP Client
+
+**Code Example: /part1/restful-api-test.http**
+
+```http request
+###Retrieve all products
+GET http://localhost:3000/api/products
+
+
+### Find product by id
+# curl -X GET http://localhost:3000/api/products
+GET http://localhost:3000/api/products/2
+
+
+### Find products by name
+GET http://localhost:3000/api/products?name=SSD
+
+
+###
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{"name": "SSD", "price": 500}
+
+###
+PUT http://localhost:3000/api/products/1
+Content-Type: application/json
+
+{"name": "Updated SSD", "price": 1099.99}
+
+
+###
+PATCH http://localhost:3000/api/products/1
+Content-Type: application/json
+
+{"price": 200}
+
+###
+
+
+# curl -X DELETE http://localhost:3000/api/products/1
+DELETE http://localhost:3000/api/products/1
+
+
+### Retrieve all products
+GET http://localhost:4000/api/products
+
+
+### Retrieve all products
+#GET http://191.101.2.182:3005/api/products
+GET http://localhost:3000/api/products
+
+```
