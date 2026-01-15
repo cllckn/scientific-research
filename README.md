@@ -91,7 +91,6 @@ Upon successful completion of this course, students will be able to:
 * Implementation of the experimental testbed for Case Study 1
   * Developing RESTful service 
   * Integrating databases following repository pattern
-  * 
 ---
 
 ### Module 4: Scientific Research Tools, Scientific Writing, Performance Evaluation
