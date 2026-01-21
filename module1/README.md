@@ -110,6 +110,7 @@ It breaks scientific research into distinct stages, each with specific objective
 
 ![Scientific Research Lifecycle](../resources/images/st-scientific-research-lifecycle.png)
 
+---
 
 **1. Problem Identification**
 
@@ -138,6 +139,8 @@ A concise and clear description of the specific problem to be investigated.
 *Example:* “This study investigates how the choice of database backend (in-memory vs. PostgreSQL) affects the latency 
 and throughput performance of a RESTful service under high concurrent load.”
 
+---
+
 **2. Literature Review**
 - Systematic study of existing work (academic and professional)
 - Understanding state-of-the-art methods, findings, and limitations
@@ -161,6 +164,8 @@ identical REST architecture).
 latency means faster response.
 >**Throughput** – The number of requests the service can handle per unit of time; higher throughput indicates
 better capacity and efficiency.
+
+---
 
 **3. Research Questions &  Hypotheses**
 
@@ -188,6 +193,7 @@ aspect of the problem. Each alternative hypothesis has a corresponding null hypo
   - **H₀₂:** Database type has no effect on throughput.  
     **H₁₂:** An in-memory database achieves higher throughput than PostgreSQL.
 
+---
 
 **4. Methodology Design**
 - Selecting appropriate research paradigm:
@@ -215,6 +221,8 @@ aspect of the problem. Each alternative hypothesis has a corresponding null hypo
 
 A controlled benchmark-style experiment is planned.
 
+---
+
 **5. Implementation & Data Collection**
 - Developing prototypes, algorithms, or experimental setups
 - Conducting experiments, simulations, surveys, or observations
@@ -233,6 +241,7 @@ A controlled benchmark-style experiment is planned.
 
 Software acts as an **experimental testbed**, not the final product.
 
+---
 
 **6. Data Analysis & Interpretation**
 - Applying appropriate statistical or qualitative analysis methods
@@ -252,9 +261,8 @@ Software acts as an **experimental testbed**, not the final product.
   - **H₀ hypotheses are rejected**, providing evidence that database choice affects performance
 
 > Hypotheses may be clarified before dissemination, but new or substantially revised hypotheses belong to the next research cycle.
-
-Original H₁: In-memory DB always outperforms PostgreSQL
-Refined H₁: In-memory DB outperforms PostgreSQL under low–moderate concurrency
+> * Original H₁: In-memory DB always outperforms PostgreSQL
+> * Refined H₁: In-memory DB outperforms PostgreSQL under low–moderate concurrency
 
 - **Interpretation and Discussion**
   - **Performance trends:** Latency increases gradually at low load and sharply after a concurrency threshold,
@@ -266,6 +274,8 @@ Refined H₁: In-memory DB outperforms PostgreSQL under low–moderate concurren
 Conclusion: The results show a statistically significant performance difference between database configurations, leading
 to rejection of the null hypotheses and confirming that database choice affects RESTful service latency and throughput.
 
+---
+
 **7. Dissemination & Peer Review**
 - Communicating findings through papers, theses, reports, presentations
 - Submitting to peer-reviewed venues (conferences, journals)
@@ -273,6 +283,8 @@ to rejection of the null hypotheses and confirming that database choice affects 
 - Sharing artifacts (code, data) for reproducibility
 
 The outcome is **generalizable, verifiable, and reproducible knowledge**
+
+---
 
 **8. Iteration & Future Research**
 - Contemplating limitations and unanswered questions to guide future research
@@ -285,19 +297,12 @@ The outcome is **generalizable, verifiable, and reproducible knowledge**
 - Test the RESTful service under different workload patterns (read-heavy vs. write-heavy).
 - Investigate performance in distributed or cloud-based deployment environments.
 - Refine/add hypotheses based on observed saturation behavior and re-run experiments to validate robustness.
-
-Observed behavior: Latency increases sharply after 300 concurrent users (saturation point).
-
-Refined hypothesis:
-“Beyond a concurrency threshold, PostgreSQL degrades more rapidly than the in-memory database.”
-Re-run experiments: Test around and beyond the saturation point to see if this behavior consistently appears.
-
-Observed result:
-PostgreSQL performs better beyond a certain concurrency level.
-
-New hypothesis (added):
-“At high concurrency, PostgreSQL’s connection pooling and query optimization lead to better performance than an in-memory database.”
-Re-run experiments: Test around and beyond a certain concurrency level to see if this behavior consistently appears.
+  - Observed behavior: Latency increases sharply after 300 concurrent users (saturation point). 
+    - Refined hypothesis: “Beyond a concurrency threshold, PostgreSQL degrades more rapidly than the in-memory database.”
+    - Re-run experiments: Test around and beyond the saturation point to see if this behavior consistently appears.
+  - Observed result: PostgreSQL performs better beyond a certain concurrency level.
+    - New hypothesis (added): “At high concurrency, PostgreSQL’s connection pooling and query optimization lead to better performance than an in-memory database.”
+    - Re-run experiments: Test around and beyond a certain concurrency level to see if this behavior consistently appears.
 
 > Hypotheses may be clarified before dissemination, but new or substantially revised hypotheses belong to the next research cycle.
 
