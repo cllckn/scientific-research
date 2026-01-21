@@ -143,7 +143,9 @@ and throughput performance of a RESTful service under high concurrent load.”
 - Understanding state-of-the-art methods, findings, and limitations
 - Identifying theoretical frameworks and avoiding reinvention
 - Synthesizing knowledge to precisely position your contribution
+
 *Example:*
+
 - Review existing studies on:
   - RESTful service performance evaluation
   - In-memory vs. disk-based databases
