@@ -1,8 +1,8 @@
-# Module 1: Foundations of Scientific Research in Information Technology and Experimental Research Design
+# Module 1: Foundations of Scientific Research in Information Technology
 
 ---
 <!-- TOC -->
-* [Module 1: Foundations of Scientific Research in Information Technology and Experimental Research Design](#module-1-foundations-of-scientific-research-in-information-technology-and-experimental-research-design)
+* [Module 1: Foundations of Scientific Research in Information Technology](#module-1-foundations-of-scientific-research-in-information-technology)
   * [Introduction to Scientific Research in Information Technology](#introduction-to-scientific-research-in-information-technology)
   * [Research Areas and Domains in Information Technology](#research-areas-and-domains-in-information-technology)
   * [Scientific Research vs. Software Development and Engineering](#scientific-research-vs-software-development-and-engineering)
@@ -111,23 +111,80 @@ It breaks scientific research into distinct stages, each with specific objective
 ![Scientific Research Lifecycle](../resources/images/st-scientific-research-lifecycle.png)
 
 
-**1. Problem Identification & Motivation**
-- Identifying a meaningful gap, limitation, or unresolved question
-- Establishing practical/theoretical significance ("Why does this matter?")
-- Defining scope and boundaries of the research
+**1. Problem Identification**
 
-**2. Comprehensive Literature Review**
+A **research problem** is a clearly stated issue, gap, or limitation in existing knowledge or
+practice that requires systematic investigation. It includes the following subsection:
+
+
+**Observations**  
+Noticing phenomena, limitations, gaps, or inefficiencies in existing systems or practices.  
+*Example:* “Response time of a RESTful service increases sharply as the number of concurrent users grows.”
+
+**Motivation**  
+Explaining why the identified problem matters from a technical, scientific, or practical perspective.  
+*Example:* “High latency under load degrades user experience, limits scalability, and affects system reliability.”
+
+**Context and Scope**  
+Defining where the problem occurs and under what conditions, to avoid being too broad.  
+*Example:* “The problem is examined in RESTful web services operating under high concurrency, focusing on backend 
+database choice.”
+
+**Problem Statement**  
+A concise and clear description of the specific problem to be investigated.  
+*Example:* “This study investigates how the choice of database backend (in-memory vs. PostgreSQL) affects the latency 
+and throughput performance of a RESTful service under high concurrent load.”
+
+**2. Literature Review**
 - Systematic study of existing work (academic and professional)
 - Understanding state-of-the-art methods, findings, and limitations
 - Identifying theoretical frameworks and avoiding reinvention
 - Synthesizing knowledge to precisely position your contribution
+*Example:*
+- Review existing studies on:
+  - RESTful service performance evaluation
+  - In-memory vs. disk-based databases
+  - Benchmarking and load-testing methodologies
+- Identify:
+  - Common performance metrics (latency, throughput)
+  - Typical experimental setups and tools
+  - Limitations or conflicting findings in prior work
+- Position the research by identifying what has **not** been sufficiently evaluated (e.g., controlled comparison under 
+identical REST architecture).
 
-**3. Research Objectives & Questions &  Hypotheses**
-- Deriving specific, measurable research objectives from the problem
-- Formulating clear research questions (RQs) or testable hypotheses
-- Aligning with identified gap and ensuring feasibility
+>**Latency** – The time it takes for a request to travel from a client to the RESTful service and back; lower
+latency means faster response.
+>**Throughput** – The number of requests the service can handle per unit of time; higher throughput indicates
+better capacity and efficiency.
 
-**4. Research Methodology Design**
+**3. Research Questions &  Hypotheses**
+
+**Research questions(RQs)** refine the research problem into specific, focused questions that guide the investigation.
+
+*Example:*
+* How does database choice affect response time in a RESTful service?
+* How does throughput change when concurrent user load increases?
+
+A **hypothesis** is a testable, evidence-based statement that predicts an expected outcome. In scientific research, 
+hypotheses are formally represented as:
+
+  * H₀ (Null Hypothesis): Assumes no effect, no difference, or no relationship between variables. It represents the 
+default assumption to be tested.
+  * H₁ (Alternative Hypothesis): Represents a specific expected effect or difference that the researcher aims to find 
+evidence for.
+
+In most research studies, there can be multiple hypotheses, each corresponding to a different research question or 
+aspect of the problem. Each alternative hypothesis has a corresponding null hypothesis, forming a testable pair.
+
+*Example:*
+- **Hypotheses (paired):**
+  - **H₀₁:** Database type has no effect on average response time.  
+    **H₁₁:** An in-memory database exhibits lower latency than PostgreSQL under high load.
+  - **H₀₂:** Database type has no effect on throughput.  
+    **H₁₂:** An in-memory database achieves higher throughput than PostgreSQL.
+
+
+**4. Methodology Design**
 - Selecting appropriate research paradigm:
   - Empirical/Experimental
   - Theoretical
@@ -138,11 +195,39 @@ It breaks scientific research into distinct stages, each with specific objective
 - Designing detailed procedures: variables, datasets, tools, metrics
 - Planning for validity, reliability, and ethical considerations
 
+*Example:*
+- **Research Paradigm:** Empirical / Experimental research
+- **Experimental Design:**
+  - Independent variable: Database type (In-memory, PostgreSQL)
+  - Dependent variables: Response time, throughput
+  - Controlled variables: REST API logic, hardware, workload pattern
+- **Tools & Metrics:**
+  - Load-testing tool: Artillery
+  - Metrics: Mean latency, percentiles, requests per second
+- **Validity & Reliability:**
+  - Same codebase and environment for both configurations
+  - Repeated experiments to reduce randomness
+
+A controlled benchmark-style experiment is planned.
+
 **5. Implementation & Data Collection**
 - Developing prototypes, algorithms, or experimental setups
 - Conducting experiments, simulations, surveys, or observations
 - Systematically gathering and documenting data
 - Ensuring reproducibility through detailed logging
+
+*Example:*
+
+- Implement a simple RESTful API with interchangeable data layers.
+- Deploy two configurations:
+  - In-memory database
+  - PostgreSQL database
+- Generate traffic using Artillery with increasing concurrency levels.
+- Collect logs and performance metrics systematically.
+- Document configurations to ensure reproducibility.
+
+Software acts as an **experimental testbed**, not the final product.
+
 
 **6. Data Analysis & Interpretation**
 - Applying appropriate statistical or qualitative analysis methods
@@ -150,65 +235,67 @@ It breaks scientific research into distinct stages, each with specific objective
 - Drawing evidence-based conclusions
 - Addressing limitations and alternative explanations
 
+**Example:**
+
+- **Quantitative Analysis**
+  - Compute descriptive statistics: **mean, median, P95, P99 latency**, and **throughput (requests/sec)**
+  - Analyze **utilization and latency–throughput graphs** to observe system behavior under increasing load
+  - Apply **statistical significance testing (e.g., t-test)** to compare database configurations
+
+- **Hypothesis Evaluation**
+  - Statistical tests indicate a **significant difference** between configurations
+  - **H₀ hypotheses are rejected**, providing evidence that database choice affects performance
+
+> Hypotheses may be clarified before dissemination, but new or substantially revised hypotheses belong to the next research cycle.
+
+Original H₁: In-memory DB always outperforms PostgreSQL
+Refined H₁: In-memory DB outperforms PostgreSQL under low–moderate concurrency
+
+- **Interpretation and Discussion**
+  - **Performance trends:** Latency increases gradually at low load and sharply after a concurrency threshold,
+    while throughput growth slows down
+  - **Saturation points:** The system reaches saturation when throughput stops increasing and tail latencies (P95/P99) rise rapidly
+  - **Alternative explanations:** Differences may result from database caching, connection pooling, or query optimization strategies.
+
+
+Conclusion: The results show a statistically significant performance difference between database configurations, leading
+to rejection of the null hypotheses and confirming that database choice affects RESTful service latency and throughput.
+
 **7. Dissemination & Peer Review**
 - Communicating findings through papers, theses, reports, presentations
 - Submitting to peer-reviewed venues (conferences, journals)
 - Responding to critique and revising work based on feedback
 - Sharing artifacts (code, data) for reproducibility
 
+The outcome is **generalizable, verifiable, and reproducible knowledge**
+
 **8. Iteration & Future Research**
-- Reflecting on limitations and unanswered questions
+- Contemplating limitations and unanswered questions to guide future research
 - Using feedback to refine research direction
 - Identifying new problems emerging from findings
 - Initiating next research cycle
 
+*Example:*
+- Extend the study by evaluating additional database systems (e.g., NoSQL or cloud-managed databases).
+- Test the RESTful service under different workload patterns (read-heavy vs. write-heavy).
+- Investigate performance in distributed or cloud-based deployment environments.
+- Refine/add hypotheses based on observed saturation behavior and re-run experiments to validate robustness.
 
-**Example Research Topic: Investigation of the Impact of Industrial Air Pollution on Plant Growth**
+Observed behavior: Latency increases sharply after 300 concurrent users (saturation point).
 
-**1. Problem Identification & Motivation(Research Problem)**
-- Observation: Plants near factories appear to grow poorly. Local farmers report decreasing crop productivity over the past 5 years.
-- Motivation: Determine if industrial pollution impacts plant health and growth.
+Refined hypothesis:
+“Beyond a concurrency threshold, PostgreSQL degrades more rapidly than the in-memory database.”
+Re-run experiments: Test around and beyond the saturation point to see if this behavior consistently appears.
 
-**2. Comprehensive Literature Review**
-- Study existing research on air pollution and plant growth.
-- Identify mechanisms by which smoke or pollutants affect plant physiology.
-- Avoid duplication by noting previous experimental designs and findings.
+Observed result:
+PostgreSQL performs better beyond a certain concurrency level.
 
-**3. Research Objectives & Research Questions &  Hypotheses**
-- Objective: Investigate the effect of factory smoke on plant growth.
-- Research Question (RQ): Does exposure to factory smoke reduce plant growth compared to a clean environment?
-- Hypothesis: Plants exposed to smoke grow less than those in a clean environment.
+New hypothesis (added):
+“At high concurrency, PostgreSQL’s connection pooling and query optimization lead to better performance than an in-memory database.”
+Re-run experiments: Test around and beyond a certain concurrency level to see if this behavior consistently appears.
 
-**4. Research Methodology Design**
-- Research Paradigm: Empirical/Experimental study.
-- Procedure: Grow two sets of plants under controlled conditions — one exposed to smoke, one in clean air.
-- Variables:
-  - Independent variable: Exposure to smoke (yes/no)
-  - Dependent variables: Plant height, leaf color
-  - Controlled variables: Soil type, water, sunlight, plant species
-- Ensure validity, reproducibility, and ethical care of plants.
+> Hypotheses may be clarified before dissemination, but new or substantially revised hypotheses belong to the next research cycle.
 
-**5. Implementation & Data Collection**
-- Set up controlled growth environments for smoke-exposed and clean-air plants.
-- Grow plants over a defined period.
-- Record measurements regularly (height, leaf color, health indicators).
-
-**6. Data Analysis & Interpretation**
-- Compare average height and leaf color between the two groups.
-- Use statistical methods to determine if differences are significant.
-- Interpret results in the context of the research question and hypothesis.
-
-**7. Dissemination & Peer Review**
-- Prepare a research report or paper describing methods, data, and findings.
-- Submit to a peer-reviewed environmental science journal.
-- Present findings at a relevant conference or seminar.
-
-**8. Iteration & Future Research**
-- Reflect on limitations (e.g., small sample size, specific plant species).
-- Suggest further studies on different plants, pollution types, or exposure durations.
-- Use findings to inform environmental policy or future experimental designs.
-
----
 
 
 ## Research Problems, Research Questions, and Hypotheses
@@ -255,10 +342,13 @@ quantified.
 A **hypothesis** is a testable, evidence-based statement that predicts an expected outcome. 
 In scientific research, hypotheses are formally represented as:
 
-- **H₀ (Null Hypothesis):** Assumes no effect, no difference, or no relationship between variables. It represents the default assumption to be tested.
-- **H₁ (Alternative Hypothesis):** Represents a specific expected effect or difference that the researcher aims to find evidence for.
+- **H₀ (Null Hypothesis):** Assumes no effect, no difference, or no relationship between variables. It represents the 
+default assumption to be tested.
+- **H₁ (Alternative Hypothesis):** Represents a specific expected effect or difference that the researcher aims to 
+find evidence for.
 
-In most research studies, there can be **multiple hypotheses**, each corresponding to a different research question or aspect of the problem. Each alternative hypothesis has a corresponding null hypothesis, forming a testable pair.
+In most research studies, there can be **multiple hypotheses**, each corresponding to a different research question or 
+aspect of the problem. Each alternative hypothesis has a corresponding null hypothesis, forming a testable pair.
 
 ---
 
@@ -268,9 +358,11 @@ In most research studies, there can be **multiple hypotheses**, each correspondi
 - If the evidence is strong enough (e.g., p-value < 0.05), **H₀ is rejected**, providing support for **H₁**.
 - Scientific experiments do **not prove H₁ directly**; they test whether there is enough evidence to reject H₀.
 
-> Supporting the null hypothesis is scientifically meaningful, as it provides evidence-based confirmation that an assumed effect or difference does not occur under the tested conditions, contributing to reliable and reproducible knowledge.
+> Supporting the null hypothesis is scientifically meaningful, as it provides evidence-based confirmation that an 
+> assumed effect or difference does not occur under the tested conditions, contributing to reliable and reproducible knowledge.
 
-> **Key Teaching Insight:** Each expected effect in a study should have its own H₀/H₁ pair to ensure clarity, testability, and interpretability.
+> **Key Teaching Insight:** Each expected effect in a study should have its own H₀/H₁ pair to ensure clarity, 
+> testability, and interpretability.
 
 ---
 
@@ -287,18 +379,6 @@ In most research studies, there can be **multiple hypotheses**, each correspondi
 - **H₀₃ / H₁₃ (Concurrency Effect):**
   - H₀₃: Concurrency level does not influence performance differences between databases.
   - H₁₃: Performance differences increase as concurrent load increases.
-
----
-
-**Important Notes on Multiple Hypotheses**
-
-- A study may include **multiple null hypotheses (H₀₁, H₀₂, …)** if a single H₀ is insufficient for all alternative expectations.
-- Each H₀ is tested independently against its corresponding Hᵢ (H₁, H₂, …).
-- Multiple hypotheses require careful design to avoid false positives due to multiple testing.
-
-**One-sentence summary:**
-> A study may include multiple H₀/H₁ pairs, each aligned with a specific research question, to rigorously and transparently test all expected effects.
-
 
 ---
 
@@ -334,7 +414,6 @@ If experimental results **do not support the expected alternative hypothesis**:
   - Demonstrates that hypotheses can be wrong — yet the experiment still provides **validated insight**
 
 
-**Scientific Insight:**
 > Hypothesis rejection does **not indicate failure**. It provides **validated evidence about the system’s behavior**, 
 > reveals hidden factors, and may lead to new research questions.
 
@@ -348,61 +427,15 @@ If experimental results **do not support the expected alternative hypothesis**:
 - **Hypotheses** define *what is expected and tested*
 
 **Key Insight:**
-> Research problems are not fixed; they are often **refined through literature review**, reflecting the iterative nature of scientific research in Information Technology.
-> Changes in the research problem require corresponding updates to research questions and hypotheses to maintain scientific coherence(logical alignment and consistency between them) and methodological alignment.
+> Research problems are not fixed; they are often **refined through literature review**, reflecting the iterative 
+> nature of scientific research in Information Technology.
+> 
+> Changes in the research problem require corresponding updates to research questions and hypotheses to maintain 
+> scientific coherence(logical alignment and consistency between them) and methodological alignment.
 
 ---
 
 
-
-**Additional Examples of Research Problems, Research Questions, and Hypotheses**
-
----
-
-1) Example 1: Plant Growth Case Study
-
-**Research Problem:**  
-The effect of air pollution on plant growth is not clearly quantified.
-
-**Research Questions:**
-- Does exposure to factory smoke affect plant height?
-- Does pollution reduce leaf count or biomass?
-
-**Hypotheses:**
-- Plants exposed to factory smoke will grow shorter than plants grown in clean air.
-- Polluted environments will result in lower leaf counts.
-
----
-
-2) Example 2: Machine Learning–Based Case Study
-
-**Research Problem:**  
-The comparative performance of different classification algorithms on structured datasets is not fully understood.
-
-**Research Questions:**
-- How does algorithm choice affect classification accuracy?
-- Does feature normalization improve model performance?
-
-**Hypotheses:**
-- Support Vector Machines will achieve higher classification accuracy than logistic regression on the Iris dataset.
-- Feature normalization will improve the F1-score of both models.
-
----
-
-3) Example 3: Internet of Things (IoT) Case Study
-
-**Research Problem:**  
-Energy consumption behavior of IoT devices under different communication protocols is not well characterized.
-
-**Research Questions:**
-- How does protocol choice affect battery lifetime?
-- Does transmission frequency impact energy usage?
-
-**Hypotheses:**
-- IoT devices using MQTT will consume less energy than those using HTTP.
-- Increasing transmission frequency will significantly reduce battery life.
-
----
 
 ## Research Types in Information Technology
 
@@ -416,7 +449,7 @@ Scientific research in IT can be classified along several dimensions:
 - **Applied Research:** 
   - Solves practical, real-world IT problems.
   - Very common in Information Technology research.
-  - Example: Improving performance of a RESTful service architecture (using replica set).
+  - Example: Improving performance of a RESTful service architecture.
 - **Developmental Research:** 
   - Designs or improves systems, tools, or frameworks.
   - Often overlaps with applied research.
@@ -472,9 +505,10 @@ Scientific research in IT can be classified along several dimensions:
 ## Reproducibility, Replicability, and Transparency in Scientific Research
 
 - **Reproducibility (same data, same code):**  
-  The ability to obtain the same results using the original data and analysis methods. This is a minimum standard in scientific research.
+  The ability to obtain the same results using the original data and analysis methods. This is a minimum standard in 
+scientific research.
   Many IT-related fields, including machine learning and data science, face reproducibility challenges where published 
-  results cannot be reliably reproduced, undermining scientific progress.
+  results cannot be reliably reproduced.
 
 - **Replicability (new data, same method):**  
   The ability of independent researchers to achieve consistent results by applying the same methodology to new data or 
@@ -502,13 +536,13 @@ Adhering to these principles increases the credibility, reliability, and scienti
 
 * Download Node.js from here (https://nodejs.org/en/download) and install it properly.
 
-* Set up Intellij for Node.js based development (or install WebStorm)
+* Install WebStorm or set up Intellij for Node.js based development
   - IntelliJ IDEA -> Preferences -> Plugins -> Node.js (OSX, Linux)
   - IntelliJ IDEA -> File -> Settings -> Plugins -> Node.js (Windows)
 
 * Initialize a new Node.js project
-  - IntelliJ IDEA -> File -> New -> Project -> Empty Project (Give the project an appropriate name.)
-  - Open the terminal in IntelliJ
+  - WebStorm/IntelliJ IDEA -> File -> New -> Project -> Empty Project (Give the project an appropriate name.)
+  - Open the terminal in WebStorm/IntelliJ
   - npm init -y
   - Make a /src folder for the source code of the project
 
