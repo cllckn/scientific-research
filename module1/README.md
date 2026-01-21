@@ -114,7 +114,10 @@ It breaks scientific research into distinct stages, each with specific objective
 **1. Problem Identification**
 
 A **research problem** is a clearly stated issue, gap, or limitation in existing knowledge or
-practice that requires systematic investigation. It includes the following subsection:
+practice that requires systematic investigation. 
+
+It is **identified through observations and motivation**, framed within a specific context and scope, and **formally
+expressed as a problem statement**.
 
 
 **Observations**  
