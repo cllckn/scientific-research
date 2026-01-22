@@ -37,7 +37,7 @@ You can download the PostgreSQL JDBC driver from:
 
 
 #### Example Workflow (Conceptual)
-1. **Load the driver**(library ) in the project environment so that the Node.js application can
+1. **Load the driver**(library) in the project environment so that the Node.js application can
    communicate with the database.
 2. **Establish a connection** to the PostgreSQL database using a connection string (URL(socket address), username, and password).
 3. **Define and execute SQL statements**.
@@ -45,7 +45,7 @@ You can download the PostgreSQL JDBC driver from:
 5. **Close** the statement and connection to free resources.
 
 
-# Repository Pattern
+## Repository Pattern
 
 ***The Repository Pattern abstracts the logic of data access and storage from the business logic of an application.
 It provides a clean separation between the domain layer and the data access layer.
@@ -59,7 +59,7 @@ This abstraction improves maintainability, testability, and supports dependency 
 **Code Example**
 
 ```sql
-CREATE DATABASE ecommercedb;
+CREATE DATABASE testdb;
 ```
 
 ```sql
