@@ -13,7 +13,9 @@
     * [Hypotheses](#hypotheses)
   * [Research Types in Information Technology](#research-types-in-information-technology)
   * [Reproducibility, Replicability, and Transparency in Scientific Research](#reproducibility-replicability-and-transparency-in-scientific-research)
-* [Case Study](#case-study)
+* [Case Studies](#case-studies)
+  * [Case Study 1: Performance Evaluation of RESTful Service with Different Database Backends](#case-study-1-performance-evaluation-of-restful-service-with-different-database-backends)
+  * [Case Study 2: Comparative Evaluation of Machine Learning Algorithms Using the Iris Dataset](#case-study-2-comparative-evaluation-of-machine-learning-algorithms-using-the-iris-dataset)
   * [Setting up the development environment for Case Study 1](#setting-up-the-development-environment-for-case-study-1)
     * [Node.js & npm Installation](#nodejs--npm-installation)
   * [REST architectural principles](#rest-architectural-principles)
@@ -535,9 +537,34 @@ Adhering to these principles increases the credibility, reliability, and scienti
 
 ---
 
-# Case Study
+# Case Studies
 
+---
+
+## Case Study 1: Performance Evaluation of RESTful Service with Different Database Backends
+
+This case study investigates how the choice of database backend—an in-memory database versus PostgreSQL—affects the
+performance of a RESTful service. The service is subjected to controlled load using a benchmarking tool, and key
+performance metrics such as latency and throughput are measured and analyzed. The study demonstrates how experimental
+design, hypothesis testing, and performance evaluation are applied to real-world IT systems.
+
+![](../resources/images/st-case-study-1-big-picture.png)
+
+
+---
+
+## Case Study 2: Comparative Evaluation of Machine Learning Algorithms Using the Iris Dataset
+
+This case study compares the performance of two classification algorithms, Logistic Regression (LR) and Support Vector
+Machines (SVM), using the Iris dataset. Both models are trained and evaluated under the same conditions, and their
+accuracy and performance characteristics are analyzed. The study illustrates data-driven research, controlled
+experimentation, and evidence-based comparison of algorithms in machine learning.
+
+![](../resources/images/st-case-study-2-big-picture.png)
+
+---
 ## Setting up the development environment for Case Study 1
+
 
 ### Node.js & npm Installation
 
