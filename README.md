@@ -50,6 +50,7 @@ Upon successful completion of this course, students will be able to:
 * Setting up the development environment for Case Study 1
 * REST architectural principles
 * Implementation of a simple RESTful API
+* Repository pattern
 * Hands on exercises
 
 ---
@@ -83,7 +84,6 @@ Upon successful completion of this course, students will be able to:
     - Methodology / proposed system or approach
     - Experimental setup and evaluation methodology
     - Results and discussion
-    - Threats to validity
     - Conclusion and future work
     - References
 
@@ -91,6 +91,7 @@ Upon successful completion of this course, students will be able to:
 * Implementation of the experimental testbed for Case Study 1
   * Developing RESTful service 
   * Integrating databases following repository pattern
+  
 ---
 
 ### Module 4: Scientific Research Tools, Scientific Writing, Performance Evaluation
@@ -123,6 +124,7 @@ Upon successful completion of this course, students will be able to:
 - Interpreting results
 - Setting up an Overleaf project
 - Writing a scientific research article
+- Hands-on exercises
 
 ---
 
@@ -141,7 +143,7 @@ Upon successful completion of this course, students will be able to:
     - Types of machine learning algorithms
     - General framework for developing ML-based systems
     - Performance metrics for ML experiments
-- Hands on exercises
+- Hands-on exercises
 
 ---
 
@@ -178,27 +180,20 @@ Upon successful completion of this course, students will be able to:
 Students will be evaluated based on the following components:
 
 | **Component**                 | **Weight** |
-|-------------------------------|-----------|
-| Assignment 1 Oral Examination |   TBA    |
-| Assignment 2 Oral Examination |  TBA     |
-| Assignment 3 Oral Examination |   TBA    |
-| Assignment 4 Oral Examination |  TBA     |
-| Midterm Exam                  |  TBA     |
-| Final Exam                    |  TBA     |
+|-------------------------------|------------|
+| Assignment 1 Oral Examination | TBA        |
+| Assignment 2 Oral Examination | TBA        |
+| Final Exam                    | TBA        |
 
 ---
 
 ## Exams Schedule
 
-| **Component**                 | **Date**                                                    |
-|-------------------------------|-------------------------------------------------------------|
-| Assignment 1 Oral Examination | In Week X( the week starting X).                            |
+| **Component**                 | **Date**                         |
+|-------------------------------|----------------------------------|
+| Assignment 1 Oral Examination | In Week 8 (04.03.2026) |
 | Assignment 2 Oral Examination | In Week X( the week starting X). |
-| Assignment 3 Oral Examination | In Week X( the week starting X).  |
-| Assignment 4 Oral Examination | In Week X( the week starting X). |
-| Midterm Exam                  | Z                                                           |
-| Final Exam                    | Z                                                           |
-
+| Final Exam                    | Z                                |
 
 
 ---
@@ -214,21 +209,24 @@ Students will be evaluated based on the following components:
 ---
 
 ## Tools:
-    WebStorm (https://www.jetbrains.com/webstorm/download)
-    PyCharm (https://www.jetbrains.com/pycharm/download) 
-    Node.js (https://nodejs.org/en/download)
-    PostgreSQL, pgAdmin  (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) version 15.10 or any other version that installs without issues.
+* WebStorm (https://www.jetbrains.com/webstorm/download)
+* PyCharm (https://www.jetbrains.com/pycharm/download) 
+* Node.js (https://nodejs.org/en/download)
+* PostgreSQL, pgAdmin  (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) any other version that can be installed without issues.
 
 ---
 
 ## Resources
-    Main: https://github.com/cllckn/scientific-research
-    Wohlin, C., Runeson, P., Höst, M., Ohlsson, M. C., Regnell, B., & Wesslén, A. (2012). Experimentation in Software Engineering. Springer Science & Business Media.
-    Creswell, J. W., & Creswell, J. D. (2022). Research Design: Qualitative, Quantitative, and Mixed Methods Approaches (6th ed.). SAGE Publications.
+* Main: https://github.com/cllckn/scientific-research
+* Wohlin, C., Runeson, P., Höst, M., Ohlsson, M. C., Regnell, B., & Wesslén, A. (2012). Experimentation in Software Engineering. Springer Science & Business Media.
+* Creswell, J. W., & Creswell, J. D. (2022). Research Design: Qualitative, Quantitative, and Mixed Methods Approaches (6th ed.). SAGE Publications.
 
 ---
 
-**Acknowledgement**
 
-In preparing these course materials, the instructor **leveraged AI agents** as a support tool for drafting lecture notes, generating examples, and organizing contents.  
-All outputs were **reviewed, edited, and contextualized** before inclusion in this repository.
+## Acknowledgement
+
+In preparing these course materials, the instructor used AI-based tools as support for drafting lecture notes,
+generating examples and figures, and organizing content.
+
+All AI-generated outputs were reviewed, edited, and contextualized by the instructor prior to inclusion.
