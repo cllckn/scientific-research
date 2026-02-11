@@ -1,0 +1,15 @@
+config:
+  target: 'http://localhost:3000' # Replace with your application's URL if different
+  phases:
+    - duration: 60 # Run the test for 60 seconds
+      arrivalRate: 10 # Simulate 20 new virtual users arriving per second
+      rampTo: 100 # Gradually increase throughput to find the limit
+  defaults:
+    headers:
+      Content-Type: 'application/json' # Assuming your API uses JSON
+
+scenarios:
+  - name: Retrieve all products
+    flow:
+      - get:
+          url: '/api/products' # Test the homepage

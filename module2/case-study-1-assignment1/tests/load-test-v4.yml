@@ -1,0 +1,16 @@
+config:
+  target: 'http://localhost:3000' # Replace with your application's URL if different
+  phases:
+    - duration: 30 # Run the test for 30 seconds
+      arrivalRate: 10 # Simulate 10 new virtual users arriving per second
+      rampTo: 2000 # Gradually increase throughput to find the limit- a linear(default) increase from 10 to 200 in 30 sec
+  defaults:
+    headers:
+      Content-Type: 'application/json' # Assuming your API uses JSON
+  http:
+    timeout: 30 # Wait up to 30 seconds for a response-force Artillery to wait and record that high latency value.
+scenarios:
+  - name: Retrieve all products
+    flow:
+      - get:
+          url: '/api/products' # Test the homepage
