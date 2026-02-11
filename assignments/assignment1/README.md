@@ -43,14 +43,16 @@ This assignment demonstrates the practical application of:
 
 ## 4. Expected Deliverable
 
-Students must prepare a **research-style manuscript** written using a **Word template** (template link: `x.com`) and 
+Students must prepare a **research-style manuscript** written using a **Word template** 
+(template link:
+`https://template-selector.ieee.org/secure/templateSelector/format?publicationTypeId=1&titleId=201&articleId=1`) and 
 formatted according to academic conventions.
 
 **Reference management must be done using Mendeley.**
 
 ---
 
-## 5. Required Article Structure
+## 5. Required Manuscript Structure
 
 ### 5.1 Title
 
@@ -159,7 +161,7 @@ Include 4–6 relevant keywords.
 - All references must be:
    - Managed using **Mendeley**
    - Properly cited in-text
-   - Listed in a consistent academic format (e.g., IEEE or APA)
+   - Listed in a consistent academic format (e.g., IEEE)
 
 
    
