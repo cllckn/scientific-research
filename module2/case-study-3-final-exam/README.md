@@ -1,12 +1,13 @@
 # Building A Web-Based Big Data Analytics Infrastructure
 
-In this project, a web application that includes Kafka and a data analytics engine has been developed.
+In this project, a web application that includes Apache Kafka and a data analytics engine has been developed.
+
 
 ## Kafka
 
 ### Setting Up Zookeeper-Based Kafka Messaging System (Old)
 
-![Setting Up Kafka](https://github.com/cllckn/decision-support-systems/blob/main/Module1/setting-up-the-development-environment.md)
+[Setting Up Kafka](https://github.com/cllckn/decision-support-systems/blob/main/Module1/setting-up-the-development-environment.md)
 
 
 ### Setting Up KRaft-Based Kafka Messaging System (New)
@@ -18,6 +19,9 @@ In this project, a web application that includes Kafka and a data analytics engi
 **For Linux OSX based systems**
 
 ```shell
+
+cd kafka
+
 #Generate a Cluster UUID 
 $ KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
 
@@ -59,6 +63,6 @@ bin\windows\kafka-server-start.bat config\kraft\server.properties
 
 The system includes a Python-based logistic regression model to make predictions on the Iris dataset.
 
-[Train ML Model](../README.md#train-ml-model)
+[Train ML Model](./app/README.md#train-ml-model)
 
-[Use ML Model For Prediction](../README.md#use-ml-model-for-prediction)
+[Use ML Model For Prediction](./app/README.md#use-ml-model-for-prediction)
