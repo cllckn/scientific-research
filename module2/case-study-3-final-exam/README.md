@@ -16,7 +16,7 @@ In this project, a web application that includes Apache Kafka and a data analyti
 * Binary download: 4.1.x (https://kafka.apache.org/community/downloads/)
 * Extract Kafka
 
-**For Linux OSX based systems**
+**For Linux/OSX-based Systems**
 
 ```shell
 
