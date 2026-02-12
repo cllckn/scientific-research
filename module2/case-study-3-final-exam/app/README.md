@@ -14,7 +14,7 @@
 This Decision Support System (DSS) application is a web-based platform designed to support data-driven decision-making
 by integrating real-time data processing, machine learning, and secure user management.
 
-![](../resources/figures/final-project-components.png)
+![](../../../resources/images/big-data-analytics-infrastructure.png)
 
 
 **Purpose**
