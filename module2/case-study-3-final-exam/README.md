@@ -14,6 +14,9 @@ In this project, a web application that includes Kafka and a data analytics engi
 * Go to https://kafka.apache.org/quickstart/  
 * Binary download: 4.1.x (https://kafka.apache.org/community/downloads/)
 * Extract Kafka
+
+**For Linux OSX based systems**
+
 ```shell
 #Generate a Cluster UUID 
 $ KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
@@ -24,6 +27,23 @@ $ bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server
 #Start the Kafka Server
 $ bin/kafka-server-start.sh config/server.properties
 ```
+
+**For Windows-based Systems:**
+
+```shell
+cd C:\kafka
+
+REM Generate and capture cluster ID
+FOR /F %i IN ('bin\windows\kafka-storage.bat random-uuid') DO SET KAFKA_CLUSTER_ID=%i
+
+REM Format storage
+bin\windows\kafka-storage.bat format -t %KAFKA_CLUSTER_ID% -c config\kraft\server.properties
+
+REM Start Kafka
+bin\windows\kafka-server-start.bat config\kraft\server.properties
+
+```
+
 
 ### Testing Kafka
 
