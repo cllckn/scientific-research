@@ -437,6 +437,7 @@ For each concurrency level [10, 50, 100, 200]:
 ### 5. Data Analysis and Conclusion
 
 <img src="../resources/images/case-study-1-conclusion.png" alt="Case Study 1: Data Analysis and Conclusion">
+
 - **Analysis:**
   Analysis Method: * Visualization: Comparing "Knee of the Curve" graphs for both
     - Compare latency percentiles between the two treatments
