@@ -1,4 +1,4 @@
-# Module 2: Experimental Research in Information Technology
+# Module 2: Experimental Research in Information Technology, Scientific Publications
 
 
 <!-- TOC -->
@@ -30,25 +30,27 @@ Experimental research in Information Technology involves conducting controlled e
 configurations to observe and measure their behavior. These experiments are designed to test hypotheses by
 manipulating independent variables and measuring the resulting effects on dependent variables.
 
-![Experimental Research in Information Technology](../resources/images/experimental-research.png)
+![Experimental Research in Information Technology](../resources/images/experimental-research-big-picture.png)
 
 ### Key Components of Experimental Research
 
+![Experimental Research in Information Technology](../resources/images/experimental-research.png)
+
+
 - **Hypothesis / Research Question (RQ)**  
-  A clear, testable statement or question that guides the experiment.  
-
+  
+  - **Research questions(RQs)** refine the research problem into specific, focused questions that guide the investigation.
   - **Example Research Questions:**
-    - "Does a microservices architecture improve fault isolation compared to a monolith?"
-    - "Will implementing Redis caching reduce API response time by 30% under peak load?"
-    - "Can a convolutional neural network achieve >95% accuracy on the MNIST dataset?"
-
-  - **Example Hypotheses:**
-    - "H₁: A RESTful API using an in-memory database will have lower response latency than one using PostgreSQL under high load."
-    - "H₁: Support Vector Machines may achieve higher classification accuracy than logistic regression on the Iris dataset
-      because SVMs can model more complex decision boundaries."
-    - "H₁: REST APIs with connection pooling will have 25% lower latency than those without under 1000 concurrent users."
-    - "H₀: There is no difference in classification accuracy between Random Forest and Gradient Boosting on the Iris dataset."
+    - How does database choice affect response time in a RESTful service? 
+    - How does throughput change when concurrent user load increases?
     
+  - A hypothesis is a testable, evidence-based statement that predicts an expected outcome.
+  - **Example Hypotheses:**
+    - H₀₁: Database type has no effect on average response time.
+    -  H₁₁: An in-memory database exhibits lower latency than PostgreSQL under high load.
+    -  H₀₂: Database type has no effect on throughput.
+    -  H₁₂: An in-memory database achieves higher throughput than PostgreSQL.
+      
 
 - **Variables**
    - **Independent variables (***X***)-"The Cause":** Factors deliberately manipulated by the researcher.  
@@ -62,11 +64,13 @@ manipulating independent variables and measuring the resulting effects on depend
      - **Test conditions:** Warm-up period, measurement duration, think time
      - **Network:** Bandwidth, latency, packet loss simulation
 
-
+<img src="../resources/images/variables.png" alt="Variables" width="80%">
 
 - **Experimental Design** is the structured plan that defines **how an experiment is conducted**, ensuring that results 
 are valid, fair, and reproducible. It specifies *what is being tested*, *what is being compared*, and *under what 
 conditions*.
+
+<img src="../resources/images/experimental-design.png" alt="Experimental Design" width="80%">
 
     - **Subjects** are the **entities on which the experiment is performed**. In IT research, subjects are usually 
   *not people*, but technical artifacts. Subjects define the **context and scope** of the experiment.
@@ -105,11 +109,16 @@ conditions**, with one serving as the baseline for comparison.
 
 - **Measurement and Instruments**  
   Tools, frameworks, and metrics used to collect data.  
+
+<img src="../resources/images/performance-metrics.png" alt="Performance Metrics" width="80%">
+
   *Examples:*
    - Latency,  throughput, utilization
    - Accuracy, precision, recall, F1-score
    - User error rate, task completion time
    - Number of detected security vulnerabilities
+
+
 
 - **Data Analysis & Conclusion**  
   Interpretation of collected data to identify patterns, differences, and significance, leading to acceptance or
@@ -129,6 +138,8 @@ conditions**, with one serving as the baseline for comparison.
 ---
 
 ### Types of Experimental Research in Information Technology
+
+<img src="../resources/images/experimental-research-types.png" alt="Experimental Research Types" width="80%">
 
 - **Controlled Experiments (Benchmarks)**  
   Experiments conducted in a controlled laboratory environment to compare systems or algorithms.  
@@ -171,6 +182,8 @@ Here is a summary of the key performance metrics, examples, and best practices.
 Time taken to complete a single operation. Latency is the "speed" of your system. It measures the delay introduced 
 by processing and network travel.
 
+<img src="../resources/images/latency.png" alt="Latency Metrics" width="80%">
+
 | Examples | Usage Example | Best Practices |
 |--------|---------------|----------------|
 | Average latency | Rough performance overview | Do not rely on averages alone |
@@ -200,7 +213,8 @@ terrible experience such as Garbage Collection (GC) pauses or heavy database re-
 
 
 
-* Best Practice: Monitor the spread between $p50$ and $p99$. If the gap grows during a load test, it indicates the system is becoming unstable even if the "average" looks okay.
+* Best Practice: Monitor the spread between $p50$ and $p99$. If the gap grows during a load test, it indicates the 
+* system is becoming unstable even if the "average" looks okay.
 
 
 ---
@@ -208,6 +222,8 @@ terrible experience such as Garbage Collection (GC) pauses or heavy database re-
 ### 2. Throughput Metrics
 
 Rate of successful work completion per time unit.
+
+<img src="../resources/images/throughput.png" alt="Throughput Metrics" width="80%">
 
 | Examples | Usage Example | Best Practices |
 |--------|---------------|----------------|
@@ -224,6 +240,7 @@ Rate of successful work completion per time unit.
 destination in a given time frame.
 
 >In an ideal world: Request throughput ≈ Response throughput (all requests succeed)
+> 
 >In reality: As load increases, response throughput may plateau or drop while request throughput continues to increase
 
 
@@ -238,6 +255,8 @@ longer process all incoming requests efficiently.
 
 
 ---
+
+<img src="../resources/images/utilisation-availability-accuracy.png" alt="Utilisation Availability Accuracy" width="90%">
 
 ### 3. Utilisation Metrics
 
@@ -308,9 +327,15 @@ It is aligned below with the **Key Components of Experimental Research** and **E
 - **Hypothesis:**  
   **H1:**A RESTful service backed by an in-memory database will exhibit **lower $p95$ latency** and **higher throughput** than the same service backed by PostgreSQL under high load.
   **H₀:** "There is no statistically significant difference in performance between in-memory database and PostgreSQL backends."
+
+<img src="../resources/images/case-study1-hypothesis.png" alt="Case-study 1: Hypothesis / Research Question (RQ)" width="90%" >
+
 ---
 
+
 ### 2. Variables
+
+<img src="../resources/images/case-study-1-variables.png" alt="Case-study 1: Variables" width="90%" >
 
 - **Primary Independent Variable (What we manipulate):**
     - Database type (In-memory database vs PostgreSQL)
@@ -353,6 +378,7 @@ It is aligned below with the **Key Components of Experimental Research** and **E
 
 ### 3. Experimental Design
 
+
 - **Subjects:**
     - The RESTful service instances
     - Database systems (In-memory database and PostgreSQL)
@@ -381,6 +407,7 @@ It is aligned below with the **Key Components of Experimental Research** and **E
 
 #### Benchmarking Procedure:
 
+<img src="../resources/images/case-study-1-benchmarking-procedure.png" alt="Benchmarking" width="90%">
 **Phase 1: Environment Setup**
 1. Deploy identical infrastructure for both treatments
 2. Load identical dataset into both databases
@@ -407,6 +434,7 @@ For each concurrency level [10, 50, 100, 200]:
 
 ### 5. Data Analysis and Conclusion
 
+<img src="../resources/images/case-study-1-conclusion.png" alt="Case Study 1: Data Analysis and Conclusion">
 - **Analysis:**
   Analysis Method: * Visualization: Comparing "Knee of the Curve" graphs for both
     - Compare latency percentiles between the two treatments
