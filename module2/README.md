@@ -55,7 +55,7 @@ manipulating independent variables and measuring the resulting effects on depend
 - **Variables**
    - **Independent variables (***X***)-"The Cause":** Factors deliberately manipulated by the researcher.  
      *Example:* Algorithm type, workload size, UI layout.
-   - **Dependent variables(***Y***)-"The Effect"":** Outcomes that are measured.  
+   - **Dependent variables(***Y***)-"The Effect":** Outcomes that are measured.  
      *Example:* Latency, accuracy, throughput, user task completion time.
    - **Controlled variables (constants):**
      - **Infrastructure:** CPU cores, memory, storage type (SSD vs HDD)
@@ -66,13 +66,14 @@ manipulating independent variables and measuring the resulting effects on depend
 
 <img src="../resources/images/variables.png" alt="Variables" width="80%">
 
+
+<img src="../resources/images/experimental-design.png" alt="Experimental Design" width="80%">
+
 - **Experimental Design** is the structured plan that defines **how an experiment is conducted**, ensuring that results 
 are valid, fair, and reproducible. It specifies *what is being tested*, *what is being compared*, and *under what 
 conditions*.
 
-<img src="../resources/images/experimental-design.png" alt="Experimental Design" width="80%">
-
-    - **Subjects** are the **entities on which the experiment is performed**. In IT research, subjects are usually 
+  - **Subjects** are the **entities on which the experiment is performed**. In IT research, subjects are usually 
   *not people*, but technical artifacts. Subjects define the **context and scope** of the experiment.
 
       *Examples:*
@@ -81,15 +82,15 @@ conditions*.
         - Network traces or traffic patterns
         - Human participants (in usability or HCI studies)
 
-    - **Treatments** are the **different conditions or alternatives applied to the subjects**. Each treatment represents
+  - **Treatments** are the **different conditions or alternatives applied to the subjects**. Each treatment represents
   a specific choice being evaluated. Treatments represent the **independent variable values** whose effects are being 
   measured.
 
-      *Examples:*
-        - Algorithm A vs Algorithm B
-        - In-memory database vs PostgreSQL
-        - REST API with caching vs without caching
-        - UI Design A vs UI Design B
+    *Examples:*
+      - Algorithm A vs Algorithm B
+      - In-memory database vs PostgreSQL
+      - REST API with caching vs without caching
+      - UI Design A vs UI Design B
 
     - **Control Groups or Baselines** is a **reference setup** against which treatments are compared. It represents the 
   *standard*, *existing*, or *simplest* configuration. Baselines ensure **fair comparison** by isolating the impact of 
