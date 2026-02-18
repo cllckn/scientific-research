@@ -326,8 +326,8 @@ It is aligned below with the **Key Components of Experimental Research** and **E
   Does using an in-memory database result in lower latency and higher throughput for a RESTful service compared to PostgreSQL under the same workload?
 
 - **Hypothesis:**  
-  **H1:**A RESTful service backed by an in-memory database will exhibit **lower $p95$ latency** and **higher throughput** than the same service backed by PostgreSQL under high load.
-  **H₀:** "There is no statistically significant difference in performance between in-memory database and PostgreSQL backends."
+  **H1:** A RESTful service backed by an in-memory database will exhibit **lower $p95$ latency** and **higher throughput** than the same service backed by PostgreSQL under high load.
+  **H₀:** There is no statistically significant difference in performance between in-memory database and PostgreSQL backends.
 
 <img src="../resources/images/case-study1-hypothesis.png" alt="Case-study 1: Hypothesis / Research Question (RQ)" width="90%" >
 
@@ -408,7 +408,8 @@ It is aligned below with the **Key Components of Experimental Research** and **E
 
 #### Benchmarking Procedure:
 
-<img src="../resources/images/case-study-1-benchmarking-procedure.png" alt="Benchmarking" width="90%">
+<img src="../resources/images/case-study-1-benchmarking-procedure-1.png" alt="Benchmarking" width="90%">
+
 **Phase 1: Environment Setup**
 1. Deploy identical infrastructure for both treatments
 2. Load identical dataset into both databases
