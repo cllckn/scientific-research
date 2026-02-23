@@ -2,35 +2,42 @@
 
 ## Course Description
 
-This course introduces scientific research in the field of Information Technology through practical, experiment-driven 
-learning. Students develop research skills by formulating research problems and hypotheses, designing controlled and 
-reproducible experiments, evaluating system and algorithm performance, analyzing experimental results, and documenting 
-findings in the form of a scientific research article. The course emphasizes empirical evaluation of IT systems and 
-data-driven solutions, aligning research methodology with real-world IT practices.
+Scientific research is a systematic and structured process of investigating phenomena to advance understanding through 
+empirical evidence, logical reasoning, and reproducible methods.
+
+This course provides a hands-on introduction to scientific research methodologies in Information Technology. Students 
+will study the research lifecycle, experimental design, RESTful system implementation, performance evaluation, 
+and scientific writing. Through structured case studies, students will design experiments, implement 
+experimental testbeds, analyze quantitative results using statistical methods, and prepare a complete 
+research manuscript using professional tools. The course also introduces academic 
+publishing processes, research impact metrics, and ethical considerations in responsible IT research.
 
 ---
 
 ## Course Objectives
 
-By the end of this course, students will be able to:
+This course aims to:
 
-- Apply scientific research methodology to Information Technology systems and applications
-- Formulate clear research problems, research questions, and testable hypotheses
-- Design controlled, reproducible, and measurable experiments
-- Evaluate the performance using quantitative metrics
-- Analyze and interpret experimental results scientifically
-- Structure and write a complete scientific research article in IT
-- Understand the academic publication and peer-review process
-- Apply ethical principles and responsible research practices in IT
+1. Introduce fundamental principles of scientific research in Information Technology.
+2. Develop the ability to formulate research problems, questions, and hypotheses.
+3. Provide practical experience in designing and conducting controlled experiments.
+4. Enable implementation of experimental testbeds.
+5. Develop competencies in performance evaluation and statistical analysis.
+6. Train students in scientific writing and manuscript preparation using professional tools.
+7. Familiarize students with the academic publication process, research impact metrics, and research ethics.
+8. Introduce data-driven and machine learning–based experimental research in IT.
 
 ---
 
 ## Learning Outcomes
 
 Upon successful completion of this course, students will be able to: 
-- Independently conduct a small-scale scientific research study in Information Technology
-- Perform empirical evaluation of IT systems or algorithms
-- Produce a well-structured scientific research article (manuscript) suitable for academic submission
+
+- Independently conduct a small-scale scientific research study in Information Technology.
+- Perform empirical evaluation of IT systems or algorithms.
+- Conduct load and performance evaluations using appropriate metrics (latency, throughput, resource utilization, error rates).
+- Prepare a structured scientific research manuscript following standard academic conventions.
+- Design and experimentally evaluate machine learning models, and statistically compare their performance.
 
 ---
 
