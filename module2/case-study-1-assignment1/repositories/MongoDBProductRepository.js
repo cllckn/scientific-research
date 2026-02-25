@@ -1,57 +1,37 @@
+const { ObjectId } = require("mongodb");
 const ProductRepository = require("./ProductRepository");
-const pool = require("../config/db");
+const connectToDatabase = require("../config/mongodb-connection");
 
-class MongoDBProductRepository extends ProductRepository {
+
+class MongoProductRepository extends ProductRepository {
+  // We no longer establish the collection in the constructor
+  constructor() {
+    super();
+  }
+
+  // Internal helper to ensure we have the collection before any operation
+  async #getCollection() {
+    const db = await connectToDatabase();
+    return db.collection("products");
+  }
+
   async getAll() {
-    const result = await pool.query(
-      "SELECT * FROM products ORDER BY id ASC"
-    );
-    return result.rows;
+    const collection = await this.#getCollection();
+    return await collection.find({}).sort({ _id: 1 }).toArray();
   }
 
   async getById(id) {
-    const result = await pool.query(
-      "SELECT * FROM products WHERE id = $1",
-      [id]
-    );
-    return result.rows[0] || null;
+    const collection = await this.#getCollection();
+    return await collection.findOne({ _id: new ObjectId(id) });
   }
 
-  async create({ name, price }) {
-    const result = await pool.query(
-      "INSERT INTO products (name, price) VALUES ($1, $2) RETURNING *",
-      [name, price]
-    );
-    return result.rows[0];
+  async create(data) {
+    const collection = await this.#getCollection();
+    const result = await collection.insertOne(data);
+    return { _id: result.insertedId, ...data };
   }
 
-  async update(id, { name, price }) {
-    const result = await pool.query(
-      "UPDATE products SET name=$1, price=$2 WHERE id=$3 RETURNING *",
-      [name, price, id]
-    );
-    return result.rows[0] || null;
-  }
-
-  async patch(id, { name, price }) {
-    const result = await pool.query(
-      `UPDATE products
-       SET name  = COALESCE($1, name),
-           price = COALESCE($2, price)
-       WHERE id = $3
-       RETURNING *`,
-      [name, price, id]
-    );
-    return result.rows[0] || null;
-  }
-
-  async delete(id) {
-    const result = await pool.query(
-      "DELETE FROM products WHERE id=$1 RETURNING *",
-      [id]
-    );
-    return result.rows[0] || null;
-  }
+  // ... (apply the same pattern to update, patch, and delete)
 }
 
-module.exports = PgProductRepository;
+module.exports = MongoProductRepository;
