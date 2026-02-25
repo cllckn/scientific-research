@@ -4,12 +4,13 @@
 <!-- TOC -->
 * [Case Study 1: Performance Evaluation of RESTful Service with Different Database Backends](#case-study-1-performance-evaluation-of-restful-service-with-different-database-backends)
   * [1. Introduction](#1-introduction)
-  * [2. RESTful Service](#2-restful-service)
-  * [Using a Programming Language to Interact With a Database](#using-a-programming-language-to-interact-with-a-database)
+  * [2. Using a Programming Language to Interact With a Database](#2-using-a-programming-language-to-interact-with-a-database)
     * [Database Drivers – Core Functions](#database-drivers--core-functions)
       * [Example Workflow (Conceptual)](#example-workflow-conceptual)
-  * [Repository Pattern](#repository-pattern)
-  * [5. Load Testing Using Artillery](#5-load-testing-using-artillery)
+  * [3. Repository Pattern](#3-repository-pattern)
+  * [4. RESTful Service](#4-restful-service)
+  * [5. MongoDB Integration](#5-mongodb-integration)
+  * [6. Load Testing Using Artillery](#6-load-testing-using-artillery)
     * [Fundamentals of Load and Stress Testing](#fundamentals-of-load-and-stress-testing)
     * [Writing First Test](#writing-first-test)
     * [Performance Metrics](#performance-metrics)
@@ -126,10 +127,13 @@ DELETE http://localhost:3000/api/products/1
 
 ```
 
+## 5. MongoDB Integration
 
+https://github.com/cllckn/database-management-systems/tree/main/module5
 
+> [MongoDB Repository](../case-study-1-assignment1/repositories/MongoDBProductRepository.js)
 
-## 5. Load Testing Using Artillery
+## 6. Load Testing Using Artillery
 
 ### Fundamentals of Load and Stress Testing
 
