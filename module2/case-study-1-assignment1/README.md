@@ -20,6 +20,7 @@
     * [Comparative Analysis of Test Results On The Cloud Service](#comparative-analysis-of-test-results-on-the-cloud-service)
     * [Send Test Results into a JSON file](#send-test-results-into-a-json-file)
     * [Monitoring Resource Utilisation During Tests](#monitoring-resource-utilisation-during-tests)
+  * [Visualisation of Performance Results](#visualisation-of-performance-results)
 <!-- TOC -->
 
 
@@ -340,6 +341,11 @@ artillery run load-test-v2.yml --record --key a9_yomj66tcygft1lryqig2ge...
 pm2 start app.js
 pm2 monit
 ```
+
+## Visualisation of Performance Results
+
+
+![](../../resources/images/case-study1-performance-results-1.png)
 
 
 
