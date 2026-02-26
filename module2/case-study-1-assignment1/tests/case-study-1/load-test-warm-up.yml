@@ -1,0 +1,16 @@
+config:
+  target: 'http://localhost:3000' # Replace with your application's URL if different
+  phases:
+    - name: "Warm up (Ignore results here)"
+      duration: 10
+      arrivalRate: 5
+  defaults:
+    headers:
+      Content-Type: 'application/json' # Assuming your API uses JSON
+  http:
+    timeout: 30 # Wait up to 30 seconds for a response-force Artillery to wait and record that high latency value.
+scenarios:
+  - name: Retrieve all products
+    flow:
+      - get:
+          url: '/api/products' # Test the homepage
