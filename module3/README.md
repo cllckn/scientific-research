@@ -1,62 +1,356 @@
-# Module 3: Standard Structure of an Information Technology Research Manuscript, Experimental Implementation
+# Module 3: Scientific publications in IT & Structure of an Information Technology Research Manuscript, Experimental Implementation
 
 <!-- TOC -->
-* [Module 3: Standard Structure of an Information Technology Research Manuscript, Experimental Implementation](#module-3-standard-structure-of-an-information-technology-research-manuscript-experimental-implementation)
-  * [1. Overview](#1-overview)
-  * [2. Title](#2-title)
-    * [Purpose](#purpose)
-    * [Characteristics](#characteristics)
-    * [Title Formulation Patterns](#title-formulation-patterns)
-    * [Examples with Pattern Mapping](#examples-with-pattern-mapping)
-  * [3. Abstract](#3-abstract)
-    * [Purpose](#purpose-1)
-    * [Structure of a Good Abstract](#structure-of-a-good-abstract)
-    * [Best Practices](#best-practices)
-    * [Case Study Example](#case-study-example)
-  * [4. Keywords](#4-keywords)
-    * [Purpose](#purpose-2)
-    * [Guidelines](#guidelines)
-    * [Case Study Example](#case-study-example-1)
-  * [5. Introduction](#5-introduction)
-    * [Purpose](#purpose-3)
-    * [Typical Structure (Funnel Approach)](#typical-structure-funnel-approach)
-    * [Case Study Example](#case-study-example-2)
-  * [6. Related Work / Literature Review](#6-related-work--literature-review)
-    * [Purpose](#purpose-4)
-    * [Objectives](#objectives)
-    * [Best Practices](#best-practices-1)
-    * [Case Study Example](#case-study-example-3)
-  * [7. Methodology / Proposed System or Approach](#7-methodology--proposed-system-or-approach)
-    * [Purpose](#purpose-5)
-    * [In IT Research, This May Include](#in-it-research-this-may-include)
-    * [Requirements](#requirements)
-    * [Case Study Example](#case-study-example-4)
-  * [8. Experimental Setup and Evaluation Methodology](#8-experimental-setup-and-evaluation-methodology)
-    * [Purpose](#purpose-6)
-    * [Must Include](#must-include)
-    * [Key Principle](#key-principle)
-    * [Case Study Example](#case-study-example-5)
-  * [9. Results and Discussion](#9-results-and-discussion)
-    * [Purpose](#purpose-7)
-    * [Components](#components)
-    * [Discussion Should](#discussion-should)
-    * [Case Study Example](#case-study-example-6)
-  * [10. Conclusion and Future Work](#10-conclusion-and-future-work)
-    * [Purpose](#purpose-8)
-    * [Should Include](#should-include)
-    * [Case Study Example](#case-study-example-7)
-  * [11. References](#11-references)
-    * [Purpose](#purpose-9)
-    * [Requirements](#requirements-1)
-    * [Tools](#tools)
-    * [Best Practices](#best-practices-2)
-    * [Case Study Example (IEEE Style)](#case-study-example-ieee-style)
-  * [Logical Flow of an IT Research Manuscript](#logical-flow-of-an-it-research-manuscript)
+* [Module 3: Scientific publications in IT & Structure of an Information Technology Research Manuscript, Experimental Implementation](#module-3-scientific-publications-in-it--structure-of-an-information-technology-research-manuscript-experimental-implementation)
+  * [1. Scientific Publications in Information Technology (IT)](#1-scientific-publications-in-information-technology-it)
+    * [1.1 Terminology](#11-terminology)
+      * [1.1.1 Manuscript](#111-manuscript)
+      * [1.1.2 Article](#112-article)
+      * [1.1.3 Journal](#113-journal)
+      * [1.1.4 Conference Proceedings](#114-conference-proceedings)
+      * [1.1.5 Workshop Papers](#115-workshop-papers)
+      * [1.1.6 Magazine Articles](#116-magazine-articles)
+      * [1.1.7 Book Chapters](#117-book-chapters)
+      * [1.1.8 Theses and Dissertations](#118-theses-and-dissertations)
+    * [1.2 Role and Purpose of Scientific Publications](#12-role-and-purpose-of-scientific-publications)
+      * [Purpose 1: Knowledge Dissemination](#purpose-1-knowledge-dissemination)
+      * [Purpose 2: Establishing Priority and Claiming Discovery](#purpose-2-establishing-priority-and-claiming-discovery)
+      * [Purpose 3: Facilitating Peer Review and Quality Control](#purpose-3-facilitating-peer-review-and-quality-control)
+      * [Purpose 4: Creating an Archival Record](#purpose-4-creating-an-archival-record)
+      * [Purpose 5: Enabling Academic Career Progression](#purpose-5-enabling-academic-career-progression)
+      * [Purpose 6: Facilitating Collaboration and Community Building](#purpose-6-facilitating-collaboration-and-community-building)
+    * [1.3 Types of Scientific Publications in IT](#13-types-of-scientific-publications-in-it)
+      * [1.3.1 Primary Research Articles](#131-primary-research-articles)
+      * [1.3.2 Review or Survey Papers](#132-review-or-survey-papers)
+      * [1.3.3 Case Study / Empirical Papers](#133-case-study--empirical-papers)
+      * [1.3.4 Technical Reports and Whitepapers](#134-technical-reports-and-whitepapers)
+      * [1.3.5 Short Papers and Work-in-Progress Papers](#135-short-papers-and-work-in-progress-papers)
+  * [2. Structure of an Information Technology Research Manuscript](#2-structure-of-an-information-technology-research-manuscript)
+    * [2.1 Title](#21-title)
+      * [Purpose](#purpose)
+      * [Characteristics](#characteristics)
+      * [Title Formulation Patterns](#title-formulation-patterns)
+    * [2.2 Abstract](#22-abstract)
+      * [Purpose](#purpose-1)
+      * [Structure of a Good Abstract](#structure-of-a-good-abstract)
+    * [2.3 Keywords](#23-keywords)
+      * [Purpose](#purpose-2)
+      * [Guidelines](#guidelines)
+    * [2.4 Introduction](#24-introduction)
+      * [Purpose](#purpose-3)
+      * [Typical Structure (Funnel Approach)](#typical-structure-funnel-approach)
+    * [2.5 Related Work / Literature Review](#25-related-work--literature-review)
+      * [Purpose](#purpose-4)
+      * [Objectives](#objectives)
+    * [2.6 Methodology / Proposed System or Approach](#26-methodology--proposed-system-or-approach)
+      * [Purpose](#purpose-5)
+      * [In IT Research, This May Include](#in-it-research-this-may-include)
+      * [Requirements](#requirements)
+    * [2.7 Experimental Setup and Evaluation Methodology](#27-experimental-setup-and-evaluation-methodology)
+      * [Purpose](#purpose-6)
+      * [Must Include](#must-include)
+    * [2.8 Results and Discussion](#28-results-and-discussion)
+      * [Purpose](#purpose-7)
+      * [Components](#components)
+      * [Discussion Should](#discussion-should)
+    * [2.9 Conclusion and Future Work](#29-conclusion-and-future-work)
+      * [Purpose](#purpose-8)
+      * [Should Include](#should-include)
+    * [2.10 References](#210-references)
+      * [Purpose](#purpose-9)
+      * [Requirements](#requirements-1)
+      * [Tools](#tools)
+    * [2.11 Logical Flow of an IT Research Manuscript](#211-logical-flow-of-an-it-research-manuscript)
+  * [Case Study 1: System Implementation](#case-study-1-system-implementation)
 <!-- TOC -->
 
 ---
 
-## 1. Overview
+
+
+## 1. Scientific Publications in Information Technology (IT)
+
+Scientific publications are the primary mechanism for communicating validated research results in Information 
+Technology (IT). They ensure that new findings, experimental results, system designs, and theoretical advancements are 
+formally documented, peer-reviewed, and archived for the scientific community.
+
+---
+
+### 1.1 Terminology
+
+Precise terminology is essential in academic and research communication.
+
+| Term | Definition | Status | Length | Review Process |
+|------|------------|--------|--------|----------------|
+| **Manuscript** | Original unpublished work | Pre-publication | Varies | Not yet reviewed |
+| **Preprint** | Manuscript shared publicly before peer review | Public but not certified | Varies | Not reviewed |
+| **Article** | Published scholarly work | Published | 10-30 pages | Peer-reviewed |
+| **Journal** | Periodical containing articles | Publication venue | N/A | Editorial + peer review |
+| **Conference Proceedings** | Collection of presented papers | Publication venue | 4-12 pages per paper | Program committee review |
+| **Paper** | Generic term for manuscript/article | Varies | Varies | Varies |
+
+
+#### 1.1.1 Manuscript
+
+A **manuscript** is the original version of a scholarly work before it has been formally published. It represents 
+the author's research presented in a structured format, typically following the standard research manuscript structure 
+(Title, Abstract, Introduction, etc.).
+
+- It represents the pre-publication version of a study.
+- It undergoes peer review and revision.
+- It may exist as:
+  - Submitted manuscript
+  - Revised manuscript
+  - Accepted manuscript
+
+In IT research, an experimental study evaluating database backend performance would initially be written and submitted 
+as a manuscript.
+
+---
+
+#### 1.1.2 Article
+
+An **article** is the final, peer-reviewed, and published version of a manuscript.
+
+- It appears in a journal or conference proceedings.
+- It receives formal citation information (volume, issue, DOI).
+- It becomes part of the permanent scientific record.
+
+---
+
+#### 1.1.3 Journal
+
+A **journal** is a periodical publication dedicated to disseminating scholarly research in a specific field. Journals 
+publish issues periodically (monthly, quarterly, annually) and represent the archival record of scientific progress.
+
+**Characteristics:**
+
+| Aspect | Description |
+|--------|-------------|
+| **Frequency** | Annual or biennial events |
+| **Peer review** | Rigorous but typically single-round |
+| **Length** | Shorter (4-12 pages typical) |
+| **Turnaround** | Fast (3-6 months from submission to presentation) |
+| **Prestige** | Measured by acceptance rate, citation impact |
+| **Examples in IT** | *SIGMOD* (database conference), *ICSE* (software engineering), *OSDI* (operating systems) |
+
+Journals typically prioritize depth, reproducibility, and theoretical contribution.
+
+---
+
+#### 1.1.4 Conference Proceedings
+
+**Conference proceedings** are collections of papers presented at academic conferences. In computer science and IT, 
+conferences are often the primary publication venue, unlike many other disciplines where journals dominate.
+
+**Characteristics:**
+- Faster publication cycle
+- Emphasis on novelty and emerging results
+- Often shorter papers than journals
+- Presentation of work at a scientific meeting
+
+In IT and Computer Science, conferences often have high prestige and strong review standards.
+
+
+
+
+#### 1.1.5 Workshop Papers
+
+**Characteristics:**
+- Very focused topics
+- Shorter papers (2-6 pages)
+- Less competitive acceptance
+- Emphasis on discussion and feedback
+
+**Best for:**
+- Early-stage research
+- PhD student work
+- Emerging topics
+- Getting feedback before conference submission
+
+---
+
+#### 1.1.6 Magazine Articles
+
+**Characteristics:**
+- Practitioner-oriented
+- Less technical detail
+- Broader audience
+- Examples: *Communications of the ACM*, *IEEE Computer*
+
+**Best for:**
+- Summarizing research for broader audience
+- Industry-focused contributions
+- Opinion pieces on technology trends
+
+---
+
+#### 1.1.7 Book Chapters
+
+**Characteristics:**
+- Longer format (20-50 pages)
+- Part of edited volume
+- Comprehensive treatment of subtopic
+
+**Best for:**
+- Mature research areas
+- Comprehensive surveys
+- Positioning research in broader context
+
+---
+
+#### 1.1.8 Theses and Dissertations
+
+**Characteristics:**
+- Very long (100-300+ pages)
+- Comprehensive documentation of PhD or Master's research
+- Not peer-reviewed beyond advisor and committee
+
+**Purpose:**
+- Demonstrate research competence
+- Document complete body of work
+- Requirement for degree completion
+
+
+
+---
+
+
+
+### 1.2 Role and Purpose of Scientific Publications
+
+#### Purpose 1: Knowledge Dissemination
+
+The most fundamental purpose is to share new knowledge with the scientific community and beyond.
+
+**In IT research, this means:**
+- Describing new algorithms, architectures, or methodologies
+- Reporting experimental results and empirical findings
+- Sharing negative results (what doesn't work) to prevent wasted effort
+- Enabling others to build upon the work
+
+
+---
+
+#### Purpose 2: Establishing Priority and Claiming Discovery
+
+Scientific publication establishes who discovered something first.
+
+**The "first to publish" principle:**
+- The publication date establishes priority of discovery
+- Citation credit goes to the first publisher
+- Preprint servers (arXiv, TechRxiv) now provide even earlier priority claims
+
+
+---
+
+#### Purpose 3: Facilitating Peer Review and Quality Control
+
+The peer review process ensures quality and validity of published research.
+
+**Peer review functions:**
+- **Validation:** Experts verify methodology and conclusions
+- **Improvement:** Reviewers suggest enhancements
+- **Filtering:** Low-quality work is rejected
+- **Certification:** Publication signals quality to the community
+
+**Peer review models:**
+
+| Model | Description | Used In |
+|-------|-------------|---------|
+| Single-blind | Reviewers know authors, authors don't know reviewers | Most journals |
+| Double-blind | Reviewers and authors anonymous to each other | Many conferences |
+| Open review | Identities revealed | Emerging venues |
+
+---
+
+#### Purpose 4: Creating an Archival Record
+
+Publications create a permanent, citable record of scientific progress.
+
+**Functions of the archival record:**
+- Enables tracing the evolution of ideas
+- Provides foundation for literature reviews
+- Supports meta-analyses and systematic reviews
+- Preserves knowledge for future generations
+
+
+---
+
+#### Purpose 5: Enabling Academic Career Progression
+
+Publications are the primary metric for academic evaluation.
+
+**Used for:**
+- PhD graduation requirements
+- Faculty hiring and promotion
+- Research funding decisions
+- Department and university rankings
+
+**Metrics derived from publications:**
+- **Publication count:** Quantity of output
+- **Citation count:** Impact on the field
+- **h-index:** Combined measure of productivity and impact
+- **Venue prestige:** Where the work appears
+
+---
+
+#### Purpose 6: Facilitating Collaboration and Community Building
+
+Publications connect researchers with shared interests.
+
+**Community functions:**
+- Identifying potential collaborators
+- Finding experts for peer review
+- Building research networks
+- Establishing research communities around topics
+
+
+
+
+
+---
+
+### 1.3 Types of Scientific Publications in IT
+
+Not all papers serve the same purpose. Researchers generate different types of documents depending on the depth and 
+goal of their study.
+
+#### 1.3.1 Primary Research Articles
+
+The most common type. These papers describe an original study where the authors develop a new algorithm, system, or theory.
+
+Example: The original paper by Cerf and Kahn (1974) that formulated TCP/IP.
+
+#### 1.3.2 Review or Survey Papers
+
+These do not originate new data. Instead, they summarize and analyze dozens of existing primary articles to map out 
+the current state of a field.
+
+Purpose: To help new researchers understand the "Big Picture" of a domain like Machine Learning Security.
+
+#### 1.3.3 Case Study / Empirical Papers
+
+These focus on validating and refining existing knowledge in a real-world context.
+
+Example: Case study 1 comparing PostgreSQL and MongoDB performance. This provides samples of how theoretical 
+systems behave under specific stress.
+
+#### 1.3.4 Technical Reports and Whitepapers
+Often published by organizations (like Google, Microsoft, or IBM) or universities to share early-stage ideas or specific
+technical implementations that may not yet be ready for a formal journal.
+
+#### 1.3.5 Short Papers and Work-in-Progress Papers
+
+- Present preliminary findings.
+- Allow early feedback from the research community.
+
+---
+
+
+
+
+## 2. Structure of an Information Technology Research Manuscript
 
 A scientific research manuscript in Information Technology follows a structured format to ensure clarity, reproducibility, 
 transparency, and logical presentation of contributions. This structure enables researchers, reviewers, and 
@@ -79,17 +373,17 @@ The typical structure of an IT research manuscript includes:
 
 ---
 
-## 2. Title
+### 2.1 Title
 
-### Purpose
+#### Purpose
 The title provides a concise and precise description of the research contribution.
 
-### Characteristics
+#### Characteristics
 - 10-15 words recommended
 - Includes key variables and subject of study
 - Uses keywords that aid discoverability
 
-### Title Formulation Patterns
+#### Title Formulation Patterns
 
 In Information Systems, titles typically follow one of two patterns:
 
@@ -97,7 +391,7 @@ In Information Systems, titles typically follow one of two patterns:
 
 **Pattern 2:** [Artifact/Subject] + [Variable] + [Method/Context/Purpose/Approach]
 
-### Examples with Pattern Mapping
+**Examples with Pattern Mapping**
 
 **Example 1:**
 > **Title:** Experimental Performance Evaluation of a RESTful Service with Different Database Backends Under High Load
@@ -174,12 +468,12 @@ In Information Systems, titles typically follow one of two patterns:
 
 ---
 
-## 3. Abstract
+### 2.2 Abstract
 
-### Purpose
+#### Purpose
 The abstract summarizes the entire paper in a single paragraph (typically 150-250 words).
 
-### Structure of a Good Abstract
+#### Structure of a Good Abstract
 - Problem statement / Background
 - Research objective
 - Methodology
@@ -187,13 +481,13 @@ The abstract summarizes the entire paper in a single paragraph (typically 150-25
 - Key results
 - Main conclusion
 
-### Best Practices
+**Best Practices**
 - Write last, after completing the manuscript
 - Include quantitative results (specific numbers when possible)
 - Maximum 250-300 words (journal-dependent)
 - Avoid citations and undefined abbreviations
 
-### Case Study Example
+**Case Study Example**
 
 > **Background:** The choice of database backend significantly impacts the performance of RESTful services, yet limited empirical evidence exists comparing modern in-memory databases with traditional disk-based systems under controlled conditions.
 >
@@ -207,27 +501,27 @@ The abstract summarizes the entire paper in a single paragraph (typically 150-25
 
 ---
 
-## 4. Keywords
+### 2.3 Keywords
 
-### Purpose
+#### Purpose
 Keywords improve discoverability in digital libraries and indexing databases.
 
-### Guidelines
+#### Guidelines
 - 4-6 keywords
 - Specific technical terms
 - Avoid overly general words
 
-### Case Study Example
+**Case Study Example**
 > RESTful API; Performance Evaluation; In-Memory Database; PostgreSQL; Load Testing; Database Comparison
 
 ---
 
-## 5. Introduction
+### 2.4 Introduction
 
-### Purpose
+#### Purpose
 Introduces the research problem and motivates the study.
 
-### Typical Structure (Funnel Approach)
+#### Typical Structure (Funnel Approach)
 1. **Hook:** Start with the broader importance of the topic
 2. **Problem Statement:** Identify the specific gap or challenge
 3. **Related Work Summary:** Briefly acknowledge what's known
@@ -237,7 +531,7 @@ Introduces the research problem and motivates the study.
 7. **Contribution:** List what the paper adds
 8. **Roadmap:** Briefly outline paper structure
 
-### Case Study Example
+**Case Study Example**
 
 > Modern web applications increasingly rely on RESTful services as their architectural backbone [1, 2]. The performance of these services—particularly latency and throughput—directly impacts user experience and operational costs [3]. Among the many factors affecting service performance, database backend selection represents a critical architectural decision that system architects must navigate.
 >
@@ -257,18 +551,18 @@ Introduces the research problem and motivates the study.
 
 ---
 
-## 6. Related Work / Literature Review
+### 2.5 Related Work / Literature Review
 
-### Purpose
+#### Purpose
 Positions the research within existing scientific literature.
 
-### Objectives
+#### Objectives
 - Summarize relevant prior studies
 - Compare methodologies and findings
 - Identify research gaps
 - Justify the novelty of the proposed work
 
-### Best Practices
+**Best Practices**
 - Organize thematically, not chronologically
 - Critically evaluate, don't just summarize
 - Identify gaps your research fills
@@ -277,7 +571,7 @@ Positions the research within existing scientific literature.
 - Include both supporting and contrasting studies
 - Use reputable sources (journals, conferences)
 
-### Case Study Example
+**Case Study Example**
 
 > **2.1 Database Performance Benchmarking**
 >
@@ -297,12 +591,12 @@ Positions the research within existing scientific literature.
 
 ---
 
-## 7. Methodology / Proposed System or Approach
+### 2.6 Methodology / Proposed System or Approach
 
-### Purpose
+#### Purpose
 Describes how the research problem is addressed.
 
-### In IT Research, This May Include
+#### In IT Research, This May Include
 - System architecture
 - Algorithm design
 - RESTful service design
@@ -310,7 +604,7 @@ Describes how the research problem is addressed.
 - Data processing workflow
 - Mathematical formulation (if applicable)
 
-### Requirements
+#### Requirements
 - Clear diagrams (architecture diagrams, flowcharts)
 - Precise technical details
 - Sufficient detail for reproducibility
@@ -319,7 +613,7 @@ Describes how the research problem is addressed.
 - Explain treatment implementation
 - Address validity threats
 
-### Case Study Example
+**Case Study Example**
 
 > **3.1 Experimental Design**
 >
@@ -375,12 +669,12 @@ Describes how the research problem is addressed.
 
 ---
 
-## 8. Experimental Setup and Evaluation Methodology
+### 2.7 Experimental Setup and Evaluation Methodology
 
-### Purpose
+#### Purpose
 Explains how experiments were designed and conducted.
 
-### Must Include
+#### Must Include
 - Hardware and software environment
 - Dataset description
 - Performance metrics
@@ -389,10 +683,11 @@ Explains how experiments were designed and conducted.
 - Number of repetitions
 - Statistical testing method
 
-### Key Principle
+**Key Principle**
+
 Provide enough detail for another researcher to replicate the experiment exactly.
 
-### Case Study Example
+**Case Study Example**
 
 > **4.1 Hardware Environment**
 >
@@ -447,18 +742,18 @@ Provide enough detail for another researcher to replicate the experiment exactly
 
 ---
 
-## 9. Results and Discussion
+### 2.8 Results and Discussion
 
-### Purpose
+#### Purpose
 Presents and interprets experimental findings.
 
-### Components
+#### Components
 - Tables and graphs
 - Statistical outputs
 - Comparison between approaches
 - Interpretation of performance trade-offs
 
-### Discussion Should
+#### Discussion Should
 - Explain why results occurred
 - Connect findings to hypotheses
 - Compare results with related work
@@ -468,7 +763,7 @@ Presents and interprets experimental findings.
 - Discuss unexpected findings
 - Explain practical implications
 
-### Case Study Example
+**Case Study Example**
 
 > **5.1 Latency Results**
 >
@@ -517,12 +812,12 @@ Presents and interprets experimental findings.
 
 ---
 
-## 10. Conclusion and Future Work
+### 2.9 Conclusion and Future Work
 
-### Purpose
+#### Purpose
 Summarizes contributions and outlines research extensions.
 
-### Should Include
+#### Should Include
 - Restatement of the research objective
 - Summary of main findings
 - Confirmation or rejection of hypotheses
@@ -531,7 +826,7 @@ Summarizes contributions and outlines research extensions.
 - Suggestions for future research
 - Avoid introducing new data or references
 
-### Case Study Example
+**Case Study Example**
 
 > **6.1 Conclusion**
 >
@@ -558,31 +853,31 @@ Summarizes contributions and outlines research extensions.
 
 ---
 
-## 11. References
+### 2.10 References
 
-### Purpose
+#### Purpose
 Provides full citation of all referenced works.
 
-### Requirements
+#### Requirements
 - Follow a consistent citation style (IEEE, ACM, APA, etc.)
 - Cite only credible scientific sources
 - Ensure in-text citations match reference list
 - Avoid plagiarism
 
-### Tools
+#### Tools
 - Mendeley
 - Zotero
 - BibTeX with LaTeX
 - Overleaf reference management
 
-### Best Practices
+**Best Practices**
 - Use consistent citation style (IEEE, ACM, APA as required)
 - Include DOIs when available
 - Prioritize peer-reviewed sources
 - Balance classic and recent citations
 - Verify all citations are cited in text
 
-### Case Study Example (IEEE Style)
+**Case Study Example (IEEE Style)**
 
 > [1] R. T. Fielding and R. N. Taylor, "Principled design of the modern Web architecture," *ACM Transactions on Internet Technology*, vol. 2, no. 2, pp. 115-150, May 2002.
 >
@@ -614,7 +909,7 @@ Provides full citation of all referenced works.
 
 ---
 
-## Logical Flow of an IT Research Manuscript
+### 2.11 Logical Flow of an IT Research Manuscript
 
 **Problem → Literature Gap → Proposed Method → Experimental Design → Results → Interpretation → Contribution**
 
@@ -626,3 +921,7 @@ This logical flow ensures that:
 - Results are objectively presented
 - Interpretation connects findings back to the problem
 - Contributions are clearly stated
+
+## Case Study 1: System Implementation
+
+[Case Study 1: Database Backend Performance in a RESTful Service](../module2/case-study-1-assignment1/README.md#case-study-1-performance-evaluation-of-restful-service-with-different-database-backends)
