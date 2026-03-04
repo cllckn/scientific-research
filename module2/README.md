@@ -565,7 +565,7 @@ Example:
 
 Compute mean and standard deviation of these p95 values.
 
-$ \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i $
+$$ \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i $$
 
 Mean: (210 + 225 + 215)/3 = 216.7 ms
 
