@@ -1,8 +1,8 @@
-# Module 2: Experimental Research in Information Technology, Scientific Publications
+# Module 2: Experimental Research in Information Technology
 
 
 <!-- TOC -->
-* [Module 2: Experimental Research in Information Technology, Scientific Publications](#module-2-experimental-research-in-information-technology-scientific-publications)
+* [Module 2: Experimental Research in Information Technology](#module-2-experimental-research-in-information-technology)
   * [Experimental Research in Information Technology](#experimental-research-in-information-technology)
     * [Key Components of Experimental Research](#key-components-of-experimental-research)
     * [Types of Experimental Research in Information Technology](#types-of-experimental-research-in-information-technology)
@@ -20,6 +20,8 @@
     * [4. Measurement and Instruments](#4-measurement-and-instruments)
       * [Benchmarking Procedure:](#benchmarking-procedure)
     * [5. Data Analysis and Conclusion](#5-data-analysis-and-conclusion)
+    * [6. Experimental Variability in Performance Testing](#6-experimental-variability-in-performance-testing)
+      * [How to Obtain Validated Insights](#how-to-obtain-validated-insights)
     * [Summary Alignment](#summary-alignment)
 <!-- TOC -->
 
@@ -242,7 +244,15 @@ destination in a given time frame.
 
 >In an ideal world: Request throughput ≈ Response throughput (all requests succeed)
 > 
->In reality: As load increases, response throughput may plateau or drop while request throughput continues to increase
+>In reality: As load increases, response throughput may plateau or drop while request throughput continues to increase.
+
+> Saturation is confirmed when:
+>- Throughput plateaus
+>- Latency increases sharply
+>- Error rate rises
+>- CPU utilization approaches high levels
+>
+>Do not determine saturation from a single spike.
 
 
 Artillery latency percentiles are computed only over completed responses; under overload, requests may fail before 
@@ -452,6 +462,141 @@ For each concurrency level [10, 50, 100, 200]:
 
 This leads to a Validated Insight: "In-memory databases are superior for high-throughput, low-latency requirements 
 where data persistence is not the primary concern."
+
+---
+
+### 6. Experimental Variability in Performance Testing
+
+Even when using the exact same load-testing configuration, repeated experiments may produce different results.  
+This is expected behavior in performance engineering due to inherent system variability and stochastic effects.
+
+
+> Stochastic effects in performance testing refer to inherent randomness in system execution timing. A sandbox 
+> environment is necessary to control external variability, ensure reproducibility, and produce 
+> scientifically valid performance measurements.
+
+
+**Why Results Differ**
+
+1. System-Level Variability
+- CPU scheduling differences
+- Background operating system processes
+- Garbage collection timing (Node.js / JVM)
+- Disk caching and I/O fluctuations
+- Network jitter
+
+These introduce runtime noise.
+
+---
+
+2. Database Internal State
+- Warm vs cold cache
+- Buffer pool state
+- Query plan caching
+- Lock contention timing
+
+Database performance can vary depending on internal memory state and previous workload.
+
+---
+
+3. Load Generator Variability
+- Virtual user scheduling jitter
+- Event loop timing
+- TCP connection reuse behavior
+
+The configured arrival rate is a target value and cannot be perfectly deterministic.
+
+---
+
+4. Nonlinear Behavior Near Saturation
+
+Near saturation:
+- Small timing differences
+- Minor garbage collection pauses
+- Slight queue buildup
+
+may cause:
+- Large latency spikes
+- Different failure rates
+
+According to queuing theory, variance increases rapidly as utilization approaches system capacity.
+
+---
+
+#### How to Obtain Validated Insights
+
+1. Run Multiple Trials
+
+- Execute each experiment at least 3–5 times
+- Keep configuration identical
+- Restart services between runs if required
+
+---
+
+2. Prefer Steady-State Testing
+
+Use fixed-load testing phases to observe stable behavior.  
+Ramp-only tests are useful for detecting limits but less suitable for statistical comparison.
+
+```yaml
+phases:
+  - duration: 60
+    arrivalRate: 50
+```
+
+
+---
+
+3. Report Statistical Summary
+
+Instead of reporting a single value:
+
+- Calculate mean across runs
+- Compute standard deviation
+- Optionally compute confidence intervals
+
+Example:
+
+| Run | p95 Latency (ms) |
+|------|------------------|
+| 1    | 210 |
+| 2    | 225 |
+| 3    | 215 |
+
+Compute mean and standard deviation of these p95 values.
+
+$ \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i $
+
+Mean: (210 + 225 + 215)/3 = 216.7 ms
+
+$$s = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}}$$
+
+Std Dev: sqrt(((210–216.7)² + (225–216.7)² + (215–216.7)²)/2) ≈ 7.6 ms
+
+
+* Collect all individual request latencies.
+* Compute standard deviation of all latencies — this describes overall spread.
+* Report percentiles (p50, p95, p99) alongside mean ± std dev for full picture.
+
+
+4. Use Sandbox
+
+A sandbox (test environment) is essential for performance experiments because it ensures isolation, reproducibility, 
+safety, and experimental validity.
+
+* Isolation prevents interference from external workloads that could distort results. 
+* Reproducibility requires a controlled and stable setup so experiments can be repeated under identical conditions. 
+* Safety ensures that load or stress testing does not impact production systems or real users. 
+* Most importantly, a sandbox allows strict control of variables, ensuring that observed performance differences are 
+caused by the tested factors rather than environmental noise.
+
+  A sandbox can be:
+
+- A separate physical machine
+- A virtual machine (VM)
+- A cloud instance
+- A Docker container
+- A Kubernetes namespace
 
 ---
 
