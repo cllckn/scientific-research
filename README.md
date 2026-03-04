@@ -29,7 +29,7 @@ This course aims to:
 
 ---
 
-## Learning Outcomes
+## Course Learning Outcomes
 
 Upon successful completion of this course, students will be able to: 
 
@@ -62,16 +62,11 @@ Upon successful completion of this course, students will be able to:
 
 ---
 
-### Module 2: Experimental Research in Information Technology, Scientific Publications
+### Module 2: Experimental Research in Information Technology
 
 * Experimental Research in Information Technology
   * Key Components of Experimental Research
   * Types of Experimental Research in Information Technology
-- Scientific publications in IT 
-  - Terminology: manuscript, article, journal, conference proceedings
-  - Role and purpose of scientific publications
-  - Types of scientific publications in IT
-    
 
 **Case Study 1 (Part A): Research Design**
   - Overview of RESTful API architecture and data-layer design
@@ -80,19 +75,23 @@ Upon successful completion of this course, students will be able to:
 
 ---
 
-### Module 3: Structure of an Information Technology Research Manuscript, Experimental Implementation
+### Module 3: Scientific publications in IT & Structure of an Information Technology Research Manuscript, Experimental Implementation
 
+- Scientific publications in IT
+  - Terminology: manuscript, article, journal, conference proceedings
+  - Role and purpose of scientific publications
+  - Types of scientific publications in IT
 - Standard structure of an IT research manuscript
-    - Title
-    - Abstract
-    - Keywords
-    - Introduction
-    - Related work / literature review
-    - Methodology / proposed system or approach
-    - Experimental setup and evaluation methodology
-    - Results and discussion
-    - Conclusion and future work
-    - References
+  - Title
+  - Abstract
+  - Keywords
+  - Introduction
+  - Related work / literature review
+  - Methodology / proposed system or approach
+  - Experimental setup and evaluation methodology
+  - Results and discussion
+  - Conclusion and future work
+  - References
 
 **Case Study 1 (Part B): System Implementation**
 * Implementation of the experimental testbed for Case Study 1
