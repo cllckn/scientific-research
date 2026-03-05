@@ -27,37 +27,28 @@
       * [1.3.5 Short Papers and Work-in-Progress Papers](#135-short-papers-and-work-in-progress-papers)
   * [2. Structure of an Information Technology Research Manuscript](#2-structure-of-an-information-technology-research-manuscript)
     * [2.1 Title](#21-title)
-      * [Purpose](#purpose)
       * [Characteristics](#characteristics)
       * [Title Formulation Patterns](#title-formulation-patterns)
     * [2.2 Abstract](#22-abstract)
-      * [Purpose](#purpose-1)
       * [Structure of a Good Abstract](#structure-of-a-good-abstract)
     * [2.3 Keywords](#23-keywords)
-      * [Purpose](#purpose-2)
       * [Guidelines](#guidelines)
     * [2.4 Introduction](#24-introduction)
-      * [Purpose](#purpose-3)
       * [Typical Structure (Funnel Approach)](#typical-structure-funnel-approach)
     * [2.5 Related Work / Literature Review](#25-related-work--literature-review)
-      * [Purpose](#purpose-4)
       * [Objectives](#objectives)
     * [2.6 Methodology / Proposed System or Approach](#26-methodology--proposed-system-or-approach)
-      * [Purpose](#purpose-5)
+      * [Purpose](#purpose)
       * [In IT Research, This May Include](#in-it-research-this-may-include)
       * [Requirements](#requirements)
-    * [2.7 Experimental Setup and Evaluation Methodology](#27-experimental-setup-and-evaluation-methodology)
-      * [Purpose](#purpose-6)
-      * [Must Include](#must-include)
+      * [3.2.3 Data Model](#323-data-model)
     * [2.8 Results and Discussion](#28-results-and-discussion)
-      * [Purpose](#purpose-7)
       * [Components](#components)
       * [Discussion Should](#discussion-should)
     * [2.9 Conclusion and Future Work](#29-conclusion-and-future-work)
-      * [Purpose](#purpose-8)
+      * [Purpose](#purpose-1)
       * [Should Include](#should-include)
     * [2.10 References](#210-references)
-      * [Purpose](#purpose-9)
       * [Requirements](#requirements-1)
       * [Tools](#tools)
     * [2.11 Logical Flow of an IT Research Manuscript](#211-logical-flow-of-an-it-research-manuscript)
@@ -691,8 +682,7 @@ Both database implementations share an identical user schema:
   createdAt: { type: 'timestamp', defaultValue: 'now()' },
   updatedAt: { type: 'timestamp', defaultValue: 'now()' }
 }
-> 
-
+```
 
 
 
