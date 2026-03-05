@@ -16,7 +16,7 @@
       * [Purpose 1: Knowledge Dissemination](#purpose-1-knowledge-dissemination)
       * [Purpose 2: Establishing Priority and Claiming Discovery](#purpose-2-establishing-priority-and-claiming-discovery)
       * [Purpose 3: Facilitating Peer Review and Quality Control](#purpose-3-facilitating-peer-review-and-quality-control)
-      * [Purpose 4: Creating an Archival Record](#purpose-4-creating-an-archival-record)
+      * [Purpose 4: Forming an Archival Record](#purpose-4-forming-an-archival-record)
       * [Purpose 5: Enabling Academic Career Progression](#purpose-5-enabling-academic-career-progression)
       * [Purpose 6: Facilitating Collaboration and Community Building](#purpose-6-facilitating-collaboration-and-community-building)
     * [1.3 Types of Scientific Publications in IT](#13-types-of-scientific-publications-in-it)
@@ -70,6 +70,21 @@
 
 ## 1. Scientific Publications in Information Technology (IT)
 
+
+![Scientific Research Lifecycle](../resources/images/st-scientific-research-lifecycle.png)
+
+
+
+**7. Dissemination & Peer Review**
+- Communicating findings through papers, theses, reports, presentations
+- Submitting to peer-reviewed venues (conferences, journals)
+- Responding to critique and revising work based on feedback
+- Sharing artifacts (code, data) for reproducibility
+
+The outcome is **generalizable, verifiable, and reproducible knowledge**
+
+
+
 Scientific publications are the primary mechanism for communicating validated research results in Information 
 Technology (IT). They ensure that new findings, experimental results, system designs, and theoretical advancements are 
 formally documented, peer-reviewed, and archived for the scientific community.
@@ -113,28 +128,28 @@ as a manuscript.
 An **article** is the final, peer-reviewed, and published version of a manuscript.
 
 - It appears in a journal or conference proceedings.
-- It receives formal citation information (volume, issue, DOI).
-- It becomes part of the permanent scientific record.
+- It receives formal citation information (volume, issue, DOI). Assigned a permanent identifier (DOI - Digital Object Identifier)
+- Formally published and citable
+- Has undergone peer review (for scholarly articles)
+- Part of the permanent scientific record
 
 ---
 
 #### 1.1.3 Journal
 
-A **journal** is a periodical publication dedicated to disseminating scholarly research in a specific field. Journals 
-publish issues periodically (monthly, quarterly, annually) and represent the archival record of scientific progress.
+A **journal** is a periodical publication dedicated to disseminating scholarly research in a specific field, containing 
+articles. Journals publish issues periodically (monthly, quarterly, annually) and represent the archival record of 
+scientific progress.
 
 **Characteristics:**
 
-| Aspect | Description |
-|--------|-------------|
-| **Frequency** | Annual or biennial events |
-| **Peer review** | Rigorous but typically single-round |
-| **Length** | Shorter (4-12 pages typical) |
-| **Turnaround** | Fast (3-6 months from submission to presentation) |
-| **Prestige** | Measured by acceptance rate, citation impact |
-| **Examples in IT** | *SIGMOD* (database conference), *ICSE* (software engineering), *OSDI* (operating systems) |
 
-Journals typically prioritize depth, reproducibility, and theoretical contribution.
+- Slow publication cycle (months to years from submission to publication).
+- Peer-review process is rigorous and often multiple rounds .
+- Prioritizes depth, reproducibility, and theoretical contribution.
+- Length is typically 10-30 pages per article.
+- Prestige is measured by impact factor, citation metrics.
+
 
 ---
 
@@ -144,12 +159,14 @@ Journals typically prioritize depth, reproducibility, and theoretical contributi
 conferences are often the primary publication venue, unlike many other disciplines where journals dominate.
 
 **Characteristics:**
-- Faster publication cycle
-- Emphasis on novelty and emerging results
-- Often shorter papers than journals
-- Presentation of work at a scientific meeting
 
-In IT and Computer Science, conferences often have high prestige and strong review standards.
+- Faster publication cycle (3-6 months from submission to presentation).
+- Peer-review process is rigorous but typically single-round.
+- Emphasis on novelty and emerging results.
+- Often shorter papers than journals (4-12 pages typical).
+- Prestige is measured by acceptance rate, citation impact.
+- Presentation of work at a scientific meeting.
+
 
 
 
@@ -176,7 +193,6 @@ In IT and Computer Science, conferences often have high prestige and strong revi
 - Practitioner-oriented
 - Less technical detail
 - Broader audience
-- Examples: *Communications of the ACM*, *IEEE Computer*
 
 **Best for:**
 - Summarizing research for broader audience
@@ -246,7 +262,9 @@ Scientific publication establishes who discovered something first.
 
 #### Purpose 3: Facilitating Peer Review and Quality Control
 
-The peer review process ensures quality and validity of published research.
+Peer review is evaluation of academic work by independent experts to ensure **quality, validity, and 
+scientific rigor** before publication.
+
 
 **Peer review functions:**
 - **Validation:** Experts verify methodology and conclusions
@@ -264,9 +282,9 @@ The peer review process ensures quality and validity of published research.
 
 ---
 
-#### Purpose 4: Creating an Archival Record
+#### Purpose 4: Forming an Archival Record
 
-Publications create a permanent, citable record of scientific progress.
+Publications form a permanent, citable record of scientific progress.
 
 **Functions of the archival record:**
 - Enables tracing the evolution of ideas
@@ -291,7 +309,6 @@ Publications are the primary metric for academic evaluation.
 - **Publication count:** Quantity of output
 - **Citation count:** Impact on the field
 - **h-index:** Combined measure of productivity and impact
-- **Venue prestige:** Where the work appears
 
 ---
 
@@ -375,7 +392,7 @@ The typical structure of an IT research manuscript includes:
 
 ### 2.1 Title
 
-#### Purpose
+
 The title provides a concise and precise description of the research contribution.
 
 #### Characteristics
@@ -470,7 +487,7 @@ In Information Systems, titles typically follow one of two patterns:
 
 ### 2.2 Abstract
 
-#### Purpose
+
 The abstract summarizes the entire paper in a single paragraph (typically 150-250 words).
 
 #### Structure of a Good Abstract
@@ -489,21 +506,21 @@ The abstract summarizes the entire paper in a single paragraph (typically 150-25
 
 **Case Study Example**
 
-> **Background:** The choice of database backend significantly impacts the performance of RESTful services, yet limited empirical evidence exists comparing modern in-memory databases with traditional disk-based systems under controlled conditions.
+> [**Background:**] The choice of database backend significantly impacts the performance of RESTful services, yet limited empirical evidence exists comparing modern in-memory databases with traditional disk-based systems under controlled conditions.
 >
-> **Objective:** This study investigates whether replacing PostgreSQL with an in-memory database improves latency and throughput for RESTful services under identical workloads.
+> [**Objective:**] This study investigates whether replacing PostgreSQL with an in-memory database improves latency and throughput for RESTful services under identical workloads.
 >
-> **Method:** We deployed identical RESTful service instances with two database configurations: Treatment A (in-memory database) and Treatment B (PostgreSQL as baseline). Using Artillery as a load-testing tool, we generated controlled workloads and measured p50, p95, and p99 latency percentiles, throughput (requests/second), and error rates across multiple test runs.
+> [**Method:**] We deployed identical RESTful service instances with two database configurations: Treatment A (in-memory database) and Treatment B (PostgreSQL as baseline). Using Artillery as a load-testing tool, we generated controlled workloads and measured p50, p95, and p99 latency percentiles, throughput (requests/second), and error rates across multiple test runs.
 >
-> **Results:** The in-memory configuration demonstrated 45% lower p95 latency (12ms vs. 22ms) and 2.3× higher throughput (1,850 RPS vs. 804 RPS) compared to PostgreSQL under high load, with comparable error rates (<0.1%). Statistical analysis confirmed significance (p < 0.01).
+> [**Results:**] The in-memory configuration demonstrated 45% lower p95 latency (12ms vs. 22ms) and 2.3× higher throughput (1,850 RPS vs. 804 RPS) compared to PostgreSQL under high load, with comparable error rates (<0.1%). Statistical analysis confirmed significance (p < 0.01).
 >
-> **Conclusion:** In-memory databases provide superior performance for high-throughput, low-latency requirements where data persistence is not the primary concern, offering actionable insights for system architects making technology choices.
+> [**Conclusion:**] In-memory databases provide superior performance for high-throughput, low-latency requirements where data persistence is not the primary concern, offering actionable insights for system architects making technology choices.
 
 ---
 
 ### 2.3 Keywords
 
-#### Purpose
+
 Keywords improve discoverability in digital libraries and indexing databases.
 
 #### Guidelines
@@ -518,42 +535,47 @@ Keywords improve discoverability in digital libraries and indexing databases.
 
 ### 2.4 Introduction
 
-#### Purpose
+
 Introduces the research problem and motivates the study.
 
 #### Typical Structure (Funnel Approach)
-1. **Hook:** Start with the broader importance of the topic
+1. **Background:** Start with the broader importance of the topic
 2. **Problem Statement:** Identify the specific gap or challenge
 3. **Related Work Summary:** Briefly acknowledge what's known
 4. **Research Gap:** Clearly state what's missing
 5. **Objective/Purpose:** Present your study's aim
-6. **Research Question & Hypotheses:** State formally
-7. **Contribution:** List what the paper adds
-8. **Roadmap:** Briefly outline paper structure
+6. **Contribution:** List what the paper adds
+7. **Roadmap:** Briefly outline paper structure
 
 **Case Study Example**
 
-> Modern web applications increasingly rely on RESTful services as their architectural backbone [1, 2]. The performance of these services—particularly latency and throughput—directly impacts user experience and operational costs [3]. Among the many factors affecting service performance, database backend selection represents a critical architectural decision that system architects must navigate.
+> Modern web applications increasingly rely on RESTful services as their architectural backbone [1, 2]. 
+> The performance of these services—particularly latency and throughput—directly impacts user experience and 
+> operational costs [3]. Among the many factors affecting service performance, database backend selection represents 
+> a critical architectural decision that system architects must navigate.
 >
-> Traditional disk-based relational databases like PostgreSQL have long served as the industry standard for data persistence [4]. However, the emergence of in-memory databases promises significant performance improvements by eliminating disk I/O bottlenecks [5]. While theoretical advantages are well-documented, limited empirical research directly compares these technologies under controlled, reproducible conditions with identical RESTful service implementations.
+> Traditional disk-based relational databases like PostgreSQL have long served as the industry standard for data 
+> persistence [4]. 
+> However, the emergence of in-memory databases promises significant performance improvements by eliminating disk I/O 
+> bottlenecks [5]. While theoretical advantages are well-documented, limited empirical research directly compares these 
+> technologies under controlled, reproducible conditions with identical RESTful service implementations.
 >
-> This study addresses this gap through a controlled experiment comparing two database backends: an in-memory database (Treatment A) versus PostgreSQL (Treatment B, serving as baseline). We investigate whether, and to what extent, in-memory databases improve key performance metrics under identical workload conditions.
+> This study addresses this gap through a controlled experiment comparing two database backends: an in-memory database 
+> (Treatment A) versus PostgreSQL (Treatment B, serving as baseline). We investigate whether, and to what extent, 
+> in-memory databases improve key performance metrics under identical workload conditions.
 >
-> **Research Question:** Does using an in-memory database result in lower latency and higher throughput for a RESTful service compared to PostgreSQL under the same workload?
->
-> **Hypotheses:**
-> - **H₁:** A RESTful service backed by an in-memory database will exhibit lower p95 latency and higher throughput than the same service backed by PostgreSQL under high load.
-> - **H₀:** There is no statistically significant difference in performance between in-memory database and PostgreSQL backends.
->
-> This research contributes: (1) empirical performance data comparing these technologies, (2) a reproducible benchmarking methodology for RESTful services, and (3) actionable insights for system architects facing database selection decisions.
->
+>The main contributions of this study are as follows:
+>(1) providing empirical performance evidence comparing the selected database technologies;
+>(2) proposing a reproducible and systematic benchmarking methodology for RESTful services; and
+>(3) delivering practical, data-driven insights to support informed database selection decisions by system architects.
+> 
 > Section 2 reviews related work; Section 3 details our experimental methodology; Section 4 presents results; Section 5 discusses implications; Section 6 concludes with future work directions.
 
 ---
 
 ### 2.5 Related Work / Literature Review
 
-#### Purpose
+
 Positions the research within existing scientific literature.
 
 #### Objectives
@@ -615,136 +637,73 @@ Describes how the research problem is addressed.
 
 **Case Study Example**
 
-> **3.1 Experimental Design**
+
+
+> 3. Proposed System Architecture
+> 
+> 3.1 System Overview
+> 
+> This study proposes a controlled experimental framework for evaluating the performance of RESTful services with 
+> different database backends. The approach consists of three primary components: (1) a RESTful service implementation 
+> with interchangeable database connectors, (2) two distinct database backend configurations (in-memory and PostgreSQL), 
+> and (3) a workload generation and metrics collection framework. Figure 1 illustrates the high-level architecture of 
+> the proposed experimental system.
+> 
+> **Figure 1.** System Architecture for Comparative Database Performance Evaluation
+> 
+> 3.2 RESTful Service Design
+> 3.2.1 Service Architecture
+> The RESTful service is implemented using Node.js (version 18.12) with the Express framework (version 4.18). This technology stack was selected due to its widespread adoption in industry, mature ecosystem, and non-blocking I/O model that enables high-concurrency handling—characteristics representative of modern RESTful service implementations.
+
+>The service exposes five standard RESTful endpoints that mirror typical CRUD operations found in production systems:
 >
-> This study employs a controlled comparative experimental design with two treatment conditions:
-> - **Treatment A:** RESTful service with in-memory database backend
-> - **Treatment B:** RESTful service with PostgreSQL backend (baseline)
->
-> The independent variable is the database backend type. Dependent variables include latency percentiles (p50, p95, p99), throughput (requests per second), and error rate.
->
-> **3.2 System Architecture**
->
-> Both treatment conditions share identical service logic implemented as a Node.js RESTful API with the following endpoints:
 > - `GET /users` - retrieve all users (read operation)
 > - `GET /users/:id` - retrieve single user (read)
-> - `POST /users` - create new user (write)
+> - `POST /users` - add new user (write)
 > - `PUT /users/:id` - update user (write)
 > - `DELETE /users/:id` - delete user (write)
->
-> The service connects to either (a) Redis (in-memory) or (b) PostgreSQL using appropriate drivers, with connection pooling configured identically (minimum 5, maximum 20 connections).
->
-> **3.3 Database Configuration**
->
-> *PostgreSQL Configuration (Treatment B/Baseline):*
-> - Version 14.5
-> - Configuration: default production settings
-> - Storage: SSD-backed persistent volume
-> - Buffer pool: 4GB (25% of available RAM)
->
-> *In-Memory Database Configuration (Treatment A):*
-> - Redis 7.0 (chosen for mature RESTful integration)
-> - Configuration: default production settings
-> - Persistence: disabled (pure in-memory operation)
-> - Max memory: 4GB allocation
->
-> **3.4 Data Model and Initial Population**
->
-> Both databases implement an identical user schema (id, name, email, createdAt, updatedAt). Each database is pre-populated with 10,000 user records to ensure realistic query patterns before benchmarking begins.
->
-> **3.5 Workload Design**
->
-> The benchmark workload simulates a realistic read-heavy pattern (80% reads, 20% writes) based on industry observations [14]:
-> - 40%: `GET /users` (list all - page size 20)
-> - 40%: `GET /users/:id` (single record)
-> - 10%: `POST /users` (create)
-> - 5%: `PUT /users/:id` (update)
-> - 5%: `DELETE /users/:id` (delete)
->
-> **3.6 Threats to Validity**
->
-> - *Internal validity:* We control for confounding by using identical hardware, identical service code, and randomized test order
-> - *External validity:* Results may not generalize to different workload patterns (e.g., write-heavy), different data sizes, or different cloud environments
-> - *Construct validity:* Multiple metrics (latency, throughput, errors) triangulate the "performance" construct
+> 
+> 
+> 
 
----
 
-### 2.7 Experimental Setup and Evaluation Methodology
 
-#### Purpose
-Explains how experiments were designed and conducted.
+> 3.2.2 Database Abstraction Layer
 
-#### Must Include
-- Hardware and software environment
-- Dataset description
-- Performance metrics
-- Hypotheses
-- Controlled variables
-- Number of repetitions
-- Statistical testing method
+To ensure that the database backend is the only variable between treatment conditions, the service implements a database abstraction layer that provides identical interfaces regardless of the underlying database. This layer encapsulates:
 
-**Key Principle**
+- **Connection management:** Pool configuration (minimum 5, maximum 20 connections)
+- **Query construction:** Parameterized queries to prevent SQL injection and ensure consistency
+- **Data mapping:** Transformation of database results to uniform JSON responses
+- **Error handling:** Consistent error propagation and logging
 
-Provide enough detail for another researcher to replicate the experiment exactly.
+The abstraction layer implements the Repository pattern, isolating data access logic from business logic and enabling seamless switching between database backends without modifying the core service logic.
 
-**Case Study Example**
+#### 3.2.3 Data Model
 
-> **4.1 Hardware Environment**
->
-> All experiments were conducted on identical AWS EC2 instances:
-> - **Service Host:** t3.medium (2 vCPU, 4GB RAM), Amazon Linux 2
-> - **Database Hosts:** t3.medium (2 vCPU, 4GB RAM), Amazon Linux 2
-> - **Load Generator:** c5.large (2 vCPU, 8GB RAM), Amazon Linux 2
->
-> Instances were provisioned in the same availability zone to minimize network latency variability.
->
-> **4.2 Software Stack**
->
-> - RESTful Service: Node.js 18.12, Express 4.18
-> - PostgreSQL: 14.5 with default configuration
-> - Redis: 7.0 with default configuration (persistence disabled)
-> - Load Testing: Artillery 2.0
-> - Monitoring: Node exporter, Prometheus, Grafana
->
-> **4.3 Load Generation Parameters**
->
-> Artillery was configured with:
-> - Ramp-up period: 60 seconds (gradually increasing load)
-> - Sustained load: 300 seconds (5 minutes)
-> - Target virtual users: 100 concurrent
-> - Arrival rate: 100 new users/second
->
-> **4.4 Experimental Procedure**
->
-> For each treatment condition:
-> 1. Clean provision of all instances
-> 2. Database initialization and data population
-> 3. Service deployment and warm-up (100 requests)
-> 4. 5-minute stabilization period
-> 5. Benchmark execution with metrics collection
-> 6. Cool-down and log collection
-> 7. Repeat 10 times per treatment (total 20 runs)
->
-> **4.5 Metrics Collection**
->
-> - **Latency:** Captured at p50, p95, p99 percentiles (milliseconds)
-> - **Throughput:** Requests per second (RPS), averaged over 10-second windows
-> - **Error rate:** Percentage of non-2xx responses
-> - **Resource metrics:** CPU, memory, disk I/O (15-second sampling intervals)
->
-> **4.6 Statistical Analysis**
->
-> - Descriptive statistics (mean, median, SD) calculated for all metrics
-> - Independent samples t-test for throughput comparison
-> - Mann-Whitney U test for latency distributions (non-normal)
-> - Significance threshold: α = 0.05
-> - Effect size: Cohen's d for practical significance
+Both database implementations share an identical user schema:
+
+```javascript
+{
+  id: { type: 'integer', primaryKey: true, autoIncrement: true },
+  name: { type: 'string', length: 100, required: true },
+  email: { type: 'string', length: 255, required: true, unique: true },
+  createdAt: { type: 'timestamp', defaultValue: 'now()' },
+  updatedAt: { type: 'timestamp', defaultValue: 'now()' }
+}
+> 
+
+
+
+
+
+
 
 ---
 
 ### 2.8 Results and Discussion
 
-#### Purpose
+
 Presents and interprets experimental findings.
 
 #### Components
@@ -855,7 +814,7 @@ Summarizes contributions and outlines research extensions.
 
 ### 2.10 References
 
-#### Purpose
+
 Provides full citation of all referenced works.
 
 #### Requirements
@@ -906,6 +865,13 @@ Provides full citation of all referenced works.
 > [13] A. Kumar and P. Singh, "Performance comparison of MySQL and Redis as backend databases for REST APIs," *International Journal of Computer Applications*, vol. 175, no. 12, pp. 25-30, 2020.
 >
 > [14] R. Nishtala et al., "Scaling Memcache at Facebook," in *Proceedings of the 10th USENIX Symposium on Networked Systems Design and Implementation*, 2013, pp. 385-398.
+
+
+
+[References in BibTeX Format](../resources/docs/references.bib)
+
+>BibTeX is a reference management system used primarily with LaTeX to format citations and bibliographies automatically.
+
 
 ---
 
