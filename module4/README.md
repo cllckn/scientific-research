@@ -28,6 +28,9 @@
 
 The academic publication workflow describes the standard process through which research manuscripts are evaluated and published in journals or conference proceedings.
 
+<img src="../resources/images/academic-publication-workflow.png" width="80%" ></img>
+
+
 ### Paper Submission Systems
 
 Most academic journals and conferences use online submission platforms such as Editorial Manager, ScholarOne, or EasyChair. These systems allow authors to submit manuscripts, upload supplementary materials, track the review process, and communicate with editors.
@@ -56,6 +59,9 @@ Based on reviewer evaluations, the editor makes one of the following decisions:
 Ethical practices are essential to maintain integrity and trust in scientific research. 
 Key ethical considerations include:
 
+<img src="../resources/images/ethical-considerations.png" width="80%" ></img>
+
+
 - **Avoiding plagiarism:** Properly citing and acknowledging all sources.
 - **Authorship integrity:** Listing only contributors who made substantial intellectual contributions.
 - **Data transparency:** Reporting methods and results honestly without fabrication or manipulation.
@@ -71,8 +77,10 @@ Adhering to these principles ensures credibility and reliability in academic pub
 ### Data-Driven Research in Information Technology
 
 Data-driven research focuses on extracting insights, patterns, or predictions from data using computational methods and 
-algorithms. In Information Technology, this approach is widely used in areas such as machine learning, data mining, 
-recommender systems, and network analytics.
+algorithms. 
+
+Artificial Intelligence (AI) and Machine Learning(ML) are commonly used within this approach.
+
 
 The research process typically involves collecting or selecting a dataset, preprocessing the data, applying algorithms 
 or analytical models, and evaluating the results using appropriate performance metrics. These metrics may include 
@@ -80,16 +88,6 @@ accuracy, precision, recall, F1-score, or other domain-specific measures.
 
 Data-driven research enables researchers to develop intelligent systems, improve decision-making processes, and 
 uncover hidden relationships within large-scale datasets.
-
-
-
-
-
-
-
-
-
-
 
 
 ### Introduction To Machine Learning?
@@ -111,11 +109,15 @@ So, ML is a way to teach computers to learn from data instead of giving them ste
 Machine learning algorithms can generally be grouped into three major categories: supervised learning,
 unsupervised learning, and reinforcement learning.
 
+<img src="../resources/images/ml-algorithm-types.png" width="80%" ></img>
+
+
 **Supervised Learning**
 
 In supervised learning, models are trained on labeled data — where both input and output are known.
 Supervised learning problems are generally divided into two main types:
 
+<img src="../resources/images/classification-regression.png" width="80%" ></img>
 
 - **Classification problem**  
   Used when the output is a discrete category or class.
@@ -130,8 +132,7 @@ Supervised learning problems are generally divided into two main types:
     * Predicts **continuous values** (e.g., predicting house prices based on area and location).
     * **Example:** Stock price prediction, temperature forecasting.
 
-
-
+    
 **Unsupervised Learning**
 
 Unsupervised learning deals with unlabeled data — the goal is to find hidden patterns or groupings.
