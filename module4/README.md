@@ -17,10 +17,9 @@
       * [Neural Networks & Deep Learning](#neural-networks--deep-learning)
     * [A General Framework for Developing Machine Learning-Based Algorithms](#a-general-framework-for-developing-machine-learning-based-algorithms)
     * [Case Study: Linear Regression for Estimating House Prices](#case-study-linear-regression-for-estimating-house-prices)
-    * [Common ML Algorithms and Their Implementation](#common-ml-algorithms-and-their-implementation)
+    * [Comparative Evaluation of Machine Learning Algorithms Using the Iris Dataset](#comparative-evaluation-of-machine-learning-algorithms-using-the-iris-dataset)
       * [Iris Dataset](#iris-dataset)
       * [Logistic Regression](#logistic-regression)
-      * [Support Vector Machine (SVM)](#support-vector-machine-svm)
 <!-- TOC -->
 
 
@@ -491,13 +490,14 @@ print("=" * 52)
 3. Display "House Price Predictor is ready"
 
 4. LOOP:
+
    a. Ask user to enter:
-   - square footage
+   - area
    - number of bedrooms
 
    b. Convert input to numeric values
 
-   c. Create input array for prediction: `[[sqft, bedrooms]]`
+   c. Create input array for prediction: `[[area, bedrooms]]`
 
    d. Predict house price using `model.predict()`
 
@@ -563,7 +563,16 @@ while True:
 
 
 
-### Common ML Algorithms and Their Implementation
+### Comparative Evaluation of Machine Learning Algorithms Using the Iris Dataset
+
+This case study compares the performance of two classification algorithms, Logistic Regression (LR) and Support Vector
+Machines (SVM), using the Iris dataset. Both models are trained and evaluated under the same conditions, and their
+accuracy and performance characteristics are analyzed. The study illustrates data-driven research, controlled
+experimentation, and evidence-based comparison of algorithms in machine learning.
+
+![](../resources/images/st-case-study-2-big-picture.png)
+
+
 
 #### Iris Dataset
 
@@ -572,6 +581,9 @@ https://www.kaggle.com/datasets/uciml/iris
 This application uses the **Iris dataset**, a classical dataset in the field of machine learning and pattern recognition.
 It consists of 150 samples of iris flowers from three different species: *Iris setosa*, *Iris versicolor*,
 and *Iris virginica*.
+
+<img src="../resources/images/iris-dataset.png" width="80%" ></img>
+
 
 Each sample includes the following numerical features:
 
@@ -599,60 +611,97 @@ In the following  apps, only **Sepal Length** and **Sepal Width** are used as in
 
 #### Logistic Regression
 
+* Training and Evaluation
+
 ```python
 # -----------------------------
 # Import necessary libraries
 # -----------------------------
-import numpy as np
-import matplotlib.pyplot as plt
-import joblib                                     # For saving model and scaler
-from sklearn import datasets
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report
+import numpy as np                                # NumPy: used for numerical operations and array manipulation
+import matplotlib.pyplot as plt                   # Matplotlib: used for plotting graphs and visualizations
+import joblib                                     # Joblib: used to save/load trained models and scalers to disk
+from sklearn import datasets                      # Scikit-learn datasets: provides built-in datasets like Iris
+from sklearn.model_selection import train_test_split  # Splits data into training and testing subsets
+from sklearn.preprocessing import StandardScaler      # Standardizes features by removing mean and scaling to unit variance
+from sklearn.linear_model import LogisticRegression   # Logistic Regression classifier for multi-class classification
+from sklearn.metrics import accuracy_score, classification_report  # Tools to evaluate model performance
 
 
 # -----------------------------
 # Load and prepare the Iris dataset
 # -----------------------------
+# The Iris dataset contains 150 samples of 3 iris flower species (50 each),
+# each described by 4 features: sepal length, sepal width, petal length, petal width.
 iris = datasets.load_iris()
-X = iris.data[:, :2]  # Take only the first two features (sepal length & width) for easy visualization
-y = iris.target       # Labels (0 = Setosa, 1 = Versicolor, 2 = Virginica)
+print(iris)                                # Print the full dataset object (includes data, target, feature names, etc.)
 
-# Split data into training and testing sets (80% train, 20% test)
+# We intentionally select ONLY the first 2 features (sepal length & sepal width)
+# instead of all 4. This reduces accuracy slightly but allows us to visualize
+# the decision boundary on a 2D plot later.
+X = iris.data[:, :2]  # Shape: (150, 2) — all rows, first 2 columns only
+y = iris.target       # Shape: (150,)   — integer class labels: 0=Setosa, 1=Versicolor, 2=Virginica
+
+# Split data into training (80%) and testing (20%) sets.
+# - test_size=0.2 means 20% (30 samples) go to testing, 80% (120 samples) to training.
+# - random_state=42 fixes the random seed so the split is reproducible across runs.
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 
 # -----------------------------
 # Standardize the features
 # -----------------------------
+# Logistic Regression (and many ML algorithms) are sensitive to feature scale.
+# StandardScaler transforms features so each has mean=0 and std=1.
+# This ensures no single feature dominates due to its magnitude.
+#
+# IMPORTANT: We call fit_transform() on TRAINING data only, then transform() on test data.
+# This prevents "data leakage" — the scaler learns statistics only from training data,
+# and applies the same transformation to test data without "peeking" at it.
 scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
+X_train = scaler.fit_transform(X_train)   # Learns mean & std from X_train, then scales it
+X_test = scaler.transform(X_test)         # Applies the SAME learned mean & std to X_test (no re-fitting)
 
 
 # -----------------------------
 # Train Logistic Regression model
 # -----------------------------
+# LogisticRegression parameters explained:
+# - multi_class='multinomial': Uses softmax (multinomial) loss for 3-class classification,
+#   rather than the default one-vs-rest approach. More appropriate for multi-class problems.
+# - solver='lbfgs': Optimization algorithm used to minimize the loss function.
+#   L-BFGS is an efficient quasi-Newton method, well-suited for multinomial logistic regression.
+# - max_iter=200: Maximum number of iterations for the solver to converge.
+#   Default is 100; we increase it to ensure the model has enough iterations to converge.
 log_reg = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=200)
-log_reg.fit(X_train, y_train)
+log_reg.fit(X_train, y_train)   # Train the model: finds optimal weights to separate the 3 classes
 
 
 # -----------------------------
 # Save model and scaler
 # -----------------------------
-joblib.dump(log_reg, 'logistic_model.pkl')   # Save trained logistic regression model
-joblib.dump(scaler, 'scaler.pkl')            # Save fitted scaler
+# We save both the trained model and the fitted scaler so they can be reloaded
+# later for inference — without needing to retrain or refit from scratch.
+# joblib is preferred over pickle for scikit-learn objects as it handles
+# large NumPy arrays more efficiently.
+joblib.dump(log_reg, 'logistic_model.pkl')   # Serializes the trained model to a .pkl file
+joblib.dump(scaler, 'scaler.pkl')            # Serializes the fitted scaler to a .pkl file
 
 
 # -----------------------------
 # Predict and evaluate
 # -----------------------------
-y_pred = log_reg.predict(X_test)
+# Use the trained model to predict class labels for the unseen test set.
+y_pred = log_reg.predict(X_test)   # Returns an array of predicted class labels (0, 1, or 2)
 
+# accuracy_score: ratio of correctly predicted samples to total test samples.
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Model Accuracy: {accuracy:.2f}")
+
+# classification_report: detailed per-class breakdown including:
+# - Precision: of all predicted positives, how many were actually positive
+# - Recall: of all actual positives, how many were correctly predicted
+# - F1-score: harmonic mean of precision and recall (balance between the two)
+# - Support: number of actual samples per class in the test set
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
 
@@ -660,21 +709,38 @@ print("\nClassification Report:\n", classification_report(y_test, y_pred))
 # Function to plot decision boundary
 # -----------------------------
 def plot_decision_boundary(model, X, y):
-    """Function to plot decision boundary for Logistic Regression"""
-    h = 0.02  # Step size for mesh
+    """
+    Visualizes the decision boundary of a classifier in 2D feature space.
+
+    The idea: we create a dense grid of points covering the entire 2D feature
+    space, predict the class for every point on the grid, and color each region
+    by its predicted class. This reveals where the model draws its boundaries
+    between classes.
+    """
+    h = 0.02  # Step size for mesh grid — smaller = finer/smoother boundary, but slower to compute
+
+    # Determine the axis ranges of the grid, with a 1-unit margin on each side
     x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
     y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+
+    # Create a mesh grid: a matrix of (x, y) coordinate pairs covering the feature space
+    # xx and yy are 2D arrays of x and y coordinates respectively
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
                          np.arange(y_min, y_max, h))
 
-    # Predict class labels for each point in the grid
+    # Flatten the grid into a list of (x, y) points using np.c_ (column-stack),
+    # scale them using the SAME scaler fitted on training data, then predict their class.
+    # Z contains the predicted class label for every point in the grid.
     Z = model.predict(scaler.transform(np.c_[xx.ravel(), yy.ravel()]))
-    Z = Z.reshape(xx.shape)
+    Z = Z.reshape(xx.shape)   # Reshape back into 2D grid shape to match xx and yy
 
-    # Plot decision boundary
+    # contourf fills regions of the grid with color based on predicted class (Z),
+    # effectively painting the decision regions. alpha=0.3 makes it semi-transparent.
     plt.contourf(xx, yy, Z, alpha=0.3, cmap=plt.cm.coolwarm)
 
-    # Scatter plot of data points
+    # Overlay the actual data points on top of the decision regions.
+    # Points are colored by their true class label (c=y) to show correct vs. misclassified areas.
+    # edgecolors='k' adds a black outline around each marker for visibility.
     plt.scatter(X[:, 0], X[:, 1], c=y, edgecolors='k', cmap=plt.cm.coolwarm, marker="o")
 
     plt.xlabel("Sepal Length")
@@ -686,100 +752,123 @@ def plot_decision_boundary(model, X, y):
 # -----------------------------
 # Visualize the decision boundary
 # -----------------------------
+# We pass the full original (unscaled) dataset X here — NOT X_train or X_test.
+# This shows the decision boundary over all 150 data points for a complete picture.
+# The scaler.transform() call inside the function handles scaling for grid predictions.
 plot_decision_boundary(log_reg, X, y)
 
 ```
 
-#### Support Vector Machine (SVM)
+
+---
+
+* Prediction
 
 ```python
-# -----------------------------
-# Import necessary libraries
-# -----------------------------
+"""
+iris_predictor.py
+-----------------
+Loads the saved logistic regression model and scaler,
+then interactively asks the user for sepal measurements
+and predicts the Iris species in a loop.
+
+Requirements:
+    pip install scikit-learn joblib numpy
+
+Make sure 'logistic_model.pkl' and 'scaler.pkl' are in the same directory.
+"""
+
 import numpy as np
-import matplotlib.pyplot as plt
-import joblib                              # For saving model and scaler
-from sklearn import datasets
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, classification_report
-
+import joblib
+import sys
 
 # -----------------------------
-# Load and prepare the dataset
+# Load saved model and scaler
 # -----------------------------
-iris = datasets.load_iris()                # Load Iris dataset
-print(iris)                                # Print dataset description
-X = iris.data[:, :2]                       # Use first two features for 2D visualization
-y = iris.target                            # Labels (0 = Setosa, 1 = Versicolor, 2 = Virginica)
-
-
-# -----------------------------
-# Split and standardize the data
-# -----------------------------
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
-
+try:
+    model = joblib.load('logistic_model.pkl')
+    scaler = joblib.load('scaler.pkl')
+    print("Model and scaler loaded successfully.\n")
+except FileNotFoundError as e:
+    print(f"Error: Could not find saved files — {e}")
+    print("   Make sure 'logistic_model.pkl' and 'scaler.pkl' are in the same folder.")
+    sys.exit(1)
 
 # -----------------------------
-# Train SVM model
+# Class label mapping
 # -----------------------------
-svm_model = SVC(kernel='rbf', C=1.0, gamma='scale')  # RBF kernel
-svm_model.fit(X_train, y_train)                      # Train the model
-
-
-# -----------------------------
-# Evaluate the model
-# -----------------------------
-y_pred = svm_model.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
-
-print(f"Model Accuracy: {accuracy:.2f}")
-print("\nClassification Report:\n", classification_report(y_test, y_pred))
-
+class_names = {
+    0: "Setosa",
+    1: "Versicolor",
+    2: "Virginica"
+}
 
 # -----------------------------
-# Save the model and scaler
+# Helper: safely read a float from user
 # -----------------------------
-joblib.dump(svm_model, 'svm_model.pkl')    # Save trained SVM model
-joblib.dump(scaler, 'scaler.pkl')          # Save fitted scaler
-
-
-# -----------------------------
-# Function to plot decision boundary
-# -----------------------------
-def plot_decision_boundary(model, X, y):
-    """
-    Function to plot decision boundary of SVM.
-    """
-    h = 0.02  # Step size for mesh grid
-    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
-    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-
-    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
-                         np.arange(y_min, y_max, h))
-
-    # Predict on mesh grid
-    Z = model.predict(scaler.transform(np.c_[xx.ravel(), yy.ravel()]))
-    Z = Z.reshape(xx.shape)
-
-    # Plot contour and data points
-    plt.contourf(xx, yy, Z, alpha=0.3, cmap=plt.cm.coolwarm)
-    plt.scatter(X[:, 0], X[:, 1], c=y, edgecolors='k', cmap=plt.cm.coolwarm)
-
-    plt.xlabel("Sepal Length")
-    plt.ylabel("Sepal Width")
-    plt.title("SVM Decision Boundary on Iris Dataset")
-    plt.show()
-
+def get_float(prompt):
+    """Prompt the user for a float value, re-asking on invalid input."""
+    while True:
+        try:
+            value = float(input(prompt))
+            if value <= 0:
+                print("   Please enter a positive number.")
+                continue
+            return value
+        except ValueError:
+            print(" Invalid input. Please enter a numeric value (e.g. 5.1)")
 
 # -----------------------------
-# Visualize decision boundary
+# Main prediction loop
 # -----------------------------
-plot_decision_boundary(svm_model, X, y)
+print("=" * 50)
+print("       IRIS SPECIES PREDICTOR")
+print("=" * 50)
+print("This model uses SEPAL LENGTH and SEPAL WIDTH only.")
+print("Type 'quit' or 'q' at any prompt to exit.\n")
+
+while True:
+    print("-" * 50)
+    print("Enter a new pair of measurements:")
+
+    # Allow 'quit' on the first input field
+    raw = input("  Sepal Length (cm) [e.g. 5.1]: ").strip().lower()
+    if raw in ('q', 'quit'):
+        print("\nGoodbye!")
+        break
+    try:
+        sepal_length = float(raw)
+        if sepal_length <= 0:
+            raise ValueError
+    except ValueError:
+        print("  Invalid input. Please enter a positive number.")
+        continue
+
+    sepal_width = get_float("  Sepal Width  (cm) [e.g. 3.5]: ")
+
+    # -----------------------------
+    # Scale and predict
+    # -----------------------------
+    # Reshape to (1, 2) — one sample with two features
+    features = np.array([[sepal_length, sepal_width]])
+    features_scaled = scaler.transform(features)
+
+    prediction = model.predict(features_scaled)[0]                      # Predicted class index
+    probabilities = model.predict_proba(features_scaled)[0]             # Confidence per class
+
+    # -----------------------------
+    # Display result
+    # -----------------------------
+    print(f"\n  Prediction: {class_names[prediction]}")
+    print(f"  Confidence breakdown:")
+    for idx, (name, prob) in enumerate(zip(class_names.values(), probabilities)):
+        print(f"     {name:<22} {prob*100:.1f}%")
+
+    print()
 
 ```
+
+
+
+
+
