@@ -1,4 +1,4 @@
-## Assignment 2: Comparative Evaluation of Machine Learning Algorithms Using the Iris Dataset
+# Assignment 2: Comparative Evaluation of Machine Learning Algorithms Using the Iris Dataset
 
 ---
 
