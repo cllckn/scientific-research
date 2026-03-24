@@ -217,6 +217,8 @@ Reinforcement learning (RL) is a type of machine learning where an agent learns 
 
 In a typical machine learning application, the procedure is composed of **three main steps**:
 
+<img src="../resources/images/ml-development-framework.png" width="80%" ></img>
+
 1. **Training the Model**  
    - Use historical data to build the model, then save it for future use.  
    - Supervised learning uses labeled data to learn the mapping between inputs and outputs.  
@@ -345,6 +347,8 @@ Persist the model to disk for future inference without retraining.
 ---
 
 10. End
+
+
 
 * House Price Prediction Training Application (./estimating-house-prices/hpp-lr-train-evaluate-save-model.py)
 
@@ -511,8 +515,8 @@ print("=" * 52)
 6. End
 
 
-* House Price Prediction Console App: User Input from Console ((./estimating-house-prices/hpp-lr-load-use-model.py))
-* 
+* House Price Prediction Console App: User Input from Console (./estimating-house-prices/hpp-lr-load-use-model.py)
+
 ```python
 
 import numpy as np
@@ -611,7 +615,7 @@ In the following  apps, only **Sepal Length** and **Sepal Width** are used as in
 
 #### Logistic Regression
 
-* Training and Evaluation
+* Training and Evaluation (./ml-for-iris-dataset/logistic-regression/train-save-evaluate.py)
 
 ```python
 # -----------------------------
@@ -625,7 +629,8 @@ from sklearn.model_selection import train_test_split  # Splits data into trainin
 from sklearn.preprocessing import StandardScaler      # Standardizes features by removing mean and scaling to unit variance
 from sklearn.linear_model import LogisticRegression   # Logistic Regression classifier for multi-class classification
 from sklearn.metrics import accuracy_score, classification_report  # Tools to evaluate model performance
-
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay  # confusion_matrix: computes the matrix values
+                                                                      # ConfusionMatrixDisplay: renders it as a labeled plot
 
 # -----------------------------
 # Load and prepare the Iris dataset
@@ -639,6 +644,7 @@ print(iris)                                # Print the full dataset object (incl
 # instead of all 4. This reduces accuracy slightly but allows us to visualize
 # the decision boundary on a 2D plot later.
 X = iris.data[:, :2]  # Shape: (150, 2) — all rows, first 2 columns only
+#X = iris.data  # Shape: (150, 4) — all rows, all columns
 y = iris.target       # Shape: (150,)   — integer class labels: 0=Setosa, 1=Versicolor, 2=Virginica
 
 # Split data into training (80%) and testing (20%) sets.
@@ -706,6 +712,38 @@ print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
 
 # -----------------------------
+# Confusion Matrix
+# -----------------------------
+# A confusion matrix is a (num_classes x num_classes) grid that shows:
+# - ROWS    → the actual (true) class of each sample
+# - COLUMNS → the class the model predicted for each sample
+#
+# How to read it:
+# - DIAGONAL cells (top-left to bottom-right): correct predictions
+#   e.g. cell [0,0] = number of Setosa samples correctly predicted as Setosa
+# - OFF-DIAGONAL cells: mistakes
+#   e.g. cell [1,2] = number of Versicolor samples wrongly predicted as Virginica
+#
+# A perfect model has all values on the diagonal and zeros everywhere else.
+
+cm = confusion_matrix(y_test, y_pred)
+# confusion_matrix(y_true, y_pred) compares the ground truth labels against
+# the model's predictions and counts how many samples fall into each cell.
+
+disp = ConfusionMatrixDisplay(confusion_matrix=cm,
+                               display_labels=['Setosa', 'Versicolor', 'Virginica'])
+# ConfusionMatrixDisplay wraps the raw matrix with human-readable class name labels
+# so the axes show species names instead of 0, 1, 2.
+
+disp.plot(cmap=plt.cm.Blues)
+# cmap=plt.cm.Blues: darker blue = higher count, making it easy to spot
+# where the model is concentrating its correct and incorrect predictions.
+
+plt.title("Confusion Matrix — Logistic Regression on Iris")
+plt.show()
+
+
+# -----------------------------
 # Function to plot decision boundary
 # -----------------------------
 def plot_decision_boundary(model, X, y):
@@ -732,20 +770,28 @@ def plot_decision_boundary(model, X, y):
     # scale them using the SAME scaler fitted on training data, then predict their class.
     # Z contains the predicted class label for every point in the grid.
     Z = model.predict(scaler.transform(np.c_[xx.ravel(), yy.ravel()]))
-    Z = Z.reshape(xx.shape)   # Reshape back into 2D grid shape to match xx and yy
+    Z = Z.reshape(xx.shape)  # Reshape back into 2D grid shape to match xx and yy
 
     # contourf fills regions of the grid with color based on predicted class (Z),
     # effectively painting the decision regions. alpha=0.3 makes it semi-transparent.
     plt.contourf(xx, yy, Z, alpha=0.3, cmap=plt.cm.coolwarm)
 
-    # Overlay the actual data points on top of the decision regions.
-    # Points are colored by their true class label (c=y) to show correct vs. misclassified areas.
-    # edgecolors='k' adds a black outline around each marker for visibility.
-    plt.scatter(X[:, 0], X[:, 1], c=y, edgecolors='k', cmap=plt.cm.coolwarm, marker="o")
+    # --- Define class names and colors for the legend ---
+    class_names = ['Setosa', 'Versicolor', 'Virginica']
+    colors = ['blue', 'white', 'red']          # Matches coolwarm colormap roughly
+
+    # Scatter each class separately so they get individual legend labels
+    for i, (name, color) in enumerate(zip(class_names, colors)):
+        plt.scatter(X[y == i, 0], X[y == i, 1],
+                    label=name,
+                    edgecolors='k',
+                    color=color,
+                    marker='o')
 
     plt.xlabel("Sepal Length")
     plt.ylabel("Sepal Width")
     plt.title("Logistic Regression Decision Boundary on Iris Dataset")
+    plt.legend(title="Species")              # Adds a legend mapping colors to species names
     plt.show()
 
 
@@ -759,15 +805,93 @@ plot_decision_boundary(log_reg, X, y)
 
 ```
 
+---
+
+
+##### Logistic Regression Performance
+
+- **Accuracy**: Overall proportion of correct predictions 
+- **Precision**: How many predicted positives are correct  (Care about false alarms → optimize Precision (e.g. spam filter))
+- **Recall**: How many actual positives are correctly found  (Care about missing cases → optimize Recall (e.g. disease detection))
+- **F1-score**: Balance between precision and recall (Care about both → optimize F1)
+
+**Overall Performance**
+- **Accuracy = 0.90** → 90% of samples are correctly classified  
+- Model shows **strong overall performance**
+
+
+**Class-wise Performance**
+
+- **Class 0**
+  - Precision = 1.00, Recall = 1.00, F1 = 1.00  
+  - Perfect classification → clearly separable class  
+
+- **Class 1**
+  - Precision = 0.88, Recall = 0.78, F1 = 0.82  
+  - Lower recall → some instances are **missed (false negatives)**  
+  - Indicates confusion with other classes  
+
+- **Class 2**
+  - Precision = 0.83, Recall = 0.91, F1 = 0.87  
+  - High recall → most instances detected  
+  - Slightly lower precision → some **false positives**
+
+
+**Averages**
+
+- **Macro Avg (0.90)**  
+  → Balanced performance across all classes  
+
+- **Weighted Avg (0.90)**  
+  → Confirms strong overall performance considering class sizes  
+
+
+**Confusion Matrix — Logistic Regression on Iris Dataset**
+
+ 
+```
+                 Predicted
+              Setosa  Versicolor  Virginica
+Actual  Setosa  [ 10      0          0  ]
+    Versicolor  [  0      7          2  ]
+     Virginica  [  0      1         10  ]
+```
+ 
+**Class-by-Class Comments**
+ 
+**Setosa — Perfect (10/10)**
+All 10 samples correctly identified. Setosa is well separated from the other two species in sepal space, so the model never confuses it.
+ 
+**Versicolor — Weakest (7/9)**
+2 samples were misclassified as Virginica. These two species overlap in sepal measurements, making them hard to separate with only 2 features.
+ 
+**Virginica — Good (10/11)**
+1 sample was misclassified as Versicolor — the reverse of the Versicolor confusion above. Most Virginica samples(10/11) were correctly identified.
+
+
+
+
+
+> **Key Insights**
+> 
+> The model performs very well overall, with perfect classification for Class 0, but shows moderate confusion between Class 1 and Class 2.
+>
+> Logistic regression achieves high accuracy (90%) on the Iris dataset, with excellent separation for Class 0 and minor misclassification between Classes 1 and 2.
+>
+> The main weakness is the **Versicolor ↔ Virginica confusion**. This is expected when using only sepal features — these
+> two species overlap significantly in sepal measurements. Using all 4 features (adding petal length and petal width) 
+> would push accuracy from ~90% up to ~100%. (For this, just replace `X = iris.data[:, :2]` with `X = iris.data`
+
+
+
+
 
 ---
 
-* Prediction
+* Load Model and Make Predictions (./ml-for-iris-dataset/logistic-regression/load-predict.py)
 
 ```python
 """
-iris_predictor.py
------------------
 Loads the saved logistic regression model and scaler,
 then interactively asks the user for sepal measurements
 and predicts the Iris species in a loop.
@@ -868,7 +992,396 @@ while True:
 
 ```
 
+#### Support Vector Machine (SVM)
+
+* Training and Evaluation (./ml-for-iris-dataset/svm/train-save-evaluate.py)
+
+```python
+# -----------------------------
+# Import necessary libraries
+# -----------------------------
+import numpy as np                                # NumPy: numerical operations and array handling
+import matplotlib.pyplot as plt                   # Matplotlib: plotting graphs and visualizations
+import joblib                                     # Joblib: saving and loading models to/from disk
+from sklearn import datasets                      # Scikit-learn: built-in datasets including Iris
+from sklearn.model_selection import train_test_split  # Splits dataset into train and test subsets
+from sklearn.preprocessing import StandardScaler      # Standardizes features to zero mean, unit variance
+from sklearn.svm import SVC                           # SVC: Support Vector Classifier
+from sklearn.metrics import (                         # Evaluation tools:
+    accuracy_score,                                   #   - overall accuracy
+    classification_report,                            #   - per-class precision, recall, F1
+    confusion_matrix,                                 #   - matrix of correct vs wrong predictions
+    ConfusionMatrixDisplay                            #   - visual rendering of confusion matrix
+)
+
+
+# -----------------------------
+# Load and prepare the Iris dataset
+# -----------------------------
+# Iris contains 150 flower samples across 3 species (50 each):
+# Setosa, Versicolor, Virginica — each described by 4 measurements.
+iris = datasets.load_iris()
+
+# Use only the first 2 features (sepal length & width) so we can
+# visualize the decision boundary on a 2D plot later.
+# This slightly reduces accuracy but makes the model interpretable visually.
+X = iris.data[:, :2]  # Shape: (150, 2) — sepal length and sepal width only
+y = iris.target       # Shape: (150,)   — 0=Setosa, 1=Versicolor, 2=Virginica
+
+# Split into 80% training (120 samples) and 20% testing (30 samples).
+# random_state=42 ensures the same split every run (reproducibility).
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+# -----------------------------
+# Standardize the features
+# -----------------------------
+# SVM is especially sensitive to feature scale because it computes distances
+# between data points to find the optimal separating hyperplane.
+# Without scaling, a feature with large values (e.g. 0-100) would dominate
+# over one with small values (e.g. 0-1), distorting the margin calculation.
+#
+# StandardScaler: subtracts mean, divides by std → each feature has mean=0, std=1.
+#
+# CRITICAL: fit only on training data to prevent data leakage.
+# The test set must be transformed with training statistics, not its own.
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)   # Learns mean & std from training data, then scales it
+X_test = scaler.transform(X_test)         # Scales test data using the SAME training statistics
+
+
+# -----------------------------
+# Train the SVM model
+# -----------------------------
+# SVC (Support Vector Classifier) finds the hyperplane that maximizes
+# the margin between classes. Key parameters:
+#
+# - kernel='rbf': Radial Basis Function kernel. Projects data into a higher-
+#   dimensional space to find non-linear boundaries. Best general-purpose choice.
+#   Alternatives: 'linear' (straight boundary), 'poly' (polynomial curve).
+#
+# - C=1.0: Regularization parameter. Controls the trade-off between:
+#   * Large C → smaller margin, fits training data more tightly (risk: overfitting)
+#   * Small C → larger margin, allows more misclassifications (risk: underfitting)
+#   C=1.0 is a balanced default.
+#
+# - gamma='scale': Controls how far the influence of a single training point reaches.
+#   'scale' sets gamma = 1 / (n_features * X.var()), a sensible automatic default.
+#   * High gamma → points influence only nearby neighbors (tight, complex boundary)
+#   * Low gamma  → points influence far-away neighbors (smooth, broad boundary)
+#
+# - decision_function_shape='ovr': One-vs-Rest strategy for multi-class.
+#   Trains one binary SVM per class (e.g. Setosa vs rest), then picks the
+#   class with the highest confidence score.
+#
+# - probability=True: Enables predict_proba() so we can output confidence scores.
+#   Uses cross-validation internally (Platt scaling) — slightly slower to train.
+svm_model = SVC(kernel='rbf', C=1.0, gamma='scale',
+                decision_function_shape='ovr', probability=True)
+svm_model.fit(X_train, y_train)   # Finds the optimal support vectors and decision boundary
+
+
+# -----------------------------
+# Save model and scaler
+# -----------------------------
+# Both must be saved together — the scaler is needed to transform new inputs
+# at prediction time using the exact same statistics used during training.
+joblib.dump(svm_model, 'svm_model.pkl')   # Serializes trained SVM to disk
+joblib.dump(scaler, 'svm_scaler.pkl')     # Serializes fitted scaler to disk
+print("Model and scaler saved successfully.")
+
+
+# -----------------------------
+# Predict and evaluate
+# -----------------------------
+y_pred = svm_model.predict(X_test)   # Predicts class labels for the 30 test samples
+
+# Overall accuracy: fraction of test samples correctly classified
+accuracy = accuracy_score(y_test, y_pred)
+print(f"\nModel Accuracy: {accuracy:.2f}")
+
+# Per-class breakdown: precision, recall, F1-score, and support for each species
+print("\nClassification Report:\n", classification_report(
+    y_test, y_pred, target_names=['Setosa', 'Versicolor', 'Virginica']
+))
+# target_names replaces 0,1,2 with readable species names in the report
+
+
+# -----------------------------
+# Confusion Matrix
+# -----------------------------
+# Rows = actual class, Columns = predicted class.
+# Diagonal = correct predictions. Off-diagonal = mistakes.
+cm = confusion_matrix(y_test, y_pred)
+
+disp = ConfusionMatrixDisplay(confusion_matrix=cm,
+                               display_labels=['Setosa', 'Versicolor', 'Virginica'])
+disp.plot(cmap=plt.cm.Blues)   # Darker blue = higher count
+plt.title("Confusion Matrix — SVM on Iris Dataset")
+plt.show()
+
+
+# -----------------------------
+# Function to plot decision boundary
+# -----------------------------
+def plot_decision_boundary(model, X, y):
+    """
+    Plots the SVM decision regions over the 2D feature space.
+    Creates a fine mesh grid, predicts the class at every point,
+    then colors each region and overlays the actual data points.
+    """
+    h = 0.02   # Grid step size — smaller = smoother boundary, slower to compute
+
+    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+
+    # Build a dense coordinate grid covering the entire feature space
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                         np.arange(y_min, y_max, h))
+
+    # Scale the grid points using training statistics, then predict each point's class.
+    # np.c_ column-stacks xx and yy into a (N, 2) array of coordinate pairs.
+    Z = model.predict(scaler.transform(np.c_[xx.ravel(), yy.ravel()]))
+    Z = Z.reshape(xx.shape)   # Reshape back to 2D grid to match the mesh
+
+    # Fill each decision region with a semi-transparent color
+    plt.contourf(xx, yy, Z, alpha=0.3, cmap=plt.cm.coolwarm)
+
+    # Plot each class separately so matplotlib can assign legend labels
+    class_names = ['Setosa', 'Versicolor', 'Virginica']
+    colors = ['blue', 'white', 'red']   # Roughly matches the coolwarm colormap
+
+    for i, (name, color) in enumerate(zip(class_names, colors)):
+        plt.scatter(X[y == i, 0], X[y == i, 1],
+                    label=name,
+                    color=color,
+                    edgecolors='k',
+                    marker='o')
+
+    plt.xlabel("Sepal Length")
+    plt.ylabel("Sepal Width")
+    plt.title("SVM Decision Boundary on Iris Dataset (RBF Kernel)")
+    plt.legend(title="Species")
+    plt.show()
+
+
+# -----------------------------
+# Visualize the decision boundary
+# -----------------------------
+# Pass the full unscaled dataset X (all 150 samples) for a complete visual picture.
+# Scaling for the mesh grid is handled inside the function via scaler.transform().
+plot_decision_boundary(svm_model, X, y)
+
+```
+
+---
+
+
+##### Support Vector Machine (SVM) Performance
+
+
+**Overall Performance**
+- **Accuracy = 0.83** → 83% of samples are correctly classified  
+- Model shows **good performance**, but lower than Logistic Regression  
+
+---
+
+**Class-wise Performance**
+
+- **Setosa**
+  - Precision = 1.00, Recall = 1.00, F1 = 1.00  
+  - Perfect classification → clearly separable class  
+
+- **Versicolor**
+  - Precision = 0.70, Recall = 0.78, F1 = 0.74  
+  - Lower precision → more **false positives**  
+  - Some confusion with Virginica  
+
+- **Virginica**
+  - Precision = 0.80, Recall = 0.73, F1 = 0.76  
+  - Lower recall → some instances are **missed (false negatives)**  
+  - Confusion with Versicolor  
+
+---
+
+**Averages**
+
+- **Macro Avg (≈ 0.83)**  
+  → Balanced but moderate performance across classes  
+
+- **Weighted Avg (≈ 0.83)**  
+  → Confirms overall moderate performance  
+
+---
+
+**Confusion Matrix — SVM on Iris Dataset**
+
+
+ 
+```
+                 Predicted
+              Setosa  Versicolor  Virginica
+Actual  Setosa  [ 10      0          0  ]
+    Versicolor  [  0      7          2  ]
+     Virginica  [  0      3          8  ]
+```
+ 
+
+---
+
+**Class-by-Class Comments**
+
+**Setosa — Perfect (10/10)**  
+All samples correctly classified. This class is linearly separable from others.
+
+**Versicolor — Moderate (7/9)**  
+2 samples misclassified as Virginica. Overlap exists between these classes.
+
+**Virginica — Moderate (8/11)**  
+3 samples misclassified as Versicolor — more confusion than Logistic Regression.
+
+---
+
+> **Key Insights**
+>
+> The SVM model performs well overall but shows increased confusion between Versicolor and Virginica compared to Logistic Regression.
+>
+> SVM achieves good accuracy (83%) on the Iris dataset, with perfect classification for Setosa but noticeable confusion between Versicolor and Virginica.  
+> The performance is slightly lower than Logistic Regression, likely due to limited feature space (e.g., using only sepal features).
+>
+> As with Logistic Regression, the main limitation is the **Versicolor ↔ Virginica overlap**. 
+> Including all features (petal length and width) would significantly improve classification performance.
 
 
 
 
+---
+
+* Load Model and Make Predictions (./ml-for-iris-dataset/svm/load-predict.py)
+
+```python
+"""
+Loads the saved SVM model and scaler, then interactively asks the user
+for sepal measurements and predicts the Iris species in a loop.
+
+Requirements:
+    pip install scikit-learn joblib numpy
+
+Make sure 'svm_model.pkl' and 'svm_scaler.pkl' are in the same directory.
+"""
+
+import numpy as np
+import joblib
+import sys
+
+
+# -----------------------------
+# Load saved model and scaler
+# -----------------------------
+# Both files must exist — the scaler transforms raw input into the same
+# scaled space the model was trained on. Without it, predictions are meaningless.
+try:
+    model = joblib.load('svm_model.pkl')
+    scaler = joblib.load('svm_scaler.pkl')
+    print("Model and scaler loaded successfully.\n")
+except FileNotFoundError as e:
+    print(f"Error: Could not find saved files — {e}")
+    print("Make sure 'svm_model.pkl' and 'svm_scaler.pkl' are in the same folder.")
+    sys.exit(1)
+
+
+# -----------------------------
+# Class label mapping
+# -----------------------------
+# Maps the integer output (0, 1, 2) from model.predict() to human-readable names
+class_names = {
+    0: "Setosa",
+    1: "Versicolor",
+    2: "Virginica"
+}
+
+
+# -----------------------------
+# Helper: safely read a float from user
+# -----------------------------
+def get_float(prompt):
+    """Prompt the user for a positive float, re-asking on invalid input."""
+    while True:
+        try:
+            value = float(input(prompt))
+            if value <= 0:
+                print("   Please enter a positive number.")
+                continue
+            return value
+        except ValueError:
+            print("   Invalid input. Please enter a numeric value (e.g. 5.1)")
+
+
+# -----------------------------
+# Main prediction loop
+# -----------------------------
+print("=" * 50)
+print("       IRIS SPECIES PREDICTOR — SVM")
+print("=" * 50)
+print("This model uses SEPAL LENGTH and SEPAL WIDTH only.")
+print("Type 'quit' or 'q' at any prompt to exit.\n")
+
+while True:
+    print("-" * 50)
+    print("Enter a new pair of measurements:")
+
+    # Allow quitting on the first prompt
+    raw = input("  Sepal Length (cm) [e.g. 5.1]: ").strip().lower()
+    if raw in ('q', 'quit'):
+        print("\nGoodbye!")
+        break
+    try:
+        sepal_length = float(raw)
+        if sepal_length <= 0:
+            raise ValueError
+    except ValueError:
+        print("   Invalid input. Please enter a positive number.")
+        continue
+
+    sepal_width = get_float("  Sepal Width  (cm) [e.g. 3.5]: ")
+
+    # -----------------------------
+    # Scale and predict
+    # -----------------------------
+    # Reshape to (1, 2): one sample, two features.
+    # The scaler applies the SAME mean/std learned during training,
+    # ensuring the input lives in the same numerical space as the training data.
+    features = np.array([[sepal_length, sepal_width]])
+    features_scaled = scaler.transform(features)
+
+    # predict() returns the class with the highest decision function score
+    prediction = model.predict(features_scaled)[0]
+
+    # predict_proba() returns probability estimates per class.
+    # Available because we set probability=True when training.
+    # Note: SVM probabilities are computed via Platt scaling (cross-validation),
+    # so they are less calibrated than Logistic Regression probabilities.
+    probabilities = model.predict_proba(features_scaled)[0]
+
+    # -----------------------------
+    # Display result
+    # -----------------------------
+    print(f"\n  Prediction: {class_names[prediction]}")
+    print(f"  Confidence breakdown:")
+    for name, prob in zip(class_names.values(), probabilities):
+        print(f"     {name:<22} {prob * 100:.1f}%")
+
+    print()
+```
+
+##### Comparative Evaluation: Logistic Regression vs SVM (Iris Dataset)
+
+> Logistic Regression outperforms SVM on the Iris dataset (with limited features), achieving higher accuracy (90% vs 83%) and better class-wise balance.
+>
+> The primary challenge for both models remains the **Versicolor–Virginica overlap**, which is expected when using only sepal features.
+>
+> Expanding the feature set (including petal length and width) or tuning SVM parameters(kernel choice and hyperparameters (C, kernel type)) would likely reduce this gap and improve overall performance.
+
+<img src="../resources/images/case-study-2-performance-results.png" width="80%" ></img>
+
+ 
