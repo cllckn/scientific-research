@@ -75,7 +75,7 @@ Upon successful completion of this course, students will be able to:
 
 ---
 
-### Module 3: Scientific publications in IT & Structure of an Information Technology Research Manuscript, Experimental Implementation
+### Module 3: Scientific publications in IT & Structure of an Information Technology Research Manuscript, Experimental Implementation and Analysis of a RESTful Service
 
 - Scientific publications in IT
   - Terminology: manuscript, article, journal, conference proceedings
@@ -92,49 +92,41 @@ Upon successful completion of this course, students will be able to:
   - Results and discussion
   - Conclusion and future work
   - References
-
-**Case Study 1 (Part B): System Implementation**
-* Implementation of the experimental testbed for Case Study 1
-  * Developing RESTful service 
-  * Integrating databases following repository pattern
-  
----
-
-### Module 4: Scientific Research Tools, Scientific Writing, Performance Evaluation
-
 - Scientific research tools and resources
-    - Digital libraries:
-        - IEEE Xplore
-        - ACM Digital Library
-        - Google Scholar
-    - Indexing databases:
-        - Web of Science (WoS)
-        - Scopus
+  - Digital libraries:
+    - IEEE Xplore
+    - ACM Digital Library
+    - Google Scholar
+  - Indexing databases:
+    - Web of Science (WoS)
+    - Scopus
 - Scientific writing tools
   - Reference management tools
     - Mendeley (basic usage)
   - LaTeX fundamentals
   - Overleaf for collaborative writing
 
-**Case Study 1 (Part C): Performance Evaluation and Scientific Writing**
-- Load testing tool
-- Performance Evaluation Metrics 
-  - Latency (average, P50, P95, P99)
-  - Throughput (RPS, transactions per second)
-  - Resource utilization (CPU, memory, I/O)
-  - Error rates and reliability metrics
-- Descriptive statistics in performance evaluation 
-- Inferential statistics (t-tests)
-- Analyzing performance outputs
-- Generating graphs and tables 
-- Interpreting results
-- Setting up an Overleaf project
-- Writing a scientific research article
-- Hands-on exercises
+
+**Case Study 1 (Part B): System Implementation and Performance Analysis**
+* Implementation of the experimental testbed for Case Study 1
+  * Developing RESTful service 
+  * Integrating databases following repository pattern
+  * Load testing tool
+  - Performance Evaluation Metrics
+    - Latency (average, P50, P95, P99)
+    - Throughput (RPS, transactions per second)
+    - Resource utilization (CPU, memory, I/O)
+    - Error rates and reliability metrics
+  - Descriptive statistics in performance evaluation
+  - Analyzing performance outputs
+  - Generating graphs and tables
+  - Interpreting results
+  - Writing a scientific research article using word processor template and mendeley
+  - Hands-on exercises
 
 ---
 
-### Module 5: Academic Publication Process, Data-Driven Research in IT
+### Module 4: Academic Publication Process, Data-Driven Research in IT
 
 - Academic publication workflow
     - Paper submission systems
@@ -153,7 +145,7 @@ Upon successful completion of this course, students will be able to:
 
 ---
 
-### Module 6: Research Impact and Evaluation Metrics, Responsible Research in IT
+### Module 5: Research Impact and Evaluation Metrics, Responsible Research in IT, Performance Evaluation of Machine Learning Algorithms
 
 - Research impact and evaluation metrics
     - Citation counts
@@ -195,11 +187,11 @@ Students will be evaluated based on the following components:
 
 ## Exams Schedule
 
-| **Component**                 | **Date**                         |
-|-------------------------------|----------------------------------|
-| Assignment 1 Oral Examination | In Week 8 (04.03.2026) |
-| Assignment 2 Oral Examination | In Week X( the week starting X). |
-| Final Exam                    | Z                                |
+| **Component**                 | **Date**                                    |
+|-------------------------------|---------------------------------------------|
+| Assignment 1 Oral Examination | In Week 8 (the week starting 04.03.2026)    |
+| Assignment 2 Oral Examination | In Week 13 ( the week starting 06.04.2026). |
+| Final Exam                    | Z                                           |
 
 
 ---
