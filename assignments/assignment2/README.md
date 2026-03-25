@@ -1,6 +1,5 @@
 # Assignment 2: Comparative Evaluation of Machine Learning Algorithms Using the Iris Dataset
 
----
 
 ## 1. Scenario
 
@@ -36,7 +35,7 @@ Students are expected to:
 - Split the dataset into:
   - Training set (e.g., 70–80%)
   - Test set (e.g., 20–30%)
-- Apply preprocessing if necessary (e.g., normalization for ANN)
+- Apply preprocessing if necessary (e.g., scaling)
 
 ---
 
@@ -51,10 +50,6 @@ Students are expected to:
   - Input layer (features)
   - At least one hidden layer
   - Output layer (3 classes)
-- Configure:
-  - Activation functions (e.g., ReLU, Softmax)
-  - Optimizer (e.g., Adam)
-  - Loss function (categorical cross-entropy)
 
 ---
 
@@ -84,7 +79,7 @@ Optional:
   - Metrics
   - Confusion matrices
 
-
+---
 
 ## 4. Deliverables
 
@@ -92,7 +87,8 @@ Students must prepare a **research-style manuscript** written using a **LaTex te
 (template link:
 `https://template-selector.ieee.org/secure/templateSelector/format?publicationTypeId=1&titleId=201&articleId=1`) and
 formatted according to academic conventions.
----
+
+
 
 
 
