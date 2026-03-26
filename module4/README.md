@@ -8,6 +8,7 @@
     * [Reviewer Comments and Revisions](#reviewer-comments-and-revisions)
     * [Editorial Decisions](#editorial-decisions)
   * [Ethical Considerations in Academic Publishing](#ethical-considerations-in-academic-publishing)
+  * [Writing a research paper using LaTeX](#writing-a-research-paper-using-latex)
   * [Case Study 2 (Part A): Data-Driven and Algorithmic Research in IT](#case-study-2-part-a-data-driven-and-algorithmic-research-in-it)
     * [Data-Driven Research in Information Technology](#data-driven-research-in-information-technology)
     * [Introduction To Machine Learning?](#introduction-to-machine-learning)
@@ -17,7 +18,7 @@
       * [Neural Networks & Deep Learning](#neural-networks--deep-learning)
     * [A General Framework for Developing Machine Learning-Based Algorithms](#a-general-framework-for-developing-machine-learning-based-algorithms)
     * [Case Study: Linear Regression for Estimating House Prices](#case-study-linear-regression-for-estimating-house-prices)
-    * [Comparative Evaluation of Machine Learning Algorithms Using the Iris Dataset](#comparative-evaluation-of-machine-learning-algorithms-using-the-iris-dataset)
+    * [Empirical Performance Evaluation of Machine Learning Algorithms on the Iris Dataset](#empirical-performance-evaluation-of-machine-learning-algorithms-on-the-iris-dataset)
       * [Iris Dataset](#iris-dataset)
       * [Logistic Regression](#logistic-regression)
         * [Logistic Regression Performance](#logistic-regression-performance)
@@ -72,6 +73,22 @@ Key ethical considerations include:
 - **Responsible citation practices:** Giving appropriate credit to prior work.
 
 Adhering to these principles ensures credibility and reliability in academic publications.
+
+---
+
+## Writing a research paper using LaTeX
+
+**How to load a template (e.g., IEEE Access) into [Overleaf](https://www.overleaf.com/)?**
+
+* Download the template from IEEE (IEEE Author Center)
+  * [Download](https://template-selector.ieee.org/secure/templateSelector/format?publicationTypeId=1&titleId=201&articleId=1)
+
+* In Overleaf:
+
+  * Click New Project → Upload Project 
+  * Upload the .zip file 
+  * Overleaf will automatically extract and load all files
+  * After completing the manuscript, File-> Download as source (.zip)/pdf
 
 ---
 
@@ -571,7 +588,7 @@ while True:
 
 
 
-### Comparative Evaluation of Machine Learning Algorithms Using the Iris Dataset
+### Empirical Performance Evaluation of Machine Learning Algorithms on the Iris Dataset
 
 This case study compares the performance of two classification algorithms, Logistic Regression (LR) and Support Vector
 Machines (SVM), using the Iris dataset. Both models are trained and evaluated under the same conditions, and their
