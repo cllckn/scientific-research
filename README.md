@@ -134,6 +134,7 @@ Upon successful completion of this course, students will be able to:
     - Reviewer comments and revisions
     - Editorial decisions (accept, revise, reject)
 - Ethical considerations in academic publishing
+- Writing a research paper using LaTeX
 
 **Case Study 2 (Part A): Data-Driven and Algorithmic Research in IT**
 - Data-driven research in Information Technology
