@@ -20,6 +20,10 @@
     * [Comparative Evaluation of Machine Learning Algorithms Using the Iris Dataset](#comparative-evaluation-of-machine-learning-algorithms-using-the-iris-dataset)
       * [Iris Dataset](#iris-dataset)
       * [Logistic Regression](#logistic-regression)
+        * [Logistic Regression Performance](#logistic-regression-performance)
+      * [Support Vector Machine (SVM)](#support-vector-machine-svm)
+        * [Support Vector Machine (SVM) Performance](#support-vector-machine-svm-performance)
+      * [Comparative Evaluation: Logistic Regression vs SVM (Iris Dataset)](#comparative-evaluation-logistic-regression-vs-svm-iris-dataset)
 <!-- TOC -->
 
 
@@ -811,9 +815,13 @@ plot_decision_boundary(log_reg, X, y)
 ##### Logistic Regression Performance
 
 - **Accuracy**: Overall proportion of correct predictions 
+  - Considers both correct positives and correct negatives
 - **Precision**: How many predicted positives are correct  (Care about false alarms → optimize Precision (e.g. spam filter))
+  - Focuses on **false positives (FP)**
 - **Recall**: How many actual positives are correctly found  (Care about missing cases → optimize Recall (e.g. disease detection))
+  - Focuses on **false negatives (FN)**
 - **F1-score**: Balance between precision and recall (Care about both → optimize F1)
+  - Balances **false positives and false negatives**
 
 **Overall Performance**
 - **Accuracy = 0.90** → 90% of samples are correctly classified  
@@ -1374,7 +1382,7 @@ while True:
     print()
 ```
 
-##### Comparative Evaluation: Logistic Regression vs SVM (Iris Dataset)
+#### Comparative Evaluation: Logistic Regression vs SVM (Iris Dataset)
 
 > Logistic Regression outperforms SVM on the Iris dataset (with limited features), achieving higher accuracy (90% vs 83%) and better class-wise balance.
 >
