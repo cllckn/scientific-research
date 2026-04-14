@@ -136,41 +136,25 @@ Upon successful completion of this course, students will be able to:
 - Ethical considerations in academic publishing
 - Writing a research paper using LaTeX
 
-**Case Study 2 (Part A): Data-Driven and Algorithmic Research in IT**
+**Case Study 2: Data-Driven and Algorithmic Research in IT**
 - Data-driven research in Information Technology
-- Minimal machine learning background for experimental research
-    - Types of machine learning algorithms
-    - General framework for developing ML-based systems
-    - Performance metrics for ML experiments
-- Hands-on exercises
+- Introduction To Machine Learning
+- General framework for developing ML-based systems
+- Case Study: Linear Regression for Estimating House Prices 
+- Empirical Performance Evaluation of Machine Learning Algorithms on the Iris Dataset
 
 ---
 
-### Module 5: Research Impact and Evaluation Metrics, Responsible Research in IT, Performance Evaluation of Machine Learning Algorithms
+### Module 5: Research Impact and Evaluation Metrics, Responsible Research in IT, Performance Analysis of an Example Big Data Analytics System
 
 - Research impact and evaluation metrics
-    - Citation counts
-    - h-index
-    - i10-index
-    - Article-level vs. author-level metrics
-    - Journal and conference quality indicators
-    - Quartile rankings (Q1, Q2, Q3, Q4)
-
 - Ethics and responsible research in Information Technology
-    - Research ethics and integrity
-    - Plagiarism and self-plagiarism
-    - Proper citation and attribution practices
-    - Responsible use of AI tools in scientific research
 
-**Case Study 2 (Part B): Empirical Performance Evaluation of Machine Learning Algorithms on the Iris Dataset
-
-- Classification using the Iris dataset
-- Logistic regression as a baseline model
-- Support Vector Machines (SVM) as a comparative model
-- Designing hypotheses and experiments for ML evaluation
-- Statistical comparison of ML models
-- Interpreting performance trade-offs
-- Writing a research article for Case Study 2  
+**Case Study 3: Performance Analysis of an Example Big Data Analytics System**
+- Key Components of a Big Data System
+- Performance Metrics
+- Performance Evaluation
+- Example Scenario
 
 ---
 
