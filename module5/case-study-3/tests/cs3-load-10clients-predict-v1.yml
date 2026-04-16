@@ -1,0 +1,17 @@
+config:
+  target: 'http://localhost:3000' # Replace with your application's URL if different
+  phases:
+    - duration: 30 # Run the test for 30 seconds
+      arrivalRate: 10 # Simulate 10 new virtual users arriving per second
+  defaults:
+    headers:
+      Content-Type: 'application/json' # Assuming your API uses JSON
+
+scenarios:
+  - name: Make predictions
+    flow:
+      - post:
+          url: '/api/ml-model/predictions'
+          json:
+            sepal_length: "{{ $randomNumber(4, 8) }}"
+            sepal_width: "{{ $randomNumber(1, 10) }}"
