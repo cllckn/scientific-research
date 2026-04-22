@@ -1,0 +1,259 @@
+// ───────────────────────────────────────────────────────────────
+// Import Required Modules
+// ───────────────────────────────────────────────────────────────
+const express = require("express");
+const http = require("http");
+const socketIo = require("socket.io");
+const path = require("path");
+const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const { Pool } = require("pg");
+const { Kafka } = require("kafkajs");
+
+// ───────────────────────────────────────────────────────────────
+// Configuration & Constants
+// ───────────────────────────────────────────────────────────────
+const PORT = 3000;
+const SECRET_KEY = "my-secret-key-is-this-at-least-256-bits";
+const SALT_ROUNDS = 10;
+
+// For load testing
+const responseMap = new Map();
+
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+// ───────────────────────────────────────────────────────────────
+// PostgreSQL Pool Initialization
+// ───────────────────────────────────────────────────────────────
+const pool = new Pool({
+    host: 'localhost',
+    port: 5432,
+    user: 'lectureuser',
+    password: 'lecturepassword',
+    database: 'dss',
+});
+
+// ───────────────────────────────────────────────────────────────
+// Middleware: Static Files & JSON Parser
+// ───────────────────────────────────────────────────────────────
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "public")));
+
+// JWT Authentication Middleware
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ error: "Unauthorized: Missing or invalid token" });
+    }
+
+    const token = authHeader.split(" ")[1];
+    try {
+        req.decodedToken = jwt.verify(token, SECRET_KEY);
+        next();
+    } catch (error) {
+        return res.status(403).json({ error: "Forbidden: Invalid token" });
+    }
+};
+
+// ───────────────────────────────────────────────────────────────
+// Auth Routes: Register & Login
+// ───────────────────────────────────────────────────────────────
+app.post("/register", async (req, res) => {
+    const { username, password, firstname, lastname, role } = req.body;
+    try {
+        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+        await pool.query(
+          "INSERT INTO users (username, password, firstname, lastname, role) VALUES ($1, $2, $3, $4, $5)",
+          [username, hashedPassword, firstname, lastname, role]
+        );
+        res.json({ message: "User registered successfully!" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const result = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+        const user = result.rows[0];
+
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            return res.status(401).json({ error: "Invalid credentials" });
+        }
+
+        const token = jwt.sign(
+          {
+              id: user.id,
+              username: user.username,
+              firstname: user.firstname,
+              lastname: user.lastname,
+              role: user.role
+          },
+          SECRET_KEY,
+          { expiresIn: "30d" }
+        );
+        res.json({ token });
+    } catch (err) {
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+// ───────────────────────────────────────────────────────────────
+// Protected Routes
+// ───────────────────────────────────────────────────────────────
+app.get("/dashboard", authenticateToken, (req, res) => {
+    res.json({ message: `Welcome, ${req.decodedToken.username}!` });
+});
+
+
+// ───────────────────────────────────────────────────────────────
+// Kafka Configuration
+// ───────────────────────────────────────────────────────────────
+const kafka = new Kafka({
+    clientId: "iris-data-app",
+    //brokers: ["191.101.2.193:9092"]
+    brokers: ["localhost:9092"]
+});
+
+// For Kafka with KRaft
+//const { Partitioners } = require('kafkajs')
+const kafkaProducer = kafka.producer();
+//const kafkaProducer= kafka.producer({ createPartitioner: Partitioners.LegacyPartitioner })
+
+const kafkaConsumer = kafka.consumer({ groupId: "iris-data-group" });
+
+// ───────────────────────────────────────────────────────────────
+// Kafka Producer Route - ML Input
+// ───────────────────────────────────────────────────────────────
+app.post("/api/ml-model/predictions",authenticateToken, async (req, res) => {
+
+    const { role } = req.decodedToken; // Extract role from decoded token
+
+    if (role !== 1 && role !== 3) {
+        return res.status(401).json({ error: "Forbidden: Admins only" });
+    }
+
+    const { sepal_length, sepal_width } = req.body;
+
+    if (!sepal_length || !sepal_width) {
+        return res.status(400).json({ error: "Missing sepal length or width." });
+    }
+
+    const message = { sepal_length, sepal_width };
+
+    try {
+        await kafkaProducer.connect();
+        await kafkaProducer.send({
+            topic: "sr-ml-model-input",
+            messages: [{ key: Date.now().toString(), value: JSON.stringify(message) }]
+        });
+        await kafkaProducer.disconnect();
+
+
+
+        // For load testing
+        /*
+       The promise initialization establishes a pending state by registering the requestId in an in-memory map with
+       a safety timeout, while the resolve operation retrieves those stored functions upon Kafka's response to
+       complete the asynchronous request-response cycle.
+        */
+        const predictionPromise = new Promise((resolve, reject) => {
+            responseMap.set(requestId, { resolve, reject });
+
+            setTimeout(() => {
+                if (responseMap.has(requestId)) {
+                    const rejectFn = responseMap.get(requestId).reject;
+                    responseMap.delete(requestId);
+                    rejectFn(new Error(`Timeout waiting for ML response for request ID: ${requestId}`));
+                }
+            }, 60000);
+        });
+
+        try {
+            // This line "pauses" the specific request's execution until the Kafka consumer finds the
+            // matching requestId and triggers the resolve function, successfully closing the loop.
+            const prediction = await predictionPromise;
+            res.status(200).json({ prediction });
+        } catch (error) {
+            res.status(500).json({ error: "Kafka error or timeout", details: error.message });
+        }
+
+
+
+
+
+
+
+
+        //res.status(201).json({ status: "Sent to Kafka", ...message });
+    } catch (err) {
+        res.status(500).json({ error: "Kafka send failed", details: err.message });
+    }
+});
+
+// ───────────────────────────────────────────────────────────────
+// Kafka Consumer Listener - ML Output
+// ───────────────────────────────────────────────────────────────
+const startKafkaPredictionListener = async () => {
+    await kafkaConsumer.connect();
+    await kafkaConsumer.subscribe({ topic: "sr-ml-model-output", fromBeginning: true });
+
+
+
+    // For load testing
+    await kafkaConsumer.run({
+        eachBatch: async ({ batch, resolveOffset, heartbeat }) => {
+            for (let message of batch.messages) {
+                const result = JSON.parse(message.value.toString());
+                //console.log(result.result);
+                const { requestId } = result;
+                console.log(requestId);
+                //the resolve operation retrieves those stored functions upon Kafka's response to
+                // complete the asynchronous request-response cycle.
+                if (responseMap.has(requestId)) {
+                    responseMap.get(requestId).resolve(result);
+                    responseMap.delete(requestId);
+                }
+                resolveOffset(message.offset);
+            }
+            await heartbeat();
+        },
+    });
+
+
+
+
+   /* await kafkaConsumer.run({
+        eachMessage: async ({ message }) => {
+            const modelResult = JSON.parse(message.value.toString());
+            console.log("Received ML output from Kafka:", modelResult);
+
+            io.emit('model-result', modelResult);
+        }
+    });*/
+};
+
+startKafkaPredictionListener();
+
+// ───────────────────────────────────────────────────────────────
+// Socket.IO Real-Time Connection
+// ───────────────────────────────────────────────────────────────
+io.on("connection", (socket) => {
+    console.log("Client connected:", socket.id);
+
+    socket.on("disconnect", () => {
+        console.log("Client disconnected:", socket.id);
+    });
+});
+
+// ───────────────────────────────────────────────────────────────
+// Start Express HTTP Server
+// ───────────────────────────────────────────────────────────────
+server.listen(PORT, () => {
+    console.log(`Server running with socket support at http://localhost:${PORT}`);
+});

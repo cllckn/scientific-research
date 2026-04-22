@@ -1,0 +1,28 @@
+### Register user
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+  "username": "admin1",
+  "password": "1",
+  "firstname": "Joe",
+  "lastname": "Roe",
+  "role": 1
+}
+
+
+
+### Introduce a new input for prediction
+POST http://localhost:3000/api/ml-model/predictions
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImZpcnN0bmFtZSI6IkpvZSIsImxhc3RuYW1lIjoiUm9lIiwicm9sZSI6MSwiaWF0IjoxNzc2NzkyMTgwLCJleHAiOjE3NzkzODQxODB9.RXodOBt3OPzFx3TvXoOprJnqQ3V5zpB5PWnhWTKO2y4
+
+{
+  "sepal_length": 3,
+  "sepal_width": 4
+
+}
+
+### Authorization by token
+GET http://localhost:3000/api/customers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsInVzZXJuYW1lIjoiYWRtaW4xIiwiZmlyc3RuYW1lIjoiSmFuZSIsImxhc3RuYW1lIjoiTGVlIiwicm9sZSI6MSwiaWF0IjoxNzQyMTI0MDI3LCJleHAiOjE3NDIxMjc2Mjd9.wIVtwO-DND5U0V5dFpQaO5N7LBqioqNWx-LAtr0LHVc
