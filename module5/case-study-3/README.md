@@ -15,7 +15,9 @@ The system was further evaluated to assess both its predictive accuracy and over
 <img src="../../resources/images/case-study-3-big-data-analytics-platform.png" alt="big-data-analytics-platform">
 
 
-## Kafka
+## Apache Kafka
+
+![Fundamentals of Apache Kafka](../../resources/docs/apache-kafka-summary.pdf)
 
 ### Setting Up KRaft-Based Kafka Messaging System
 
@@ -52,6 +54,17 @@ bin\windows\kafka-storage.bat format -t %KAFKA_CLUSTER_ID% -c config\kraft\serve
 
 REM Start Kafka
 bin\windows\kafka-server-start.bat config\kraft\server.properties
+
+```
+
+**For Testing Apache Kafka-Linux/OsX**
+```shell
+#operations
+  ./kafka-topics.sh -list --bootstrap-server localhost:9092
+  ./kafka-topics.sh -create --bootstrap-server localhost:9092 --topic test-topic
+  ./kafka-console-producer.sh --bootstrap-server localhost:9092 --topic test-topic
+  ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-topic
+
 
 ```
 
