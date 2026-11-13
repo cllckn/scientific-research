@@ -38,7 +38,9 @@ create table users
 
 
 
-## Kafka
+## Apache Kafka
+
+![Fundamentals of Apache Kafka](../../resources/docs/apache-kafka-summary.pdf)
 
 ### Setting Up KRaft-Based Kafka Messaging System
 
@@ -79,9 +81,9 @@ bin\windows\kafka-server-start.bat config\kraft\server.properties
 ```
 
 
-### Testing Kafka
+### Testing Apache Kafka
 
-[Consumers and Producers](./utils)
+[Consumers and Producers](../case-study-3/utils)
 
 
 
