@@ -57,6 +57,21 @@ bin\windows\kafka-server-start.bat config\kraft\server.properties
 
 ```
 
+>log.dirs specifies the directories where Kafka stores its log data. By default it points to a temporary location (e.g., /tmp on Linux, C:\tmp on Windows) that the OS may clear on reboot, causing data loss. To make it persistent:
+> 
+>Make a dedicated directory outside any temporary/auto-cleaned location.
+>
+>Set log.dirs in the broker config (server.properties) to that absolute path.
+>
+>Ensure the Kafka process has read/write permissions on that directory.
+>
+>In KRaft mode, format the storage directory with kafka-storage after setting log.dirs, before first startup.
+>
+>Optionally, log.dirs accepts a comma-separated list of directories to spread log data across multiple disks.
+>This is where the actual flowing data lives. The records produced by producers (topic partition data, and in KRaft mode also the metadata log) are written directly into these directories as Kafka's commit logs—not application log files, but the message data itself. Retention policies govern how long that data remains there.
+
+
+
 **For Testing Apache Kafka-Linux/OsX**
 ```shell
 #operations
@@ -64,7 +79,6 @@ bin\windows\kafka-server-start.bat config\kraft\server.properties
   ./kafka-topics.sh -create --bootstrap-server localhost:9092 --topic test-topic
   ./kafka-console-producer.sh --bootstrap-server localhost:9092 --topic test-topic
   ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-topic
-
 
 ```
 
@@ -76,6 +90,16 @@ bin\windows\kafka-server-start.bat config\kraft\server.properties
 
 
 ## Web Application
+
+Define the following topics:
+
+```shell
+
+  ./kafka-topics.sh -create --bootstrap-server localhost:9092 --topic sr.ml-model.input
+  ./kafka-topics.sh -create --bootstrap-server localhost:9092 --topic sr.ml-model.output
+  ./kafka-topics.sh -list --bootstrap-server localhost:9092
+
+```
 
 [Web Application](./app)
 
@@ -92,7 +116,7 @@ The system includes a Python-based logistic regression model to make predictions
 
 To enable parallel message processing in Apache Kafka, a topic must be configured with **multiple partitions**.
 
-Define a new topic named `sr-ml-model-input-parallel`
+Define a new topic named `sr.ml-model.input-parallel`
 with a partition count **greater than or equal to the number of consumers** in the same consumer group.
 
 ### **Required Modifications**
