@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Pinned to v3: this build exposes the global jwt_decode() -->
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script> <!-- Include Socket.IO client -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script>
+    (function () {
+
+      // Returns { token, user } for a valid session.
+      // Otherwise removes a bad token (if any) and throws an Error whose message can be shown to the user.
+      function getSession() {
+        const token = localStorage.getItem('token');
+        if (!token) throw new Error('Session expired! Please log in again.');
+
+        let user;
+        try {
+          user = jwt_decode(token);
+        } catch (error) {
+          localStorage.removeItem('token');
+          throw new Error('Invalid session! Please log in again.');
+        }
+
+        if (user.exp && user.exp < Math.floor(Date.now() / 1000)) {
+          localStorage.removeItem('token');
+          throw new Error('Session expired! Please log in again.');
+        }
+
+        return { token, user };
+      }
+
+      // Access control: runs immediately, before the page content is displayed
+      let session;
+      try {
+        session = getSession();
+        if (session.user.role !== 1) { // admin only
+          throw new Error('Unauthorized access! Redirecting to login.');
+        }
+      } catch (error) {
+        alert(error.message);
+        window.location.replace('login.html');
+        return;
+      }
+
+      const { token, user } = session;
+
+      // Set up the page once the DOM is ready
+      document.addEventListener('DOMContentLoaded', function () {
+
+        // User details
+        document.getElementById('userinfo').textContent =
+          user.username + ' - ' + user.firstname + ' ' + user.lastname;
+        document.getElementById('username').textContent = user.username;
+
+        // show the model form, hide the welcome message
+        document.getElementById('model-output-button').addEventListener('click', function (event) {
+          event.preventDefault(); // the link href is "#"
+          document.getElementById('model-container').classList.remove('hidden');
+          document.getElementById('welcome-message').classList.add('hidden');
+        });
+
+        // Logout (main content and sidebar buttons)
+        document.querySelectorAll('#logoutBtn, #logoutSidebarBtn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            if (confirm('Are you sure you want to log out?')) {
+              localStorage.removeItem('token');
+              window.location.href = 'login.html';
+            }
+          });
+        });
+
+        // ML model functions
+        const socket = io(); // Connect to the Socket.IO server
+        const modelResult = document.getElementById('model-result');
+        const lengthInput = document.getElementById('length');
+        const widthInput = document.getElementById('width');
+
+        modelResult.style.display = 'none'; // Hidden until a result arrives
+
+        // Handle form submission for the model inputs
+        document.getElementById('ml-submit-button').addEventListener('click', async function () {
+          const sepal_length = parseFloat(lengthInput.value.trim());
+          const sepal_width = parseFloat(widthInput.value.trim());
+
+          // Asynchronous request to send data to the server
+          try {
+            const response = await fetch('/api/ml-model/predictions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+              },
+              body: JSON.stringify({ sepal_length, sepal_width })
+            });
+
+            if (!response.ok) {
+              console.error('Error:', await response.text());
+              return;
+            }
+
+            console.log('Data sent successfully');
+            lengthInput.value = ''; // Clear input fields
+            widthInput.value = '';
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        });
+
+        // Listen for the 'model-result' event emitted by the server
+        socket.on('model-result', function (data) {
+          console.log('Received model output:', data);
+
+          // Display the result (textContent avoids injecting raw HTML)
+          const strong = document.createElement('strong');
+          strong.textContent = data?.result;
+          modelResult.replaceChildren(strong);
+
+          modelResult.style.display = 'block';
+        });
+      });
+    })();
+  </script>
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen"> <!--
+        Flex container with column direction, minimum height of the viewport,
+        and light gray background
+    -->
+
+
+<!-- Navbar -->
+<nav class="bg-blue-600 text-white p-4 shadow-md"> <!--
+        Sets the background color to blue (Tailwind's blue-600 shade),
+        text color to white, adds padding of 1rem (4 * 0.25rem),
+        and applies a medium-sized shadow
+    -->
+  <div class="max-w-7xl mx-auto flex justify-between items-center"> <!--
+            Sets a maximum width of 80rem, centers the content horizontally,
+            enables flexbox layout, distributes space evenly between items,
+            and vertically aligns items to the center
+        -->
+    <h1 class="text-xl font-bold">DSS Admin Dashboard</h1>
+    <!-- Sets font size to extra large (1.25rem) and font weight to bold -->
+    <ul class="hidden md:flex space-x-4"> <!--
+                Hides the list by default, displays as flex on medium screens and larger,
+                and adds horizontal space of 1rem (4 * 0.25rem) between items
+            -->
+      <li><a href="#" class="hover:underline">Home</a></li> <!-- Applies underline on hover -->
+      <li><a href="#" class="hover:underline">About</a></li> <!-- Applies underline on hover -->
+      <li><a href="#" class="hover:underline">Contact</a></li> <!-- Applies underline on hover -->
+    </ul>
+    <a href="#"
+       class="hover:text-lg transition-all duration-300 ease-in-out
+              hover:text-blue-500 hover:bg-gray-200 px-1 rounded-md block"
+       id="userinfo">
+      User Info
+    </a>
+    <button class="md:hidden text-white focus:outline-none" id="menu-btn">☰</button> <!--
+                Hides the button on medium screens and larger, sets text color to white,
+                and removes default focus outline
+            -->
+  </div>
+</nav>
+
+<!-- Sidebar + Main Content Container -->
+<div class="flex flex-1 "> <!-- Enables flexbox layout and spreads height to all screen -->
+
+  <!-- Sidebar -->
+  <aside class="bg-gray-800 text-white w-64 space-y-6 py-6 px-4 hidden md:block">
+    <h2 class="text-xl font-semibold">Menu</h2>
+    <nav>
+      <div class="group">
+        <a href="#" class="block underline py-2 px-4 hover:bg-gray-700">Model Management</a>
+        <div class="ml-4 hidden group-hover:block">
+          <a href="#" id="model-output-button" class="block underline py-2 px-4 hover:bg-gray-600">Decision Making</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Logout Button -->
+    <button id="logoutBtn" class="w-full bg-red-500 text-white py-2 rounded mt-4">Logout</button>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 p-6">
+
+    <!-- Welcome Message Container -->
+    <div id="welcome-message" class=" w-full bg-white p-6 rounded-lg shadow-md text-center">
+      <h2 class="text-xl font-bold mb-4">Welcome, <span id="username"></span>!</h2>
+      <p class="text-gray-600">This is your dashboard.</p>
+
+    </div>
+
+    <!-- Model Container -->
+    <div id="model-container"
+         class="hidden mt-8 w-full max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center border border-gray-200">
+
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Model Inputs</h2>
+
+      <!-- Form to send data -->
+      <div class="flex flex-col sm:flex-row gap-4 mb-6">
+        <input
+          type="number"
+          id="length"
+          placeholder="Sepal Length"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+        <input
+          type="number"
+          id="width"
+          placeholder="Sepal Width"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+      </div>
+
+      <button
+        type="submit"
+        id="ml-submit-button"
+        class="w-full sm:w-auto bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+      >
+        Submit
+      </button>
+
+      <!-- Display Model Result -->
+      <div class="mt-8">
+        <h3 class="text-lg font-medium text-gray-700">Model Result:</h3>
+        <span id="model-result"
+              class="block mt-2 text-xl font-semibold text-green-600">Waiting for model result...</span>
+      </div>
+
+    </div>
+
+
+  </main>
+
+</div>
+
+<!-- Footer -->
+<footer class="w-full bg-gray-900 text-white text-center py-4 mt-auto"> <!--
+        Sets background color to very dark gray (Tailwind's gray-900 shade),
+        text color to white, centers text horizontally, adds vertical padding of 1rem,
+        and sets margin top to auto
+    -->
+  <p>© 2025 DSS Dashboard. All rights reserved.</p>
+</footer>
+
+</body>
+
+</html>
