@@ -1,11 +1,54 @@
 # Building A Web-Based Big Data Analytics Infrastructure
 
-In this project, a web application that includes Apache Kafka and a data analytics engine has been developed.
+In this project, a web application that includes Apache Kafka and a data analytics engine has been developed. 
+
+Users log in, receive a JWT, and are redirected to a page that matches their role. Admins get a dashboard that sends 
+inputs to an ML model and shows the prediction live via Socket.IO.
 
 The system was further evaluated to assess both its predictive accuracy and overall performance.
 
+## Project structure
+
+```
+├── index.html            # Redirects to login.html
+├── login.html            # Login form; auto-redirects if a valid token exists
+├── dashboard.html        # Admin dashboard (role 1) with ML model form
+├── unauthorized.html     # "Access Denied" page
+└── js/
+    └── scripts.js        # Login, logout, access control, customer list, UI helpers
+```
+
 
 <img src="../../resources/images/case-study-3-big-data-analytics-platform.png" alt="big-data-analytics-platform">
+
+
+## Roles
+
+| Role (`role` in JWT) | Redirects to |
+|---|---|
+| `1` (admin) | `dashboard.html` |
+| `2` | `registered-user.html` |
+| `3` | `moderator.html` |
+| anything else | `unauthorized.html` |
+
+
+## How it works
+
+1. `login.html` sends `POST /login` with `{ username, password }`.
+2. The server returns `{ token }`. The token is stored in `localStorage` and decoded in the browser with `jwt-decode` to read `role`, `exp` and user details.
+3. Protected pages check that the token exists, has not expired and has the right role. Otherwise the user is sent back to the login page.
+4. On the dashboard, "Decision Making" opens the model form. Submitting it calls `POST /api/ml-model/predictions`; the result arrives through the Socket.IO `model-result` event and is displayed on the page.
+## Backend requirements
+
+The front end expects a server (same origin) that provides:
+
+| Endpoint | Purpose |
+|---|---|
+| `POST /login` | Returns `{ token }` (a JWT with `role`, `username`, `firstname`, `lastname`, `exp`) |
+| `POST /api/ml-model/predictions` | Accepts `{ sepal_length, sepal_width }` with a `Bearer` token |
+| `/socket.io/socket.io.js` | Socket.IO client, emitting a `model-result` event with `{ result }` |
+| `GET http://localhost:3000/api/customers` | Optional; used by the customer list button, if present on a page |
+
 
 ## Postgresql DB
 
