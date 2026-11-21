@@ -7,6 +7,8 @@ inputs to an ML model and shows the prediction live via Socket.IO.
 
 The system was further evaluated to assess both its predictive accuracy and overall performance.
 
+---
+
 ## Project structure
 
 ```
@@ -21,6 +23,7 @@ The system was further evaluated to assess both its predictive accuracy and over
 
 <img src="../../resources/images/case-study-3-big-data-analytics-platform.png" alt="big-data-analytics-platform">
 
+---
 
 ## Roles
 
@@ -31,6 +34,7 @@ The system was further evaluated to assess both its predictive accuracy and over
 | `3` | `moderator.html` |
 | anything else | `unauthorized.html` |
 
+---
 
 ## How it works
 
@@ -38,6 +42,9 @@ The system was further evaluated to assess both its predictive accuracy and over
 2. The server returns `{ token }`. The token is stored in `localStorage` and decoded in the browser with `jwt-decode` to read `role`, `exp` and user details.
 3. Protected pages check that the token exists, has not expired and has the right role. Otherwise the user is sent back to the login page.
 4. On the dashboard, "Decision Making" opens the model form. Submitting it calls `POST /api/ml-model/predictions`; the result arrives through the Socket.IO `model-result` event and is displayed on the page.
+
+---
+
 ## Backend requirements
 
 The front end expects a server (same origin) that provides:
@@ -47,8 +54,8 @@ The front end expects a server (same origin) that provides:
 | `POST /login` | Returns `{ token }` (a JWT with `role`, `username`, `firstname`, `lastname`, `exp`) |
 | `POST /api/ml-model/predictions` | Accepts `{ sepal_length, sepal_width }` with a `Bearer` token |
 | `/socket.io/socket.io.js` | Socket.IO client, emitting a `model-result` event with `{ result }` |
-| `GET http://localhost:3000/api/customers` | Optional; used by the customer list button, if present on a page |
 
+---
 
 ## Postgresql DB
 
@@ -79,7 +86,7 @@ create table users
 }
 ```
 
-
+---
 
 ## Apache Kafka
 
@@ -123,16 +130,52 @@ bin\windows\kafka-server-start.bat config\kraft\server.properties
 
 ```
 
+>log.dirs specifies the directories where Kafka stores its log data. By default it points to a temporary location (e.g., /tmp on Linux, C:\tmp on Windows) that the OS may clear on reboot, causing data loss. To make it persistent:
+>
+>Make a dedicated directory outside any temporary/auto-cleaned location.
+>
+>Set log.dirs in the broker config (server.properties) to that absolute path.
+>
+>Ensure the Kafka process has read/write permissions on that directory.
+>
+>In KRaft mode, format the storage directory with kafka-storage after setting log.dirs, before first startup.
+>
+>Optionally, log.dirs accepts a comma-separated list of directories to spread log data across multiple disks.
+>This is where the actual flowing data lives. The records produced by producers (topic partition data, and in KRaft mode also the metadata log) are written directly into these directories as Kafka's commit logs—not application log files, but the message data itself. Retention policies govern how long that data remains there.
+
+
+
+**For Testing Apache Kafka-Linux/OsX**
+```shell
+#operations
+  ./kafka-topics.sh -list --bootstrap-server localhost:9092
+  ./kafka-topics.sh -create --bootstrap-server localhost:9092 --topic test-topic
+  ./kafka-console-producer.sh --bootstrap-server localhost:9092 --topic test-topic
+  ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-topic
+
+```
 
 ### Testing Apache Kafka
 
 [Consumers and Producers](../case-study-3/utils)
 
-
+---
 
 ## Web Application
 
+Define the following Apache Kafka topics:
+
+```shell
+
+  ./kafka-topics.sh -create --bootstrap-server localhost:9092 --topic sr.ml-model.input
+  ./kafka-topics.sh -create --bootstrap-server localhost:9092 --topic sr.ml-model.output
+  ./kafka-topics.sh -list --bootstrap-server localhost:9092
+
+```
+
 [Web Application](./app)
+
+---
 
 ## Data analytics engine
 
@@ -142,12 +185,13 @@ The system includes a Python-based logistic regression model to make predictions
 
 [Use ML Model For Predictions](./ml/logistic-regression/load-predict.py)
 
+---
 
 ## **Parallel Processing**
 
 To enable parallel message processing in Apache Kafka, a topic must be configured with **multiple partitions**.
 
-Define a new topic named `sr-ml-model-input-parallel`
+Define a new topic named `sr.ml-model.input-parallel`
 with a partition count **greater than or equal to the number of consumers** in the same consumer group.
 
 ### **Required Modifications**
