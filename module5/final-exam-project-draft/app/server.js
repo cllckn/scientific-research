@@ -14,13 +14,36 @@ const { Kafka } = require("kafkajs");
 // ───────────────────────────────────────────────────────────────
 // Configuration & Constants
 // ───────────────────────────────────────────────────────────────
-const PORT = 3000;
+const PORT          = process.env.PORT          || 3000;
+const KAFKA_BROKERS = (process.env.KAFKA_BROKERS || "localhost:9092").split(",");
+const KAFKA_ML_INPUT_TOPIC  = process.env.KAFKA_ML_INPUT_TOPIC  || "sr.ml-model.input";
+//const KAFKA_ML_INPUT_TOPIC  = process.env.KAFKA_ML_INPUT_TOPIC  || "sr-ml-model-input-parallel";
+const KAFKA_ML_OUTPUT_TOPIC = process.env.KAFKA_ML_OUTPUT_TOPIC || "sr.ml-model.output";
+
 const SECRET_KEY = "my-secret-key-is-this-at-least-256-bits";
 const SALT_ROUNDS = 10;
+
+let isShuttingDown = false; // Set to true when a stop signal is received (see Graceful Shutdown)
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
+
+
+// ───────────────────────────────────────────────────────────────
+// Kafka Configuration
+// ───────────────────────────────────────────────────────────────
+
+// Instantiates the kafka client object
+const kafka = new Kafka({
+    clientId: "iris-data-app",
+    brokers: KAFKA_BROKERS
+});
+
+
+const kafkaProducer = kafka.producer();
+
+const kafkaConsumer = kafka.consumer({ groupId: "iris-data-group" });
 
 // ───────────────────────────────────────────────────────────────
 // PostgreSQL Pool Initialization
@@ -34,8 +57,16 @@ const pool = new Pool({
 });
 
 // ───────────────────────────────────────────────────────────────
-// Middleware: Static Files & JSON Parser
+// Middleware: Shutdown Guard, Static Files & JSON Parser
 // ───────────────────────────────────────────────────────────────
+// While shutting down, refuse new requests (including ones that arrive on
+// keep-alive connections that are still open) so that only in-flight work finishes.
+app.use((req, res, next) => {
+    if (!isShuttingDown) return next();
+    res.set("Connection", "close"); // Ask the client to close this connection
+    res.status(503).json({ error: "Server is shutting down" });
+});
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -81,7 +112,7 @@ app.post("/login", async (req, res) => {
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.status(401).json({ error: "Invalid credentials" });
         }
-
+        // Generate token
         const token = jwt.sign(
           {
               id: user.id,
@@ -107,21 +138,6 @@ app.get("/dashboard", authenticateToken, (req, res) => {
 });
 
 
-// ───────────────────────────────────────────────────────────────
-// Kafka Configuration
-// ───────────────────────────────────────────────────────────────
-const kafka = new Kafka({
-    clientId: "iris-data-app",
-    //brokers: ["191.101.2.193:9092"]
-    brokers: ["localhost:9092"]
-});
-
-// For Kafka with KRaft
-//const { Partitioners } = require('kafkajs')
-const kafkaProducer = kafka.producer();
-//const kafkaProducer= kafka.producer({ createPartitioner: Partitioners.LegacyPartitioner })
-
-const kafkaConsumer = kafka.consumer({ groupId: "iris-data-group" });
 
 // ───────────────────────────────────────────────────────────────
 // Kafka Producer Route - ML Input
@@ -145,7 +161,7 @@ app.post("/api/ml-model/predictions",authenticateToken, async (req, res) => {
     try {
         await kafkaProducer.connect();
         await kafkaProducer.send({
-            topic: "sr.ml-model.input",
+            topic: KAFKA_ML_INPUT_TOPIC,
             messages: [{ key: Date.now().toString(), value: JSON.stringify(message) }]
         });
         await kafkaProducer.disconnect();
@@ -161,9 +177,7 @@ app.post("/api/ml-model/predictions",authenticateToken, async (req, res) => {
 // ───────────────────────────────────────────────────────────────
 const startKafkaPredictionListener = async () => {
     await kafkaConsumer.connect();
-    //await kafkaConsumer.subscribe({ topic: "dss-ml-house-price-model-output", fromBeginning: true });
-    await kafkaConsumer.subscribe({ topic: "sr.ml-model.output", fromBeginning: true });
-
+    await kafkaConsumer.subscribe({ topic: KAFKA_ML_OUTPUT_TOPIC, fromBeginning: true });
     await kafkaConsumer.run({
         eachMessage: async ({ message }) => {
             const modelResult = JSON.parse(message.value.toString());
@@ -192,4 +206,73 @@ io.on("connection", (socket) => {
 // ───────────────────────────────────────────────────────────────
 server.listen(PORT, () => {
     console.log(`Server running with socket support at http://localhost:${PORT}`);
+});
+
+// ───────────────────────────────────────────────────────────────
+// Graceful Shutdown
+// ───────────────────────────────────────────────────────────────
+// Why: when the process gets a stop signal (Ctrl+C, `docker stop`, a deployment),
+// exiting instantly can cut requests in half, lose Kafka messages and leave database
+// connections open. Instead: stop taking new work, let current work finish,
+// release resources in reverse order of dependence, and only then exit.
+const SHUTDOWN_TIMEOUT_MS = 10000; // Safety net: force exit if cleanup hangs
+
+const shutdown = async (reason, exitCode = 0) => {
+    if (isShuttingDown) return; // Ignore repeated signals (for example, pressing Ctrl+C twice)
+    isShuttingDown = true; // From now on the guard middleware answers 503
+    console.log(`\n${reason} received. Shutting down gracefully...`);
+
+    // Safety net: a stuck connection must not keep the process alive forever.
+    // unref() means this timer alone will not keep the process running.
+    setTimeout(() => {
+        console.error("Shutdown timed out. Forcing exit.");
+        process.exit(1);
+    }, SHUTDOWN_TIMEOUT_MS).unref();
+
+    let failed = false;
+
+    // Runs one cleanup step. A failure is logged but must not skip the remaining steps.
+    const closeStep = async (name, fn) => {
+        try {
+            await fn();
+            console.log(`  ✔ ${name} closed`);
+        } catch (err) {
+            failed = true;
+            console.error(`  ✖ Failed to close ${name}:`, err.message);
+        }
+    };
+
+    // 1. Stop accepting connections and disconnect Socket.IO clients.
+    //    io.close() also closes the HTTP server; its callback runs once in-flight requests are done.
+    await closeStep("HTTP server and Socket.IO", () =>
+      new Promise((resolve) => {
+          io.close(() => resolve());
+          server.closeIdleConnections?.(); // Drop idle keep-alive connections (Node 18.2+)
+      })
+    );
+
+    // 2. Stop consuming Kafka messages (nothing is left to forward to Socket.IO anyway).
+    await closeStep("Kafka consumer", () => kafkaConsumer.disconnect());
+
+    // 3. Close the Kafka producer (safe to call even if it is already disconnected).
+    await closeStep("Kafka producer", () => kafkaProducer.disconnect());
+
+    // 4. Close the database pool last: earlier steps may still need it.
+    await closeStep("PostgreSQL pool", () => pool.end());
+
+    console.log("Shutdown complete.");
+    process.exit(failed ? 1 : exitCode); // Non-zero exit code tells the process manager something went wrong
+};
+
+process.on("SIGINT", () => shutdown("SIGINT"));   // Ctrl+C in the terminal
+process.on("SIGTERM", () => shutdown("SIGTERM")); // docker stop, Kubernetes, systemd, process managers
+
+// Unexpected errors: clean up, then exit with an error code instead of crashing abruptly.
+process.on("uncaughtException", (err) => {
+    console.error("Uncaught exception:", err);
+    shutdown("uncaughtException", 1);
+});
+process.on("unhandledRejection", (reason) => {
+    console.error("Unhandled rejection:", reason);
+    shutdown("unhandledRejection", 1);
 });
